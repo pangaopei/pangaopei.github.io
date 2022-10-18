@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Gaopei Pan (潘高培)</title>
-    <link>http://example.org/</link>
+    <link>https://pangaopei.github.io/</link>
     <description>Recent content on Gaopei Pan (潘高培)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>© Copyright notice</copyright><atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>© Copyright notice</copyright><atom:link href="https://pangaopei.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
-      <link>http://example.org/about/</link>
+      <link>https://pangaopei.github.io/about/</link>
       <pubDate>Fri, 14 Oct 2022 01:14:20 +0800</pubDate>
       
-      <guid>http://example.org/about/</guid>
+      <guid>https://pangaopei.github.io/about/</guid>
       <description>Thanks~</description>
     </item>
     
     <item>
       <title>About</title>
-      <link>http://example.org/pub/</link>
+      <link>https://pangaopei.github.io/pub/</link>
       <pubDate>Fri, 14 Oct 2022 01:14:20 +0800</pubDate>
       
-      <guid>http://example.org/pub/</guid>
+      <guid>https://pangaopei.github.io/pub/</guid>
       <description>Publication list First author : Thermodynamic characteristic for correlated flat-band system with quantum anomalous Hall ground state
 Gaopei Pan, Hongyu Lu, Heqiu Li, Xu Zhang, Bin-Bin Chen, Kai Sun, Zi Yang Meng</description>
     </item>
