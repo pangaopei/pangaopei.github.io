@@ -4,27 +4,24 @@
     <title>Gaopei Pan (潘高培)</title>
     <link>https://pangaopei.github.io/</link>
     <description>Recent content on Gaopei Pan (潘高培)</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en-us</language>
-    <copyright>© Copyright notice</copyright><atom:link href="https://pangaopei.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>© Copyright notice</copyright>
+    <lastBuildDate>Fri, 14 Oct 2022 01:14:20 +0800</lastBuildDate>
+    <atom:link href="https://pangaopei.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
       <link>https://pangaopei.github.io/about/</link>
       <pubDate>Fri, 14 Oct 2022 01:14:20 +0800</pubDate>
-      
       <guid>https://pangaopei.github.io/about/</guid>
-      <description>Thanks~</description>
+      <description>&lt;p&gt;Thanks~&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Publication List</title>
       <link>https://pangaopei.github.io/pub/</link>
       <pubDate>Fri, 14 Oct 2022 01:14:20 +0800</pubDate>
-      
       <guid>https://pangaopei.github.io/pub/</guid>
-      <description>Publication List First author : Stable computation of entanglement entropy for 2D interacting fermion systems
-Gaopei Pan, Yuan Da Liao, Weilun Jiang, Jonathan D&amp;rsquo;Emidio, Yang Qi, Zi Yang Meng</description>
+      <description>&lt;h2 id=&#34;publication-list&#34;&gt;Publication List&lt;/h2&gt;&#xA;&lt;h3 id=&#34;first-author-&#34;&gt;First author :&lt;/h3&gt;&#xA;&lt;p&gt;Quasiparticle Spectroscopy of Chiral Charge Order&lt;/p&gt;&#xA;&lt;p&gt;&lt;em&gt;Jiangchang Zheng, Caiyun Chen, &lt;strong&gt;Gaopei Pan&lt;/strong&gt;$^{&lt;/em&gt;}$ , Xu Zhang, Chen Chen, Yuan Da Liao, Ganesh Pokharel, Andrea Capa Salinas, Yizhou Wei, Hoi Chun Po, Ding Pan, Stephen D. Wilson, Zi Yang Meng, Berthold Jäck*&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://arxiv.org/abs/2503.19032&#34;&gt;arXiv:2503.19032&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt; &lt;/p&gt;&#xA;&lt;p&gt;Stable computation of entanglement entropy for 2D interacting fermion systems&lt;/p&gt;&#xA;&lt;p&gt;&lt;em&gt;&lt;strong&gt;Gaopei Pan&lt;/strong&gt;, Yuan Da Liao, Weilun Jiang, Jonathan D&amp;rsquo;Emidio, Yang Qi, Zi Yang Meng&lt;/em&gt;&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>
