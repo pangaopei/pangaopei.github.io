@@ -54,15 +54,20 @@
 \[
 \begin{aligned} \exp \left(-c_{k}^{\dagger} \epsilon(k) c_{k}\right) &amp;=1-c_{k}^{\dagger} \epsilon(k) c_{k}&#43;\frac{1}{2 !} c_{k}^{\dagger} \epsilon(k)^{2} c_{k}-\frac{1}{3 !} \cdots \\ &amp;=1&#43;\left[e^{ -\epsilon(k)}-1\right] c_{k}^{\dagger} c_{k} \end{aligned}
 \]<p>（聪明的同学显然早就知道费米子的话 \(\hat{n}_{k} ^m=\hat{n}_{k}\) 了&hellip;）</p>
-<p>而对DQMC重要的是，上式的推广形式。对于新的形式我们依旧能进行对角化（抄一下PhysRevB.31.4403）：</p>
-<p>\(e^{-\sum_{i, j} c_{i}^{\dagger} A_{i, j} c_{j}} e^{-\sum_{i, j} c_{i}^{\dagger} B_{i, j} c_{j}}=e^{-\sum_{\nu} c_{\nu}^{\dagger} l_{\nu} c_{\nu}}\)</p>
-<p>从单粒子态开始：\(e^{-A} e^{-B}\) 作用在 \(|\psi\rangle=c_{\nu}^{\dagger}|0\rangle\) ：</p>
-<p>\(e^{-\sum_{i, j} c_{i}^{\dagger} A_{i, j} c_{j}} e^{-\sum_{i, j} c_{i}^{\dagger} B_{i, j} c_{j}}|\psi\rangle=\left(e^{-A} e^{-B}\right)_{\nu \nu} c_{\nu}^{\dagger}|0\rangle=e^{-l_{\nu}} c_{\nu}^{\dagger}|0\rangle\)</p>
-<p>考虑一个多粒子态比如二粒子态 \(|\phi\rangle=c_{\mu_{1}}^{\dagger} c_{\mu_{2}}^{\dagger}|0\rangle\) ，有：</p>
+<p>而对 DQMC 重要的是，上式对多个二次型指数乘积的推广。这里不能直接假设 \(e^{-A}e^{-B}\) 能被幺正对角化：即使 \(A,B\) 各自 Hermitian，非对易时它们的指数乘积也一般不是 Hermitian。</p>
+<p>可以从粒子数守恒的二次型对各粒子数扇区的作用来证明。记 \(M=e^{-A}e^{-B}\)，以及 Fock 空间中的算符</p>
 \[
-\begin{aligned} e^{-c_{i}^{\dagger} B_{i j} c_{j}}|\phi\rangle &amp;=\prod_{\mu}\left[1&#43;\left(e^{-B_{\mu}}-1\right) c_{\mu}^{\dagger} c_{\mu}\right] c_{\mu_{1}}^{\dagger} c_{\mu_{2}}^{\dagger}|0\rangle \\ &amp;=e^{-B_{\mu_{1}}} e^{-B_{\mu_{2}}} c_{\mu_{1}}^{\dagger} c_{\mu_{2}}^{\dagger}|0\rangle \end{aligned}
-\]<p>因此我们有：</p>
-<p>\(\operatorname{Tr}\left[e^{-\sum_{i, j} c_{i}^{\dagger} A_{i, j} c_{j}} e^{-\sum_{i, j} c_{i}^{\dagger} B_{i, j} c_{j}}\right]=\operatorname{Det}\left(1&#43;e^{-\mathbf{A}} e^{-\mathbf{B}}\right)\)</p>
+\widehat{\mathcal U}=e^{-\boldsymbol c^\dagger A\boldsymbol c}e^{-\boldsymbol c^\dagger B\boldsymbol c}.
+\]<p>它保持真空不变，并将产生算符变换为</p>
+\[
+\widehat{\mathcal U}c_i^\dagger\widehat{\mathcal U}^{-1}
+=\sum_j c_j^\dagger M_{ji}.
+\]<p>因此在 \(n\) 粒子扇区中，它作用在 Slater 行列式上，对应单粒子矩阵的第 \(n\) 次外幂 \(\bigwedge^n M\)。对这个扇区取迹，就是对 \(M\) 的所有 \(n\) 阶主子式求和。再对粒子数求和，恰好得到行列式的展开：</p>
+\[
+\operatorname{Tr}_{F}\widehat{\mathcal U}
+=\sum_{n=0}^{N}\operatorname{Tr}\!\left(\bigwedge^n M\right)
+=\det(I&#43;M)=\det(I&#43;e^{-A}e^{-B}).
+\]<p>这个证明不要求 \(A,B\) 对易，也不要求 \(M\) 能被幺正对角化。</p>
 <p>对于更一般的情况，形式不言自明。</p>
 <p>（啊简单的开个小头，辉夜第二季完了，七月番看啥好呢？）</p>
 </div>

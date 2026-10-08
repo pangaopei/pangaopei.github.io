@@ -24,7 +24,7 @@
     <p class="eyebrow">目录</p>
     <nav id="SidebarTableOfContents">
   <ul>
-    <li><a href="#离散的hubbard-stratonovitch变换">离散的Hubbard-Stratonovitch变换</a></li>
+    <li><a href="#离散的hubbardstratonovich变换">离散的Hubbard–Stratonovich变换</a></li>
   </ul>
 </nav>
   </aside>
@@ -39,19 +39,23 @@
     </div>
     <details class="article-toc"><summary>目录</summary><nav id="TableOfContents">
   <ul>
-    <li><a href="#离散的hubbard-stratonovitch变换">离散的Hubbard-Stratonovitch变换</a></li>
+    <li><a href="#离散的hubbardstratonovich变换">离散的Hubbard–Stratonovich变换</a></li>
   </ul>
 </nav></details>
     <div class="article-body"><p>我们知道对于自由费米子系统，可以解析的直接求出格林函数等信息：\(G(i\omega_n)=\frac{1}{i\omega_n-(\epsilon_k-\mu)}\) （那还蒙卡个屁啊）</p>
-<p>而对于像Hubbard Model这样的含有四费米子相互作用的模型，我们需要离散的Hubbard-Stratonovitch分解，通过引入辅助场来进行蒙卡的求解。</p>
+<p>而对于像Hubbard Model这样的含有四费米子相互作用的模型，我们需要离散的Hubbard–Stratonovich分解，通过引入辅助场来进行蒙卡的求解。</p>
 <p>历史上，此类DQMC最早是用来解决玻色费米耦合的模型，又叫Blankenbecler-Scalapino-Sugar(BSS)算法，而之后1983年Hirsch提出了针对onsite库伦相互作用的Hubbard模型的HS变换，即通过引入辅助场，将相互作用decouple为无相互作用费米子和辅助场的耦合，才逐渐的能够简单的对相互作用费米子的系统进行DQMC的计算。</p>
 <p>** Hubbard Model**的哈密顿量写作：</p>
 <p>\(\hat{H}=-t \sum_{\langle i j\rangle \sigma} \hat{c}_{i \sigma}^{\dagger} \hat{c}_{j \sigma}&#43;h . c .&#43;U \sum_{i}\left(\hat{n}_{i \uparrow}-\frac{1}{2}\right)\left(\hat{n}_{i \downarrow}-\frac{1}{2}\right)\)</p>
 <p>其中 \(i,j\) 是最近邻的格点的hopping， \(\sigma=\uparrow/\downarrow\) 是自旋的标记。</p>
-<p>该哈密顿量和我们通常写的 \(U \sum_{i}\hat{n}_{i \uparrow}\hat{n}_{i \downarrow}\) 的Hubbard U项略有不同，无非是或多了化学势项或多了个常数，对于蒙卡来说我们关心的是权重之比，which is不同构型能量的差值，所以能量中的常数不影响最终得到的结果。我们后面会看到写作这种形式对于蒙卡计算的方便之处。</p>
-<h2 id="离散的hubbard-stratonovitch变换">离散的Hubbard-Stratonovitch变换</h2>
+<p>这里采用的是粒子–空穴对称的写法。展开单个格点的相互作用，有</p>
+\[
+U(n_{\uparrow}-\tfrac12)(n_{\downarrow}-\tfrac12)
+=Un_{\uparrow}n_{\downarrow}-\frac U2(n_{\uparrow}&#43;n_{\downarrow})&#43;\frac U4.
+\]<p>常数项在归一化观测量和固定参数下的权重比中会约掉，但化学势项不能直接忽略。在巨正则系综中，若通常写法的化学势为 \(\mu\)，这里应使用 \(\widetilde\mu=\mu-U/2\) 才描述同一个模型。我们后面会看到这种写法对于蒙卡计算的方便之处。</p>
+<h2 id="离散的hubbardstratonovich变换">离散的Hubbard–Stratonovich变换</h2>
 <p>在</p>
-<p><a href="/articles/zhihu-35327282/"></a></p>
+<p><a href="/articles/zhihu-35327282/">《一些基本须知和准备》</a></p>
 <p>中我们已经知道我们通常会把虚时分为 \(M\) 份：\(\beta=M\Delta \tau\) 。然后再做Trotter分解。这样做的原因是因为</p>
 <p>\(\hat{H}_0=-t \sum_{\langle i j\rangle \sigma} \hat{c}_{i \sigma}^{\dagger} \hat{c}_{j \sigma}&#43;h . c .\) 和 \(\hat{H}_I=U \sum_{i}\left(\hat{n}_{i \uparrow}-\frac{1}{2}\right)\left(\hat{n}_{i \downarrow}-\frac{1}{2}\right)\) 不对易。</p>
 <p>我们想对 \(e^{-\Delta \tau \hat{H}_{I}}\) 做HS变换，于是就要把他分离出来： \(e^{-\Delta \tau \hat{H}}=e^{-\Delta \tau\left(\hat{H}_{0}&#43;\hat{H}_{I}\right)}=e^{-\Delta \tau \hat{H}_{0}} e^{-\Delta \tau \hat{H}_{I}}&#43;\mathcal{O}\left[(\Delta \tau)^{2}\right]\)</p>
@@ -64,12 +68,12 @@
 <p>系数可以通过考虑 \(e^{-\Delta \tau H_{U}}\) 在单个格点的希尔伯特空间得到：</p>
 \[
 \begin{aligned} e^{-\Delta \tau U / 4}|0\rangle &amp;=2 \gamma|0\rangle \\ e^{-\Delta \tau U / 4}|\uparrow \downarrow\rangle &amp;=2 \gamma|\uparrow \downarrow\rangle \\ e^{\Delta \tau U / 4}|\uparrow\rangle &amp;=2 \gamma \cosh (\alpha)|\uparrow\rangle \\ e^{\Delta \tau U / 4}|\downarrow\rangle &amp;=2 \gamma \cosh (\alpha)|\downarrow\rangle \end{aligned}
-\]<p>这种方式破坏了自旋的 \(SU(2)\) 对称性，我们可以选择 \(e^{-\Delta \tau H_{U}}=\tilde{\gamma} \sum_{s=\pm 1} e^{i \tilde{\alpha} s\left(n_{\uparrow}&#43;n_{\downarrow}-1\right)}\) ，其中 \(\cos (\tilde{\alpha})=e^{-\Delta \tau U / 2}\) ， \(\tilde{\gamma}=\frac{1}{2} e^{\Delta \tau U / 4}\) ，代价就是引入了复数。</p>
+\]<p>这种分解在固定辅助场构型下不保持自旋的 \(SU(2)\) 对称性，但对辅助场求和后仍恢复原相互作用的对称性。若希望每个构型都保持自旋 \(SU(2)\)，我们可以选择 \(e^{-\Delta \tau H_{U}}=\tilde{\gamma} \sum_{s=\pm 1} e^{i \tilde{\alpha} s\left(n_{\uparrow}&#43;n_{\downarrow}-1\right)}\) ，其中 \(\cos (\tilde{\alpha})=e^{-\Delta \tau U / 2}\) ， \(\tilde{\gamma}=\frac{1}{2} e^{\Delta \tau U / 4}\) ，代价就是引入了复数。</p>
 <p>此处Hubbard Model的情况比较特殊才可以通过引入 \(\pm1\) 的辅助场来进行decouple，更一般的四费米相互作用（要求厄米），我们有更加一般的HS变换的方式，如引入 \(\pm1,\pm2\) 的辅助场：</p>
-<p>\(e^{\Delta \tau \lambda A^{2}}=\sum_{l=\pm 1,\pm 2} \gamma(l) e^{\sqrt{\Delta \tau \lambda} \eta(l) O}&#43;\mathcal{O}\left(\Delta \tau^{4}\right)\) ，其中 \(\begin{array}{c} \gamma(\pm 1)=1&#43;\sqrt{6} / 3, \quad \gamma(\pm 2)=1-\sqrt{6} / 3 \\ \eta(\pm 1)=\pm \sqrt{2(3-\sqrt{6})}, \quad \eta(\pm 2)=\pm \sqrt{2(3&#43;\sqrt{6})} \end{array}\)</p>
+<p>\(e^{\Delta \tau \lambda A^{2}}=\frac14\sum_{l=\pm 1,\pm 2} \gamma(l) e^{\sqrt{\Delta \tau \lambda} \eta(l) A}&#43;\mathcal{O}\left(\Delta \tau^{4}\right)\) ，其中 \(\begin{array}{c} \gamma(\pm 1)=1&#43;\sqrt{6} / 3, \quad \gamma(\pm 2)=1-\sqrt{6} / 3 \\ \eta(\pm 1)=\pm \sqrt{2(3-\sqrt{6})}, \quad \eta(\pm 2)=\pm \sqrt{2(3&#43;\sqrt{6})} \end{array}\)</p>
 <p>这种方式不是严格的，有和 \(\Delta \tau\) 有关的误差，对于观测量来说，带来的误差是正比于 \(\Delta \tau^{3}\) 的。</p>
-<p>而现在的这些系数是怎么求解得到的呢？感觉到处都直接丢结果很少有人动手说说咋来的，这里我们不妨设 \(\gamma(1)=\gamma(-1)=a, \quad \gamma(2)=\gamma(-2)=b, \quad \eta(1)=\sqrt{c}=-\eta(1), \quad \eta(2)=\sqrt{d}=-\eta(2)\)</p>
-<p>然后将两边都泰勒展开到 \(O\left(p^{4}\right)\) ，有： \(\begin{array}{c} 1=\frac{1}{2}(a&#43;b) \\ 1=\frac{1}{4}(a c&#43;b d) \\ \frac{1}{2}=\frac{1}{48}\left(a c^{2}&#43;b d^{2}\right) \\ \frac{1}{6}=\frac{1}{1440}\left(a c^{3}&#43;b d^{3}\right) \end{array}\) ，</p>
+<p>而现在的这些系数是怎么求解得到的呢？感觉到处都直接丢结果很少有人动手说说咋来的，这里我们不妨设 \(\gamma(1)=\gamma(-1)=a, \quad \gamma(2)=\gamma(-2)=b, \quad \eta(1)=\sqrt{c}=-\eta(-1), \quad \eta(2)=\sqrt{d}=-\eta(-2)\)</p>
+<p>令 \(p=\Delta\tau\lambda\)，将两边展开并匹配到 \(p^3A^6\) 项（余项为 \(O(p^4)\)） ，有： \(\begin{array}{c} 1=\frac{1}{2}(a&#43;b) \\ 1=\frac{1}{4}(a c&#43;b d) \\ \frac{1}{2}=\frac{1}{48}\left(a c^{2}&#43;b d^{2}\right) \\ \frac{1}{6}=\frac{1}{1440}\left(a c^{3}&#43;b d^{3}\right) \end{array}\) ，</p>
 <p>解得： \(\begin{array}{ll} a=1&#43;\sqrt{6} / 3, &amp; b=1-\sqrt{6} / 3 \\ c=2(3-\sqrt{6}), &amp; d=2(3&#43;\sqrt{6}) \end{array}\)</p>
 <p>（我们后面会知道，不同的decouple方式，可能会导致符号问题的有无。所谓的符号问题此处就是对于辅助场的某个构型，对应的权重为复数或负数。比如隔壁就有decouple到马约拉纳表象从而避免了一类模型中的符号的工作。）</p>
 <p>下一节将会推导一下引入辅助场之后，对于辅助场的具体构型，怎么计算相应的Weight。</p>

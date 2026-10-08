@@ -37,13 +37,13 @@
 \[
 \begin{aligned}  &amp; \operatorname{det}[\mathbf{I}&#43;\mathbf{B}(\beta, \tau) e^{V\left(\vec{S}^{\prime}_{l}\right)} e^{-\Delta \tau T} \mathbf{B}(\tau -\Delta \tau, 0)]\\  = &amp; \operatorname{det}[\mathbf{I}&#43;\mathbf{B}(\beta, \tau) e^{V\left(\vec{S}^{\prime}_{l}\right)} e^{-V\left(\vec{S}_{l}\right)} \mathbf{B}(\tau , 0)]\\  =&amp;\operatorname{det}[\mathbf{I}&#43;\mathbf{B}(\beta, \tau) (\mathbf{I}&#43;\mathbf{\Delta}) \mathbf{B}(\tau , 0)]  \end{aligned}
 \]<p>其中， \(\mathbf{\Delta}=e^{V\left(\vec{S}^{\prime}_{l}\right)} e^{-V\left(\vec{S}_{l}\right)}-\mathbf{I}\) 。我们注意到，对于诸如Hubbard等on-site的相互作用的形式， \(\mathbf{\Delta}=e^{V\left(\vec{S}^{\prime}_{l}\right)-V\left(\vec{S}_{l}\right)} -\mathbf{I}\) 。当改变 \(L \times L \times L_{\tau}\) 中的一个site的辅助场 \(s_{i,l}\) 的值的时候，Δ 矩阵只有一个元素非零，且为 \(e^{\pm \alpha \Delta s_{i,l}}-1\) 。其中的±对应自旋上下。</p>
-<p>因此我们在计算更新前后的接受概率（权重的比值）时，有：</p>
+<p>因此我们在计算更新前后的单个自旋分量的权重比时，有：</p>
 \[
 \begin{aligned}  &amp; \frac{\operatorname{det}[\mathbf{I}&#43;\mathbf{B}(\beta, \tau)(\mathbf{I}&#43;\Delta) \mathbf{B}(\tau, 0)]}{\operatorname{det}[\mathbf{I}&#43;\mathbf{B}(\beta, \tau) \mathbf{B}(\tau, 0)]} \\  =&amp; \frac{\operatorname{det}[\mathbf{I}&#43;\mathbf{B}(\beta, 0)&#43;\mathbf{B}(\beta, \tau) \Delta \mathbf{B}(\tau, 0)]}{\operatorname{det}[\mathbf{I}&#43;\mathbf{B}(\beta, 0)]} \\  =&amp; \operatorname{det}\left[\mathbf{I}&#43;\mathbf{B}(\beta, \tau) \Delta \mathbf{B}(\tau, 0)(\mathbf{I}&#43;\mathbf{B}(\beta, 0))^{-1}\right] \\  =&amp; \operatorname{det}\left[\mathbf{I}&#43;\Delta \mathbf{B}(\tau, 0)(\mathbf{I}&#43;\mathbf{B}(\beta, 0))^{-1} \mathbf{B}(\beta, \tau)\right] \\  =&amp; \operatorname{det}\left[\mathbf{I}&#43;\boldsymbol{\Delta}\left(\mathbf{I}-(\mathbf{I}&#43;\mathbf{B}(\tau, 0) \mathbf{B}(\beta, \tau))^{-1}\right)\right] \\  =&amp; \operatorname{det}[\mathbf{I}&#43;\mathbf{\Delta}(\mathbf{I}-\mathbf{G}(\tau, \tau))]  \end{aligned}
-\]<p>其中第四个等号用到了Sherman-Morrison公式：</p>
+\]<p>其中第四个等号用到了Woodbury 公式（秩一时即 Sherman–Morrison 公式）：</p>
 \[
 (\mathbf{I}&#43;\mathbf{U V})^{-1}=\mathbf{I}-\mathbf{U}\left(\mathbf{I}_{k}&#43;\mathbf{V U}\right)^{-1} \mathbf{V}
-\]<p>U是 \(N \times k\) 的矩阵，V是 \(k \times N\) 的矩阵。证明见前文附录。因为此处的 Δ矩阵只有一个元素非零，则接受概率实际上可以通过如下方式简单计算：</p>
+\]<p>U是 \(N \times k\) 的矩阵，V是 \(k \times N\) 的矩阵。证明见前文附录。因为此处的 Δ矩阵只有一个元素非零，则该权重比实际上可以通过如下方式简单计算：</p>
 \[
 \begin{aligned}  r=&amp;\operatorname{det}[\mathbf{I}_{N \times N}&#43;\mathbf{\Delta}_{N \times N}(\mathbf{I}-\mathbf{G}(\tau, \tau))_{N \times N}] \\  =&amp; \operatorname{det}[\mathbf{I}_{N \times N}&#43;\mathbf{\Delta}_{N \times 1}(\mathbf{I}-\mathbf{G}(\tau, \tau))_{1 \times N}]\\  =&amp; \operatorname{det}[\mathbf{I}_{1 \times 1}&#43;(\mathbf{I}-\mathbf{G}(\tau, \tau))_{1 \times N} \mathbf{\Delta}_{N \times 1}]\\  =&amp; \operatorname{det}[\mathbf{I}_{1 \times 1}&#43;(\mathbf{I}-\mathbf{G}(\tau, \tau))_{1 \times 1} \mathbf{\Delta}_{1 \times 1}]\\  =&amp; 1&#43;\mathbf{\Delta}_{i i}\left(1-\mathbf{G}_{i i}\right)  \end{aligned}
 \]<p>其中第二个等号利用了公式</p>
@@ -52,11 +52,15 @@
 \]<p>，证明见附录：</p>
 \[
 \det(\mathbf{I}_{N}&#43;\mathbf{U V})=\det(\mathbf{I}_{k}&#43;\mathbf{ VU})
-\]<p>比如自旋上部分的权重比就为  \(1&#43;(e^{\alpha \Delta s_{i,l}}-1)(1-G^{\uparrow}(\tau,\tau)_{i,i})\) ，自旋下部分 \(1&#43;(e^{-\alpha \Delta s_{i,l}}-1)(1-G^{\downarrow}(\tau,\tau)_{i,i})\) 。我们看到，因为Hubbard的特殊形式，导致我们其实在有对应等时格林函数的值的时候，不需要计算一个巨大矩阵的乘法再加上行列式，只需要计算一个数，即能得到接受概率。</p>
+\]<p>比如自旋上部分的权重比就为  \(1&#43;(e^{\alpha \Delta s_{i,l}}-1)(1-G^{\uparrow}(\tau,\tau)_{i,i})\) ，自旋下部分 \(1&#43;(e^{-\alpha \Delta s_{i,l}}-1)(1-G^{\downarrow}(\tau,\tau)_{i,i})\) 。我们看到，因为Hubbard的特殊形式，导致我们其实在有对应等时格林函数的值的时候，不需要计算一个巨大矩阵的乘法再加上行列式，只需要计算一个数，即能得到单个自旋分量的权重比。</p>
+<p>需要区分权重比和接受概率。记两个自旋分量的比值为 \(r_\uparrow,r_\downarrow\)，对这里的对称单点翻转提议，若总权重非负，Metropolis 接受概率为</p>
+\[
+P_{\mathrm{acc}}=\min\{1,r_\uparrow r_\downarrow\}.
+\]<p>权重比可以大于 1，单个自旋分量的比值也不是完整的接受概率。若存在符号或相位问题，则按绝对权重采样，使用 \(P_{\mathrm{acc}}=\min\{1,|r_\uparrow r_\downarrow|\}\)，并在观测量中重加权符号或相位。</p>
 <p>而这样的方式需要我们随时更新的等时格林函数的数值。根据定义：</p>
 \[
 \begin{aligned}  \mathbf{G}^{\prime}(\tau, \tau) &amp;=[\mathbf{I}&#43;(\mathbf{I}&#43;\boldsymbol{\Delta}) \mathbf{B}(\tau, 0) \mathbf{B}(\beta, \tau)]^{-1} \\  &amp;=\mathbf{G}(\tau, \tau)[(\mathbf{I}&#43;(\mathbf{I}&#43;\boldsymbol{\Delta}) \mathbf{B}(\tau, 0) \mathbf{B}(\beta, \tau)) \mathbf{G}(\tau, \tau)]^{-1} \\  &amp;=\mathbf{G}(\tau, \tau)\left[\left(\mathbf{I}&#43;(\mathbf{I}&#43;\boldsymbol{\Delta})\left(\mathbf{G}^{-1}(\tau, \tau)-\mathbf{I}\right)\right) \mathbf{G}(\tau, \tau)\right]^{-1} \\  &amp;=\mathbf{G}[\mathbf{I}&#43;\boldsymbol{\Delta}(\mathbf{I}-\mathbf{G})]^{-1}  \end{aligned}
-\]<p>同样的利用Sherman-Morrison公式：</p>
+\]<p>同样的利用Woodbury 公式（秩一时即 Sherman–Morrison 公式）：</p>
 \[
 (\mathbf{I}&#43;\mathbf{U V})^{-1}=\mathbf{I}-\mathbf{U}\left(\mathbf{I}_{k}&#43;\mathbf{V U}\right)^{-1} \mathbf{V}
 \]<p>我们有：</p>
