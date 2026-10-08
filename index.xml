@@ -79,11 +79,25 @@
       <description>&lt;p&gt;Thanks~&lt;/p&gt;</description>
     </item>
     <item>
+      <title>Curriculum vitae</title>
+      <link>https://pangaopei.github.io/cv/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://pangaopei.github.io/cv/</guid>
+      <description>&lt;p&gt;Gaopei Pan · University of Würzburg, Germany&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;mailto:gaopei.pan@uni-wuerzburg.de&#34;&gt;gaopei.pan@uni-wuerzburg.de&lt;/a&gt; · &lt;/p&gt;</description>
+    </item>
+    <item>
       <title>Publications</title>
       <link>https://pangaopei.github.io/pub/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://pangaopei.github.io/pub/</guid>
       <description></description>
+    </item>
+    <item>
+      <title>Research statement</title>
+      <link>https://pangaopei.github.io/research-statement/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://pangaopei.github.io/research-statement/</guid>
+      <description>&lt;p&gt;My research centers on the design of strongly correlated lattice models and their unbiased simulation using determinant Quantum Monte Carlo (DQMC) methods. A unifying theme of my work is the development of &lt;em&gt;sign-problem-free&lt;/em&gt; models that enable controlled numerical studies of quantum criticality, non–Fermi-liquid (nFL) behavior, and the rich correlated phenomena in moiré and kagome materials. I also work on algorithmic advances—including entanglement-entropy algorithms and theoretical understanding of the fermion sign problem—that broaden the reach of QMC for strongly interacting fermionic systems.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

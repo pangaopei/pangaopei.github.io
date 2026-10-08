@@ -81,6 +81,32 @@ h1{font-size:48px}
 }
 
 .profile-links{display:flex;flex-wrap:wrap;gap:22px;font-size:13px;margin-top:20px}
+.document-page{padding-top:64px}
+.cv-page{max-width:960px}
+.cv-contact{color:var(--muted);font-size:14px;line-height:1.8}
+.cv-contact p{margin-bottom:8px}
+.cv-section{margin-top:42px}
+.cv-section h2{font:normal 28px/1.35 Georgia,serif;margin-bottom:20px}
+.cv-section .career-list{margin-top:0}
+.cv-section .career-list h3{margin-top:0}
+.cv-related{border-top:1px solid var(--line);padding-top:24px;margin-top:32px}
+.document-heading{margin-bottom:44px}
+.document-heading h1{font-size:clamp(36px,5vw,56px)}
+.document-layout{display:grid;grid-template-columns:210px minmax(0,1fr);gap:52px}
+.document-contents{align-self:start;position:sticky;top:28px;font-size:13px;line-height:1.6}
+.document-contents nav{display:block;font-size:13px}
+.document-contents ul{list-style:none;padding:0;margin:0}
+.document-contents li{margin-bottom:14px}
+.document-contents li ul{display:none}
+.document-content{min-width:0;line-height:1.85;overflow-wrap:anywhere}
+.document-content .article-body{margin-top:0}
+.document-content h2{font:normal 28px/1.35 Georgia,serif;margin-top:48px;scroll-margin-top:28px}
+.document-content h3{font-size:16px;scroll-margin-top:28px}
+.reference-entry{display:grid;grid-template-columns:32px minmax(0,1fr);gap:10px;margin:18px 0;font-size:14px;line-height:1.75;scroll-margin-top:28px}
+.reference-number{color:var(--muted);font-variant-numeric:tabular-nums}
+.reference-entry p{margin:0}
+.document-content :target{background:#eaf0e8}
+@media(max-width:800px){.document-page{padding-top:40px}.document-layout{grid-template-columns:1fr;gap:30px}.document-contents{position:static;border-bottom:1px solid var(--line);padding-bottom:20px}.document-content h2{font-size:25px}}
 .chinese-articles{max-width:880px;line-height:1.9;overflow-wrap:anywhere}
 .chinese-articles h1{font:600 clamp(28px,4vw,40px)/1.5 system-ui,sans-serif;letter-spacing:0;margin-top:24px}
 .chinese-articles h2{font:600 24px/1.5 system-ui,sans-serif}
