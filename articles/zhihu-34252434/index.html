@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>【尝试灌水-1】入门，蒙卡及伊辛 · Gaopei Pan · 潘高培</title>
+<meta name="description" content="Gaopei Pan · Quantum Monte Carlo, quantum criticality, entanglement, and strongly correlated quantum matter.">
+<link rel="canonical" href="https://pangaopei.github.io/articles/zhihu-34252434/">
+<link rel="stylesheet" href="/css/academic.css?v=93f2fe6ef78210cdfc7218edf80f3665">
+<script src="/js/publications.js" defer></script>
+
+<script src="/js/math-config.js?v=c375e403b5ae21aa1c3a1c645064ddcd"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" defer></script>
+
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header shell"><a class="brand" href="/">GP<span> / Gaopei Pan</span></a>
+<nav aria-label="Main navigation"><a href="/">About</a><a href="/pub/">Publications</a><a href="/cv_4.pdf">CV ↗</a><a href="/research-statement.pdf">Research statement ↗</a><a href="/articles/">中文笔记</a></nav></header>
+
+<main id="main" class="shell prose chinese-articles">
+  <article>
+    <a href="/articles/">← 中文笔记</a>
+    <img class="article-cover" src="/articles/zhihu-34252434/cover.jpg" alt="【尝试灌水-1】入门，蒙卡及伊辛封面" width="472" height="152" fetchpriority="high">
+    <h1>【尝试灌水-1】入门，蒙卡及伊辛</h1>
+    <div class="article-meta">
+      <time datetime="2018-04-30">更新于 2018-04-30</time>
+       · <a href="https://zhuanlan.zhihu.com/p/34252434">知乎原文 ↗</a>
+    </div>
+    <details class="article-toc"><summary>目录</summary><nav id="TableOfContents">
+  <ul>
+    <li><a href="#马尔可夫链">马尔可夫链</a></li>
+    <li><a href="#细致平衡条件">细致平衡条件</a></li>
+    <li><a href="#metropolis-hastings">Metropolis-Hastings</a></li>
+    <li><a href="#证明">证明</a></li>
+    <li><a href="#进入物理相关部分">进入物理相关部分</a></li>
+    <li><a href="#以伊辛模型为例">以伊辛模型为例</a></li>
+    <li><a href="#扯点别的自相关时间">（扯点别的）自相关时间</a></li>
+    <li><a href="#扯点别的不想写了见文章最后抄写一波凑凑字数免得字数太少太水">（扯点别的、不想写了，见文章最后，抄写一波凑凑字数，免得字数太少太水）</a></li>
+    <li><a href="#其实一切无需这么复杂">其实一切无需这么复杂</a></li>
+  </ul>
+</nav></details>
+    <div class="article-body"><p>无聊打发时间，灌一些老生常谈的水。</p>
+<h2 id="马尔可夫链">马尔可夫链</h2>
+<p>我们常使用Monte Carlo Markov Chain来产生已知分布的样本。<strong>马尔可夫链</strong>即为下一状态的概率分布只由当前状态决定，和之前的其他状态无关。定义如下：</p>
+<p>\(P\left ( X_{t&#43;1}=x|X_t,X_{t-1},... \right )=P\left ( X_{t&#43;1}=x |X_t\right )\)</p>
+<p>即下一个状态只跟当前状态有关。我们用 \(P_{ij}\) 或 \(P\left ( i,j \right )\) 或 \(P\left ( j|i\right )\) 来表示从 \(i\) 状态转移到 \(j\) 状态的概率。</p>
+<p>满足一些条件的马尔可夫链（如非周期，连通等，具体证明篇幅有限不再进行）会收敛到唯一一个稳态分布 \(\pi(j)\) ，构造合适的马尔科夫链，该分布即为我们想要的分布。其中</p>
+<p>\(\lim_{n\rightarrow \infty }P^n_{\,\,\,ij}=\pi(j) \;\;\;\;\;\; \pi(j)=\sum_{i}\pi(i)P_{ij}\;\;\;\;\; \left [ \pi(1),\pi(2),.. \right ]P=\left [ \pi(1),\pi(2),.. \right ]\)</p>
+<p>即不管初始状态如何，在进行足够多次的转移后，所得到的样本，为该稳态分布中抽取的样本。</p>
+<h2 id="细致平衡条件">细致平衡条件</h2>
+<p>如果我们此时有细致平衡条件 \(\pi(i)P(i,j)=\pi(j)P(j,i)\) ，则 \(\pi(x)\) 即为稳态分布。验证不难：</p>
+<p>\(\sum_{i}\pi(i)P(i,j)=\sum_{i}\pi(j)P(j,i)=\pi(j)\sum_{i}P(j,i)=\pi(j)\)</p>
+<p>即我们确保细致平衡条件则可产生所需的样本。</p>
+<h2 id="metropolis-hastings">Metropolis-Hastings</h2>
+<p>产生样本的流程如下：</p>
+<ul>
+<li>
+<p>随机产生初始状态 \(X_0\) ， \(t=0\)</p>
+</li>
+<li>
+<p>根据提议分布 \(Q\left ( X |X_t\right )\) ，产生状态 \(X_{t&#39;}\)</p>
+</li>
+<li>
+<p>均匀分布产生0到1之间的随机数 \(a\)</p>
+</li>
+<li>
+<p>\(t=t&#43;1\) 。如果 \(a\leq \frac{\pi\left ( X_{t&#39;}\right )Q\left ( X_t |X_{t&#39;}\right )}{\pi\left ( X_{t}\right )Q\left ( X_{t&#39;} |X_{t}\right )}\) ，\(X_{t}=X_{t&#39;}\) ，否则 \(X_{t}=X_{t-1}\)</p>
+</li>
+<li>
+<p>重复上述步骤足够多次，得到的 \(X\) 即为从稳态分布 \(\pi\) 产生的样本</p>
+</li>
+</ul>
+<p>若我们需要产生一系列样本，其分布为 \(\pi\) ，则在按照上述流程产生第一个样本后，再经过足够远的步数产生第二个样本&hellip;.需要再经过足够远是因为，防止两个样本之间的关联太强，为了统计独立。</p>
+<p>过程看似复杂，而实际中我们经常使用对称的 \(Q\) ，如高斯，均匀等。等见到实际的例子更会发现这部分操作的流程比较简单。</p>
+<h2 id="证明">证明</h2>
+<p>之所以需要判断一步的原因在于，其未必满足细致平衡条件：\(\pi(i)Q(i,j)\neq\pi(j)Q(j,i)\)</p>
+<p>我们引入了接受概率 \(\alpha\) 以使得条件满足： \(\pi(i)Q(i,j)\alpha(i,j)=\pi(j)Q(j,i)\alpha(j,i)\)</p>
+<p>很显然由对称性想到，不妨： \(\alpha(i,j)=\pi(j)Q(j,i)\)</p>
+<p>由于Metropolis算法构造出的接受概率可能会很小，这样造成算法要经过很多次数才能到达稳态分布。所以我们可以把接受概率乘上相同的倍数，使得其中一个为1，即</p>
+<p>\(\alpha(i,j)=min\left \{ \frac{\pi(j)Q(j,i)}{\pi(i)Q(i,j)},1 \right \}\) 使用对称的 \(Q\)即能进一步化简。</p>
+<h2 id="进入物理相关部分">进入物理相关部分</h2>
+<p>配分函数： \(Z=\sum_{\sigma} e^{-\beta E_{\sigma} }\)</p>
+<p>观测量： \(\left \langle O \right \rangle=\frac{1}{Z}\sum _{\sigma}Oe^{-\beta E_{\sigma} }\)</p>
+<p>问题的核心是从分布 \(p(\sigma)=\frac{e^{-\beta E_{\sigma} }}{Z}\) 产生样本再平均。</p>
+<h2 id="以伊辛模型为例">以伊辛模型为例</h2>
+<p>伊辛模型大概是许多人入门时候算的第一个模型了，经典伊辛模型其哈密顿量为 \(E_{\sigma}=-J\sum_{&lt;i,j&gt;}s_{i}s_{j}-\mu\boldsymbol{\mathit{h}}\sum_{i=1}^{N}s_{i}\)</p>
+<p>其中 \(s_i\) 为格点 \(i\) 的自旋， \(s_i\) 的取值为 \(\pm 1\) ， \(&lt; i,j &gt;\) 代表格点 \(i\) 与 \(j\) 为最近邻。 \(h\) 代表外磁场， \(J\) 为耦合常数。不妨 \(J &gt; 0\) ,代表铁磁系统。具有以上性质的自旋系统称为Ising模型。</p>
+<p>关于伊辛模型我们知道很多，知道它有相变，且二维情况精确求解可以得到临界温度 \(T_c/J=2/ln(1&#43;\sqrt{2})\approx 2.269\) 。其有临界现象如在 \(T\rightarrow T_c^-\) 时， \(\left \langle m\left ( T \right ) \right \rangle\sim \left ( T_c-T \right )^\beta\) 。</p>
+<p>接下来进行伊辛模型的蒙卡：</p>
+<ul>
+<li>
+<p>随机产生初始状态 \(X_0\) ， \(t=0\) 。每个格点随机置为 \(\pm 1\) 即可</p>
+</li>
+<li>
+<p>根据提议分布 \(Q\left ( X |X_t\right )\) ，产生状态 \(X_{t&#39;}\) 。其中最常见的选择有两种：第一种是随机挑选一个格点的自旋尝试翻转；第二种是从第一个格点尝试翻转，一直尝试到最后一个格点，然后循环往复</p>
+</li>
+<li>
+<p>均匀分布产生0到1之间的随机数 \(a\)</p>
+</li>
+<li>
+<p>\(t=t&#43;1\) 。如果 \(a\leq \frac{\pi\left ( X_{t&#39;}\right )Q\left ( X_t |X_{t&#39;}\right )}{\pi\left ( X_{t}\right )Q\left ( X_{t&#39;} |X_{t}\right )}\) ，\(X_{t}=X_{t&#39;}\) ，否则 \(X_{t}=X_{t-1}\) 。这时其实是否接受的条件即为看\(a\leq e^{-\beta \Delta E }\) 是否满足</p>
+</li>
+<li>
+<p>重复上述步骤足够多次，得到的 \(X\) 即为从稳态分布 \(\pi\) 产生的样本。具体到本例即为，先进行足够多次，选取此时的情况为第一个样本，再进行大致至少\(O\left( N \right)\) 步，取为第二个样本&hellip;最后求平均。</p>
+</li>
+</ul>
+<h2 id="扯点别的自相关时间">（扯点别的）自相关时间</h2>
+<p>以上为local的更新，我们知道在相变点附近效率很差，因为每次只翻一个，效率太低。翻很多很多次，也不容易使得两次的样本达到，**statistically independent。**而且我们知道Metropolis存在着一个接受概率的问题，接受概率会小于1。要是始终接受多好啊！（不是所有问题都能做到这一点）</p>
+<p>为了保证相邻两次取出的样本是尽可能独立的采样出来的，我们定义了自相关时间，采样中间隔的步数要远大于自相关时间为好。</p>
+<p>对于观测量 \(Q\) 我们有自相关函数：</p>
+<p>\(A_Q\left ( t \right )=\frac{\left \langle Q\left ( i&#43;t \right )Q\left ( i \right ) \right \rangle-\left \langle Q \right \rangle^2}{\left \langle Q^2 \right \rangle-\left \langle Q \right \rangle^2}\)</p>
+<p>其为指数衰减： \(A_Q\left ( t \right )\sim e^{-t/\tau_Q}\) ， \(\tau_Q\) 为自相关时间。最好间隔要大于此量。</p>
+<h2 id="扯点别的不想写了见文章最后抄写一波凑凑字数免得字数太少太水">（扯点别的、不想写了，见文章最后，抄写一波凑凑字数，免得字数太少太水）</h2>
+<p>**                 团簇更新     Wolff算法、Swendsen-Wang算法**</p>
+<p>对于伊辛模型来说，Metropolis算法的话， 格点边长为 \(L\) 时，比如二维伊辛，每次进行 \(L^2\) 次翻转尝试，autocorrelation time \(\Theta \sim L^z\) ，这里的 \(z\) 叫做dynamic exponent ，对于二维伊辛模型，\(z\approx2.2\) 。这样随着 \(L\) 的增长，每次为了达到statistically independent 所需要的翻转次数增的极其之快。</p>
+<p>那怎么办呢，一次翻一大团啊。</p>
+<p>具体做法是，先随机生成一种自旋的初始情况。对于自旋方向相同的边，以概率 \(1-e^{-2|J|/T}\) 连接起来，然后每次随机选择一个点，找到这个点所在的（按照前面的连接方式所产生的）Cluster，然后把整个Cluster全部翻转。然后针对这个新的情况，重复进行上述的事情。</p>
+<p>从配分函数出发能够证明这样做的正确性。</p>
+<p>Swendsen-Wang是按概率产生完边的连接之后，不随机选点找其中一个Cluster翻转，而是把所有的Cluster（单个点也算），分别以 \(\frac{1}{2}\) 的概率翻转。</p>
+<p>Swendsen-Wang的话，记得大概是是 \(\Theta_{int} \sim ln(L)\)，二维伊辛模型相变点附近，应该是 \(\Theta_{int} = 0.75&#43;0.85\ ln(L)\) ，这样相比较而言，随着 \(L\) 的增大，我们所需要的翻转次数就大大减少</p>
+<p>Wolff比起Swendsen-Wang还要好一些，原因是因为其实找一个spin seed来选取其中一个Cluster而Swendsen-Wang是直接考虑全部的Cluster，那么Wolff算法中，Cluster比较大的里面的点就更容易被选到，每次翻转的自旋就更多。</p>
+<p>对于 \(d\) 维的伊辛模型，其自旋数目 \(N=L^d\) ，因为只考虑最近邻相互作用 \(\sigma_{i\left( b \right)} \sigma_{j\left( b \right)}\) ， \(b=1,2,3...,N_b\) 。那么需要考虑的自旋对儿有 \(N_b=dN\) 个，我们叫它键好啦。</p>
+<p>我们把能量写作： \(E\left( \sigma \right)=-\left| J \right|\sum_{b=1}^{N_b}\left[ \sigma_{i\left( b \right)} \sigma_{j\left( b \right)}&#43;1 \right]=\sum_{b=1}^{N_b}E_b\)</p>
+<p>这和我们之前写的能量有所区别，多了一个常数。我们知道常数是不影响概率分布的，而多写一个常数的好处我们在后面就会看到。</p>
+<p>配分函数因此写作： \(Z=\sum_{\sigma}\prod_{b=1}^{N_b}e^{E_b/T}=\sum_{\sigma}\prod_{b=1}^{N_b}\left[ 1&#43;\left( e^{E_b/T}-1 \right) \right]\)</p>
+<p>我们定义一个关于键的函数，相连记为1，否则为0（事实上我们倾向于按照某个概率把自旋方向相同的点连起来，对于自旋相反的边则直接记0）</p>
+<p>\(F_b(0)=1 \,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\, F_b(1)=e^{E_b/T}-1\)</p>
+<p>不相连 \(F_b\left( 0 \right)\) 在求乘积是不影响结果的。</p>
+<p>配分函数因此写作： \(Z=\sum_{\sigma}\prod_{b=1}^{N_b}\left[ F_b\left( 0 \right)&#43;F_b\left( 1 \right) \right]\)</p>
+<p>再进一步，对于每个键引入一个变量 \(\tau_b=\pm1\)</p>
+<p>配分函数的形式更好看了： \(Z=\sum_{\sigma}\sum_{\tau}\prod_{b=1}^{N_b} F_b\left( \tau_b \right)\)</p>
+<p>再来仔细看一下这个函数：\(F_b\left( 0 \right)=1\)</p>
+<p>\(F_b\left( 1 \right)=e^{E_b/T}-1=\begin{cases} e^{2\left | J \right |/T}-1, &amp; \sigma_{i\left ( b \right )}=\sigma_{j\left ( b \right )} \\ 0, &amp; \sigma_{i\left ( b \right )}\neq \sigma_{j\left ( b \right )} \end{cases}\)</p>
+<p>会出现等0的情况，对应的是这条边非法（只有自旋方向相同的边才有可能被连）</p>
+<p>在没有非法的边存在时， \(\prod_{b=1}^{N_b} F_b\left( \tau_b \right)=\left( e^{2\left| J \right|/T}-1 \right)^{N_1}\) ，其中 \(N_1\) 为所连的边的条数。</p>
+<p>我们把这个当做权重，来产生对应的 \(\sigma\) 和 \(\tau\) 的分布，而权重只和 \(N_1\) 有关。我们能看出来，如果我们有种操作，能够使得在改变自旋的时候，使得边的情况不变的话，这个权重是不变的。</p>
+<p>怎么办到这件事呢？</p>
+<p>我们知道被连起来的都是自旋方向相同的（反之则不一定），我们把某个被连接起来的Cluster，全部翻转，得到了新的自旋分布，而考虑键的情况，发现不会产生任何矛盾。</p>
+<p>等等，我们要做的事情早就变成了，产生一个 \(p\left( \sigma,\tau \right)\)的分布。</p>
+<p>这是 **Gibbs Sampling算法 **啊 ！！！！！！！！</p>
+<p>简单回顾一下二维的Gibbs Sampling，产生一个样本 \(\left( x_1,y_1 \right)\) ，保证 \(x\) 不变，过程略去不说的生成新样本 \(\left( x_1,y_2 \right)\) ，再保证 \(y\) 不变，过程略去不说的生成新样本 \(\left( x_2,y_2 \right)\) ，接着保证 \(x\) 不变&hellip;</p>
+<p>如对于一个二维分布 \(p(x,y)\) ，点 \(A(x_1,y_1)\) ， \(B(x_1,y_2)\) 有</p>
+<p>\(p(A)q(y_2|x_1)=p(B)q(y_1|x_1)\)</p>
+<p>即在 \(x=x_1\) 的直线上，细致平衡条件得到满足，同理对点 \(A(x_1,y_1)\) ， \(C(x_2,y_1)\) 可在 \(y=y_1\) 的直线上实现。由此构造新转移矩阵Q:</p>
+<p>\(Q(A,B)=q(y_B|x_1) \qquad \text{如果}\;x_A=x_B=x_1\)</p>
+<p>\(Q(A,C)=q(x_C|y_1) \qquad \text{如果}\;y_A=y_C=y_1\)</p>
+<p>\(Q(A,D)=0 \qquad \text{其他情况}\)</p>
+<p>则对任意两点均达到细致平衡条件。我们可据此进行如下采样：</p>
+<p>1.随机初始化 \(X_0=x_0\) ， \(Y_0=y_0\)</p>
+<p>2.对 \(t=0,1,2,...\) 循环采样</p>
+<p>2a） \(y_{t&#43;1}\sim q(y|x_t)\)</p>
+<p>2b） \(x_{t&#43;1}\sim q(x|y_{t&#43;1})\)</p>
+<p>完美吻合，保证 \(\sigma\) 不变，产生键的一个情况；通过翻转整个Cluster，来产生新的自旋状态而 \(\tau\) 不变&hellip;</p>
+<p>唯一剩下来的小问题，是这两步分别怎么进行。</p>
+<ul>
+<li>自旋情况固定，产生键的分布：</li>
+</ul>
+<p>\(P\left( \tau \right)=\prod_{b}P_b\left( \tau_b \right)\) 其中 \(P_b\left( \tau_b \right)=\frac{F_b\left( \tau_b \right)}{F_b\left( 0 \right)&#43;F_b\left( 1 \right)}\)</p>
+<p>可以简单计算一下数值： \(P\left( \tau_b=1 \right)=\begin{cases} 1-e^{-2\left | J \right |/T}, &amp; \sigma_{i\left ( b \right )}=\sigma_{j\left ( b \right )} \\ 0, &amp; \sigma_{i\left ( b \right )}\neq \sigma_{j\left ( b \right )} \end{cases}\) ， \(\tau_b=0\) 懒得打了。</p>
+<ul>
+<li>键的情况不变，产生新的自旋：</li>
+</ul>
+<p>我已经知道了，对于整体翻转Cluster能保证键的情况不变，那么具体如何翻转呢？有两种方式：</p>
+<p>第一种是，以一个小于1的概率（通常用 \(\frac{1}{2}\) ）去翻转每一个Cluster。这种方式是Swendsen-Wang算法**。**第二种是，随机选取一个点，以概率1翻转这个点所在的Cluster。这种方式是Wolff算法</p>
+<h2 id="其实一切无需这么复杂">其实一切无需这么复杂</h2>
+<p>最初的推导是通过拆分哈密顿量得到的，便于了解团簇更新算法的来源，而实际上我们能够简单的将其看做是接受概率为1的Metropolis–Hastings算法，提议分布由键的情况产生。我们已知细致平衡条件如下：</p>
+<p>\(\pi(i)Q(i,j)\alpha(i,j)=\pi(j)Q(j,i)\alpha(j,i)\)</p>
+<p>由团簇更新的思想可知，我们的提议分布和键的连接方式有关。将相邻的自旋相同的边连接为键的概率设为 \(P\) ，则状态 \(i\) 和 \(j\) 互相跳转的提议分布的差别仅仅在于在前后团簇的边缘处，自旋方向相同却未有连接成键的情况数 \(n_i\) 和 \(n_j\) 。即：</p>
+<p>\(\frac{Q(i,j)\alpha(i,j)}{Q(j,i)\alpha(j,i)}=\frac{\left ( 1-P \right )^{n_i}\alpha(i,j)}{\left ( 1-P \right )^{n_j}\alpha(j,i)}=\frac{\pi(j)}{\pi(i)}\)</p>
+<p>我们期待的是始终接受，即 \(\alpha(i,j)=\alpha(j,i)\) 。之后我们只需根据翻转团簇前后的权重来给出对应的连接为键的概率 \(P\) 即可，对于伊辛模型的例子，我们有：</p>
+<p>\(\left ( 1-P \right )^{n_i-n_j}=\frac{\pi(j)}{\pi(i)}=e^{-\beta\left ( E_j-E_i \right )}=e^{-2\beta J\left ( n_i-n_j \right )}\)</p>
+<p>则能直接通过权重之比方便的解出 \(P=1-e^{-2\beta J}\) 而无需进行哈密顿量的拆分。</p>
+<p>无聊睡不着就这么水了一篇，基本都是花些功夫就能自己学到凑在一起的东西，算是来攒一波人品，面向一波普罗大众。大概可以作为某些方向的蒙卡入门第一课吧。</p>
+<p>一份计算物理啊统计物理啊计算材料学之类的课堂小作业就这么出炉了！！！</p>
+<p>（下一篇写世界线蒙卡还是费米子的行列式蒙卡啊摔）</p>
+<p>后悔了，不说了，突然想起来，新一集小樱还没看。。。凉凉</p>
+<p><img src="image-1.jpg" alt=""></p>
+</div>
+    
+    
+    
+      
+        
+        <nav class="article-pagination" aria-label="笔记翻页">
+          
+          
+            
+            <a class="article-next" href="/articles/zhihu-35327282/" rel="next"><span>下一篇 →</span><strong>【凑字数-2】一些基本须知和准备</strong></a>
+            
+          
+        </nav>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </article>
+</main>
+<footer class="shell footer"><span>© 2026 Gaopei Pan · 潘高培</span><span>Quantum many-body physics</span></footer>
+
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>【农夫山泉-7】物理量（4） · Gaopei Pan · 潘高培</title>
+<meta name="description" content="Gaopei Pan · Quantum Monte Carlo, quantum criticality, entanglement, and strongly correlated quantum matter.">
+<link rel="canonical" href="https://pangaopei.github.io/articles/zhihu-260174988/">
+<link rel="stylesheet" href="/css/academic.css?v=93f2fe6ef78210cdfc7218edf80f3665">
+<script src="/js/publications.js" defer></script>
+
+<script src="/js/math-config.js?v=c375e403b5ae21aa1c3a1c645064ddcd"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" defer></script>
+
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header shell"><a class="brand" href="/">GP<span> / Gaopei Pan</span></a>
+<nav aria-label="Main navigation"><a href="/">About</a><a href="/pub/">Publications</a><a href="/cv_4.pdf">CV ↗</a><a href="/research-statement.pdf">Research statement ↗</a><a href="/articles/">中文笔记</a></nav></header>
+
+<main id="main" class="shell prose chinese-articles">
+  <article>
+    <a href="/articles/">← 中文笔记</a>
+    <img class="article-cover" src="/articles/zhihu-260174988/cover.jpg" alt="【农夫山泉-7】物理量（4）封面" width="995" height="554" fetchpriority="high">
+    <h1>【农夫山泉-7】物理量（4）</h1>
+    <div class="article-meta">
+      <time datetime="2020-10-02">更新于 2020-10-02</time>
+       · <a href="https://zhuanlan.zhihu.com/p/260174988">知乎原文 ↗</a>
+    </div>
+    <details class="article-toc"><summary>目录</summary><nav id="TableOfContents">
+  <ul>
+    <li><a href="#附录">附录</a></li>
+  </ul>
+</nav></details>
+    <div class="article-body"><p>我们定义虚时格林函数如下：</p>
+\[
+\begin{array}{l} G_{i j}(\tau, \tau)=\left\langle c_{i}(\tau) c_{j}^{\dagger}(\tau)\right\rangle, \qquad G_{i j}(\tau, 0)=\left\langle c_{i}(\tau) c_{j}^{\dagger}(0)\right\rangle,\\ G_{i j}(0, \tau)=\left\langle T_{\tau} c_{i}(0) c_{j}^{\dagger}(\tau)\right\rangle \equiv-\left\langle c_{j}^{\dagger}(\tau) c_{i}(0)\right\rangle, \qquad G_{i j}(0,0)=\left\langle c_{i}(0) c_{j}^{\dagger}(0)\right\rangle \end{array}
+\]<p>注意，不同地方的格林函数的定义可能与此处相差一个负号。</p>
+<p>此前我们已经定义了诸如：</p>
+\[
+\mathbf{B}^{\uparrow}\left(l_{2} \Delta \tau, l_{1} \Delta \tau\right)=\prod_{l=l_{1}&#43;1}^{l_{2}} e^{\alpha \operatorname{Diag}\left(\vec{S}_{l}\right)} e^{-\Delta \tau T}
+\]<p>为了方便，我们此处定义带费米算符的：</p>
+\[
+\mathbf{U}^{\uparrow}\left(l_{2} \Delta \tau, l_{1} \Delta \tau\right)=\prod_{l=l_{1}&#43;1}^{l_{2}} e^{ \hat{\mathbf{c}}^{\dagger} \alpha \operatorname{Diag}\left(\vec{S}_{l}\right)\hat{\mathbf{c}}} e^{-\Delta \tau  \hat{\mathbf{c}}^{\dagger}T\hat{\mathbf{c}}}
+\]<p>对于某观测量来说，有：</p>
+\[
+\langle \hat{O}(\tau)\rangle=\frac{\operatorname{Tr}\left[e^{-\beta H} \hat{O}(\tau)\right]}{\operatorname{Tr}\left[e^{-\beta H}\right]}=\sum_{C} \mathrm{P}_{C}\langle \hat{O}(\tau)\rangle_{C}&#43;O\left(\Delta_{\tau}^{2}\right)
+\]<p>其中：</p>
+\[
+\mathrm{P}_{C}=\frac{\operatorname{det}\left(1&#43;B_{C}(\beta, 0)\right)}{\sum_{C} \operatorname{det}\left(1&#43;B_{C}(\beta, 0)\right)}, \quad \langle\hat{O}(\tau)\rangle_{\mathcal{C}}=\frac{\operatorname{Tr}\left\{\hat{U}_{\mathcal{C}}(\beta, \tau) \hat{O} \hat{U}_{\mathcal{C}}(\tau, 0)\right\}}{\operatorname{Tr}\left\{\hat{U}_{\mathcal{C}}(\beta, 0)\right\}}
+\]<p>假设该单体算符为： \(\hat{O}=\hat{\mathbf{c}}^{\dagger} O \hat{\mathbf{c}}\) ，则：</p>
+\[
+\begin{aligned} \langle\hat{O}\rangle_{\mathcal{C}} &amp;=\left.\frac{\partial}{\partial \eta} \ln \operatorname{Tr}\left[\hat{U}_{\mathcal{C}}(\beta, \tau) e^{\eta \hat{O}} \hat{U}_{\mathcal{C}}(\tau, 0)\right]\right|_{\eta=0} \\ &amp;=\left.\frac{\partial}{\partial \eta} \ln \operatorname{Det}\left[\mathbf{1}&#43;B_{\mathcal{C}}(\beta, \tau) e^{\eta O} B_{\mathcal{C}}(\tau, 0)\right]\right|_{\eta=0} \\ &amp;=\left.\frac{\partial}{\partial \eta} \operatorname{Tr} \ln \left[\mathbf{1}&#43;B_{\mathcal{C}}(\beta, \tau) e^{\eta O} B_{\mathcal{C}}(\tau, 0)\right]\right|_{\eta=0} \\ &amp;=\operatorname{Tr}\left[B_{\mathcal{C}}(\tau, 0)\left(1&#43;B_{\mathcal{C}}(\beta, 0)\right)^{-1} B_{\mathcal{C}}(\beta, \tau) O\right] \\ &amp;=\operatorname{Tr}\left[\left(1-\left(1&#43;B_{\mathcal{C}}(\tau, 0) B_{\mathcal{C}}(\beta, \tau)\right)^{-1}\right) O\right] \end{aligned}
+\]<p>最后一个等号用到了Sherman-Morrison公式：</p>
+\[
+\mathbf{U}\left(\mathbf{I}_{k}&#43;\mathbf{V U}\right)^{-1} \mathbf{V}  =\mathbf{I}-(\mathbf{I}&#43;\mathbf{U V})^{-1}
+\]<p>其中， \(\mathbf{U}\) 是 \(N \times k\) 的矩阵， \(\mathbf{V}\) 是 \(k \times N\) 的矩阵。证明见文末。</p>
+<p>对于等时格林函数 \(\left\langle\hat{c}_{i} \hat{c}_{j}^{\dagger}\right\rangle\) 来说， \(\hat{O}=\delta_{i j}-\hat{c}_{j}^{\dagger} \hat{c}_{i}\) 。有：</p>
+\[
+\mathbf{G}(\tau, \tau)=[\mathbf{1}&#43;\mathbf{B}(\tau, 0) \mathbf{B}(\beta, \tau)]^{-1}
+\]<p>顺便，因为有 \(A B^{-1} C= \left(C^{-1} B A^{-1}\right)^{-1}\) ，根据等时格林函数的定义我们能很容易的验证有：</p>
+\[
+B_{C}\left(\tau_{1}, \tau_{2}\right) G_{C}\left(\tau_{2}, \tau_{2}\right) B_{C}^{-1}\left(\tau_{1}, \tau_{2}\right)=G_{C}\left(\tau_{1}, \tau_{1}\right)
+\]<p>对于非等时格林函数：</p>
+\[
+G_{C}\left(\tau_{1}, \tau_{2}\right)_{x, y}=\left\langle T c_{x}\left(\tau_{1}\right) c_{y}^{\dagger}\left(\tau_{2}\right)\right\rangle_{C}=\left\{\begin{array}{c} \left\langle c_{x}\left(\tau_{1}\right) c_{y}^{\dagger}\left(\tau_{2}\right)\right\rangle_{C} \text { if } \tau_{1} \geq \tau_{2} \\ -\left\langle c_{y}^{\dagger}\left(\tau_{2}\right) c_{x}\left(\tau_{1}\right)\right\rangle_{C} \text { if } \tau_{1}&lt;\tau_{2} \end{array}\right.
+\]<p>我们这里首先证明一个qm常考题，设</p>
+\[
+c_x(\tau)=e^{\tau \mathbf{c}^{\dagger} A c} c_{x} e^{-\tau c^{\dagger} A c}
+\]<p>求一次导得：</p>
+\[
+\frac{\partial c_x(\tau)}{\partial \tau}=e^{\tau c^{\dagger} A c}\left[\boldsymbol{c}^{\dagger} A \boldsymbol{c}, c_{x}\right] e^{-\tau \boldsymbol{c}^{\dagger} A \boldsymbol{c}}=-\sum_{z} A_{x, z} c_{z}(\tau)
+\]<p>同理n阶导的结果可知。于是根据泰勒展开：</p>
+<p>\(c_x(\tau)=c_x - \tau \left(A\boldsymbol{c}(\tau)\right)_x &#43; \tau^2 \left(A^2\boldsymbol{c}(\tau)\right)_x&#43; \cdots = \left(e^{-\tau A} c\right)_{x}\)</p>
+<p>取 \(\tau=1\) ，有：</p>
+\[
+e^{ c^{\dagger} A c} c_{x} e^{- c^{\dagger} A c}=\left(e^{-A} c\right)_{x}
+\]<p>类似的，我们有：</p>
+\[
+e^{ c^{\dagger} A c} c^{\dagger}_{x} e^{- c^{\dagger} A c}=\left(\boldsymbol{c}^{\dagger} e^{A}\right)_{x}
+\]<p>由此我们知道：</p>
+\[
+\begin{array}{l} U_{C}^{-1}\left(\tau_{1}, \tau_{2}\right) c_{x} U_{C}\left(\tau_{1}, \tau_{2}\right)=\left(B_{C}\left(\tau_{1}, \tau_{2}\right) c\right)_{x} \\ U_{C}^{-1}\left(\tau_{1}, \tau_{2}\right) c_{x}^{\dagger} U_{C}\left(\tau_{1}, \tau_{2}\right)=\left(c^{\dagger} B_{C}^{-1}\left(\tau_{1}, \tau_{2}\right)\right)_{x} \end{array}
+\]<p>于是我们有：</p>
+\[
+\begin{aligned} \left\langle c_{x}\left(\tau_{1}\right) c_{y}^{\dagger}\left(\tau_{2}\right)\right\rangle_{C} &amp;=\frac{\operatorname{Tr}\left[U_{C}\left(\beta, \tau_{1}\right) c_{x} U_{C}\left(\tau_{1}, \tau_{2}\right) c_{y}^{\dagger} U_{C}\left(\tau_{2}, 0\right)\right]}{\operatorname{Tr}\left[U_{C}(\beta, 0)\right]} \\ &amp;=\frac{\operatorname{Tr}\left[U_{C}\left(\beta, \tau_{2}\right) U_{C}^{-1}\left(\tau_{1}, \tau_{2}\right) c_{x} U_{C}\left(\tau_{1}, \tau_{2}\right) c_{y}^{\dagger} U_{C}\left(\tau_{2}, 0\right)\right]}{\operatorname{Tr}\left[U_{C}(\beta, 0)\right]}\\ &amp;=\sum_z B_{C}\left(\tau_{1}, \tau_{2}\right)_{xz} \frac{\operatorname{Tr}\left[ U_{C}\left(\beta, \tau_{2}\right) c_{z} c_{y}^{\dagger} U_{C}\left(\tau_{2}, 0\right) \right]}{\operatorname{Tr}\left[U_{C}(\beta, 0)\right]}\\ &amp;=\left[B_{C}\left(\tau_{1}, \tau_{2}\right) G_{C}\left(\tau_{2}, \tau_{2}\right)\right]_{x, y} \qquad \qquad \qquad \text{当} \; \tau_{1}&gt;\tau_{2} \end{aligned}
+\]<p>类似的，对于 \(\tau_{2}&gt;\tau_{1}\) 的情况</p>
+\[
+G_{C}\left(\tau_{1}, \tau_{2}\right)_{x, y}=-\left\langle c_{y}^{\dagger}\left(\tau_{2}\right) c_{x}\left(\tau_{1}\right)\right\rangle_{C}=-\left[\left(1-G_{C}\left(\tau_{1}, \tau_{1}\right)\right) B_{C}^{-1}\left(\tau_{2}, \tau_{1}\right)\right]_{x, y}
+\]<p>而对于其他物理量，如 \(\left\langle c_{x}^{\dagger}\left(\tau_{1}\right) c_{x}\left(\tau_{1}\right) c_{y}^{\dagger}\left(\tau_{2}\right) c_{y}\left(\tau_{2}\right)\right\rangle\) ，我们通过Wick定理，转化为两点格林函数乘积的加减，同样能通过二点格林函数的值来得到。</p>
+<h2 id="附录">附录</h2>
+<p>随手抄的一个Sherman-Morrison 公式的证明：</p>
+\[
+\label{eq7} 	(\mathbf{A}&#43;\mathbf{U V})^{-1}=\mathbf{A}^{-1}-\mathbf{A}^{-1} \mathbf{U}\left(\mathbf{I}_{k}&#43;\mathbf{V A^{-1} U}\right)^{-1} \mathbf{V}\mathbf{A}^{-1}
+\]<p>其中 \(\mathbf{A}\) 是 \(N \times N\) 的矩阵， \(\mathbf{U}\) 是 \(N \times k\) 的矩阵， \(\mathbf{V}\) 是 \(k \times N\) 的矩阵。</p>
+<p>证明如下：</p>
+<p>令 \(\xi=\mathbf{V} x\) 且有 \(\left(\mathbf{A}&#43;\mathbf{U V}\right) x=b\) ，其中 \(x\) 和 \(b\) 是 \(N \times 1\) 的向量， 而 \(\xi\) 是 \(k \times 1\) 的向量.</p>
+<p>写下如下形式： \(\left(\mathbf{A}&#43;\mathbf{U V}\right) x=b\) ：</p>
+\[
+\left[\begin{array}{cc} 		\mathbf{A} &amp; \mathbf{U} \\ 		\mathbf{V} &amp; -\mathbf{I_{k}} 	\end{array}\right]\left[\begin{array}{l} 	x \\ 	\xi \end{array}\right]=\left[\begin{array}{l} b \\ 0 \end{array}\right]
+\]<p>进行分解：</p>
+\[
+\left[\begin{array}{cc} 		\mathbf{A} &amp; \mathbf{U} \\ 		\mathbf{V} &amp; -\mathbf{I_{k}} 	\end{array}\right]=\left[\begin{array}{cc} 	\mathbf{I_{N}} &amp; 0 \\ 	\mathbf{V} \mathbf{A}^{-1} &amp; \mathbf{I_{k}} \end{array}\right]\left[\begin{array}{cc} \mathbf{A} &amp; \mathbf{U} \\ 0 &amp; -\mathbf{I_{k}}-\mathbf{V} \mathbf{A}^{-1} \mathbf{U} \end{array}\right]
+\]<p>利用</p>
+\[
+\label{eq6} 	\left[\begin{array}{cc} 		\mathbf{I_{N}} &amp; 0 \\ 		\mathbf{B} &amp; \mathbf{I_{k}} 	\end{array}\right]^{-1}=\left[\begin{array}{cc} 	\mathbf{I_{N}} &amp; 0 \\ 	-\mathbf{B} &amp; \mathbf{I_{k}} \end{array}\right]
+\]\[
+\left[\begin{array}{cc} 		\mathbf{A} &amp; \mathbf{U} \\ 		0 &amp; -\mathbf{I_{k}}-\mathbf{V} \mathbf{A}^{-1} \mathbf{U} 	\end{array}\right]\left[\begin{array}{l} 	x \\ 	\xi \end{array}\right]=\left[\begin{array}{cc} \mathbf{I_{N}} &amp; 0 \\ -\mathbf{V} \mathbf{A}^{-1} &amp; \mathbf{I_{k}} \end{array}\right]\left[\begin{array}{l} b \\ 0 \end{array}\right]
+\]<p>我们有：</p>
+\[
+\mathbf{A}x&#43;\mathbf{U}\xi=b \qquad  \left(-\mathbf{I_{k}}-\mathbf{V} \mathbf{A}^{-1} \mathbf{U}\right)\xi  =-\mathbf{V} \mathbf{A}^{-1}b
+\]<p>则：</p>
+\[
+x=\mathbf{A}^{-1} \left(b-\mathbf{U}\xi\right) \qquad  \xi  =-\left(-\mathbf{I_{k}}-\mathbf{V} \mathbf{A}^{-1} \mathbf{U}\right)^{-1}\mathbf{V} \mathbf{A}^{-1}b
+\]<p>则：</p>
+\[
+x=\left[\mathbf{A}^{-1}-\mathbf{A}^{-1} \mathbf{U}\left(\mathbf{I}_{k}&#43;\mathbf{V A^{-1} U}\right)^{-1} \mathbf{V}\mathbf{A}^{-1}\right]b
+\]<p>或：</p>
+\[
+(\mathbf{A}&#43;\mathbf{U V})^{-1}=\mathbf{A}^{-1}-\mathbf{A}^{-1} \mathbf{U}\left(\mathbf{I}_{k}&#43;\mathbf{V A^{-1} U}\right)^{-1} \mathbf{V}\mathbf{A}^{-1}
+\]<p>因为 \(\left(\mathbf{A}&#43;\mathbf{U V}\right) x=b\)</p>
+<p>接下来只需令 \(\mathbf{A}=\mathbf{I_N}\) ，即有：</p>
+\[
+(\mathbf{I}&#43;\mathbf{U V})^{-1}=\mathbf{I}-\mathbf{U}\left(\mathbf{I}_{k}&#43;\mathbf{V U}\right)^{-1} \mathbf{V} 	\label{eq:70}
+\]<p>（写回答那种小引用怎么搞啊&hellip;还没学会&hellip;不加ref了，问就是全抄师祖的。我们不生产知识，我们只是祖师爷们知识的搬运工。）</p>
+</div>
+    
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+        <nav class="article-pagination" aria-label="笔记翻页">
+          
+            
+            <a class="article-previous" href="/articles/zhihu-163706885/" rel="prev"><span>← 上一篇</span><strong>【农夫山泉-6】Hubbard Model的权重（3）</strong></a>
+            
+          
+          
+            
+            <a class="article-next" href="/articles/zhihu-470421299/" rel="next"><span>下一篇 →</span><strong>【农夫山泉-8】更新（5）</strong></a>
+            
+          
+        </nav>
+        
+      
+    
+      
+    
+      
+    
+  </article>
+</main>
+<footer class="shell footer"><span>© 2026 Gaopei Pan · 潘高培</span><span>Quantum many-body physics</span></footer>
+
+</body>
+</html>

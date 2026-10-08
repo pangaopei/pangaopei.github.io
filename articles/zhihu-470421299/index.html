@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>【农夫山泉-8】更新（5） · Gaopei Pan · 潘高培</title>
+<meta name="description" content="Gaopei Pan · Quantum Monte Carlo, quantum criticality, entanglement, and strongly correlated quantum matter.">
+<link rel="canonical" href="https://pangaopei.github.io/articles/zhihu-470421299/">
+<link rel="stylesheet" href="/css/academic.css?v=93f2fe6ef78210cdfc7218edf80f3665">
+<script src="/js/publications.js" defer></script>
+
+<script src="/js/math-config.js?v=c375e403b5ae21aa1c3a1c645064ddcd"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" defer></script>
+
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header shell"><a class="brand" href="/">GP<span> / Gaopei Pan</span></a>
+<nav aria-label="Main navigation"><a href="/">About</a><a href="/pub/">Publications</a><a href="/cv_4.pdf">CV ↗</a><a href="/research-statement.pdf">Research statement ↗</a><a href="/articles/">中文笔记</a></nav></header>
+
+<main id="main" class="shell prose chinese-articles">
+  <article>
+    <a href="/articles/">← 中文笔记</a>
+    <img class="article-cover" src="/articles/zhihu-470421299/cover.jpg" alt="【农夫山泉-8】更新（5）封面" width="996" height="556" fetchpriority="high">
+    <h1>【农夫山泉-8】更新（5）</h1>
+    <div class="article-meta">
+      <time datetime="2024-11-15">更新于 2024-11-15</time>
+       · <a href="https://zhuanlan.zhihu.com/p/470421299">知乎原文 ↗</a>
+    </div>
+    
+    <div class="article-body"><p>在前文我们已经知道，对于某个辅助场的构型，对应的费米子部分的权重为：</p>
+\[
+\prod_{\sigma=\uparrow \downarrow} \operatorname{Det}\left[\mathbf{I}&#43; \mathbf{B}_{C}^{\sigma}(\beta, 0)\right]
+\]<p>因为中间的各种矩阵都是关于自旋上下块的，所以我们可以分开考虑自旋上下的情况，最后再把上和下的权重乘起来。</p>
+<p>根据定义，我们知道某个辅助场构型对应的权重为 \(\operatorname{det}[\mathbf{I}&#43;\mathbf{B}(\beta, \tau) \mathbf{B}(\tau, 0)]\) ，而更新了 \(\tau\) 层（ \(\tau =l \Delta \tau\) ）的辅助场后的权重为：</p>
+\[
+\begin{aligned}  &amp; \operatorname{det}[\mathbf{I}&#43;\mathbf{B}(\beta, \tau) e^{V\left(\vec{S}^{\prime}_{l}\right)} e^{-\Delta \tau T} \mathbf{B}(\tau -\Delta \tau, 0)]\\  = &amp; \operatorname{det}[\mathbf{I}&#43;\mathbf{B}(\beta, \tau) e^{V\left(\vec{S}^{\prime}_{l}\right)} e^{-V\left(\vec{S}_{l}\right)} \mathbf{B}(\tau , 0)]\\  =&amp;\operatorname{det}[\mathbf{I}&#43;\mathbf{B}(\beta, \tau) (\mathbf{I}&#43;\mathbf{\Delta}) \mathbf{B}(\tau , 0)]  \end{aligned}
+\]<p>其中， \(\mathbf{\Delta}=e^{V\left(\vec{S}^{\prime}_{l}\right)} e^{-V\left(\vec{S}_{l}\right)}-\mathbf{I}\) 。我们注意到，对于诸如Hubbard等on-site的相互作用的形式， \(\mathbf{\Delta}=e^{V\left(\vec{S}^{\prime}_{l}\right)-V\left(\vec{S}_{l}\right)} -\mathbf{I}\) 。当改变 \(L \times L \times L_{\tau}\) 中的一个site的辅助场 \(s_{i,l}\) 的值的时候，Δ 矩阵只有一个元素非零，且为 \(e^{\pm \alpha \Delta s_{i,l}}-1\) 。其中的±对应自旋上下。</p>
+<p>因此我们在计算更新前后的接受概率（权重的比值）时，有：</p>
+\[
+\begin{aligned}  &amp; \frac{\operatorname{det}[\mathbf{I}&#43;\mathbf{B}(\beta, \tau)(\mathbf{I}&#43;\Delta) \mathbf{B}(\tau, 0)]}{\operatorname{det}[\mathbf{I}&#43;\mathbf{B}(\beta, \tau) \mathbf{B}(\tau, 0)]} \\  =&amp; \frac{\operatorname{det}[\mathbf{I}&#43;\mathbf{B}(\beta, 0)&#43;\mathbf{B}(\beta, \tau) \Delta \mathbf{B}(\tau, 0)]}{\operatorname{det}[\mathbf{I}&#43;\mathbf{B}(\beta, 0)]} \\  =&amp; \operatorname{det}\left[\mathbf{I}&#43;\mathbf{B}(\beta, \tau) \Delta \mathbf{B}(\tau, 0)(\mathbf{I}&#43;\mathbf{B}(\beta, 0))^{-1}\right] \\  =&amp; \operatorname{det}\left[\mathbf{I}&#43;\Delta \mathbf{B}(\tau, 0)(\mathbf{I}&#43;\mathbf{B}(\beta, 0))^{-1} \mathbf{B}(\beta, \tau)\right] \\  =&amp; \operatorname{det}\left[\mathbf{I}&#43;\boldsymbol{\Delta}\left(\mathbf{I}-(\mathbf{I}&#43;\mathbf{B}(\tau, 0) \mathbf{B}(\beta, \tau))^{-1}\right)\right] \\  =&amp; \operatorname{det}[\mathbf{I}&#43;\mathbf{\Delta}(\mathbf{I}-\mathbf{G}(\tau, \tau))]  \end{aligned}
+\]<p>其中第四个等号用到了Sherman-Morrison公式：</p>
+\[
+(\mathbf{I}&#43;\mathbf{U V})^{-1}=\mathbf{I}-\mathbf{U}\left(\mathbf{I}_{k}&#43;\mathbf{V U}\right)^{-1} \mathbf{V}
+\]<p>U是 \(N \times k\) 的矩阵，V是 \(k \times N\) 的矩阵。证明见前文附录。因为此处的 Δ矩阵只有一个元素非零，则接受概率实际上可以通过如下方式简单计算：</p>
+\[
+\begin{aligned}  r=&amp;\operatorname{det}[\mathbf{I}_{N \times N}&#43;\mathbf{\Delta}_{N \times N}(\mathbf{I}-\mathbf{G}(\tau, \tau))_{N \times N}] \\  =&amp; \operatorname{det}[\mathbf{I}_{N \times N}&#43;\mathbf{\Delta}_{N \times 1}(\mathbf{I}-\mathbf{G}(\tau, \tau))_{1 \times N}]\\  =&amp; \operatorname{det}[\mathbf{I}_{1 \times 1}&#43;(\mathbf{I}-\mathbf{G}(\tau, \tau))_{1 \times N} \mathbf{\Delta}_{N \times 1}]\\  =&amp; \operatorname{det}[\mathbf{I}_{1 \times 1}&#43;(\mathbf{I}-\mathbf{G}(\tau, \tau))_{1 \times 1} \mathbf{\Delta}_{1 \times 1}]\\  =&amp; 1&#43;\mathbf{\Delta}_{i i}\left(1-\mathbf{G}_{i i}\right)  \end{aligned}
+\]<p>其中第二个等号利用了公式</p>
+\[
+\det(I_{m}&#43;AB)=\det(I_{n}&#43;BA)  \label{eq1}
+\]<p>，证明见附录：</p>
+\[
+\det(\mathbf{I}_{N}&#43;\mathbf{U V})=\det(\mathbf{I}_{k}&#43;\mathbf{ VU})
+\]<p>比如自旋上部分的权重比就为  \(1&#43;(e^{\alpha \Delta s_{i,l}}-1)(1-G^{\uparrow}(\tau,\tau)_{i,i})\) ，自旋下部分 \(1&#43;(e^{-\alpha \Delta s_{i,l}}-1)(1-G^{\downarrow}(\tau,\tau)_{i,i})\) 。我们看到，因为Hubbard的特殊形式，导致我们其实在有对应等时格林函数的值的时候，不需要计算一个巨大矩阵的乘法再加上行列式，只需要计算一个数，即能得到接受概率。</p>
+<p>而这样的方式需要我们随时更新的等时格林函数的数值。根据定义：</p>
+\[
+\begin{aligned}  \mathbf{G}^{\prime}(\tau, \tau) &amp;=[\mathbf{I}&#43;(\mathbf{I}&#43;\boldsymbol{\Delta}) \mathbf{B}(\tau, 0) \mathbf{B}(\beta, \tau)]^{-1} \\  &amp;=\mathbf{G}(\tau, \tau)[(\mathbf{I}&#43;(\mathbf{I}&#43;\boldsymbol{\Delta}) \mathbf{B}(\tau, 0) \mathbf{B}(\beta, \tau)) \mathbf{G}(\tau, \tau)]^{-1} \\  &amp;=\mathbf{G}(\tau, \tau)\left[\left(\mathbf{I}&#43;(\mathbf{I}&#43;\boldsymbol{\Delta})\left(\mathbf{G}^{-1}(\tau, \tau)-\mathbf{I}\right)\right) \mathbf{G}(\tau, \tau)\right]^{-1} \\  &amp;=\mathbf{G}[\mathbf{I}&#43;\boldsymbol{\Delta}(\mathbf{I}-\mathbf{G})]^{-1}  \end{aligned}
+\]<p>同样的利用Sherman-Morrison公式：</p>
+\[
+(\mathbf{I}&#43;\mathbf{U V})^{-1}=\mathbf{I}-\mathbf{U}\left(\mathbf{I}_{k}&#43;\mathbf{V U}\right)^{-1} \mathbf{V}
+\]<p>我们有：</p>
+\[
+\begin{aligned}  \mathbf{G}^{\prime}(\tau, \tau) &amp;=\mathbf{G}_{N \times N  }(\mathbf{I}_{N \times N}&#43;\boldsymbol{\Delta}_{N \times N} (\mathbf{I}-\mathbf{G})_{N \times N})^{-1} \\  &amp;=\mathbf{G}_{N \times N}(\mathbf{I}_{N \times N}&#43;\boldsymbol{\Delta}_{N \times 1} (\mathbf{I}-\mathbf{G})_{1 \times N})^{-1} \\  &amp;\left.=\mathbf{G}_{N \times N}\left[\mathbf{I}_{N \times N}-\boldsymbol{\Delta}_{N \times 1}\left(\mathbf{I}_{1 \times 1}&#43;(\mathbf{I}-\mathbf{G})_{1 \times N} \boldsymbol{\Delta}_{N \times 1}\right)^{-1} (\mathbf{I}-\mathbf{G})_{1 \times N}\right)\right] \\  &amp;=\mathbf{G}_{N \times N}-\mathbf{G}_{N \times N} \boldsymbol{\Delta}_{N \times 1} \; \frac{1}{r}\; (\mathbf{I}-\mathbf{G})_{1 \times N} \\  &amp;=\mathbf{G}_{N \times N}-\mathbf{G}_{N \times 1} \boldsymbol{\Delta}_{1 \times 1} \; \frac{1}{r}\; (\mathbf{I}-\mathbf{G})_{1 \times N}\\  &amp;=\mathbf{G}_{N \times N}-\mathbf{G}(:,i) \boldsymbol{\Delta}_{ii} \; \frac{1}{r}\; (\mathbf{I}-\mathbf{G})(i,:)  \end{aligned}
+\]<p>在更新完某一虚时层的辅助场之后，我们转而尝试更新下一层的辅助场，此时将得到新虚时位置的格林函数，从格林函数的定义我们知道：</p>
+\[
+\mathbf{G}(\tau&#43;\Delta \tau, \tau&#43;\Delta \tau)=\mathbf{B}(\tau&#43;\Delta \tau, \tau) \mathbf{G}(\tau, \tau) \mathbf{B}^{-1}(\tau&#43;\Delta \tau, \tau)
+\]<p>类似的，我们有：</p>
+\[
+\mathbf{G}(\tau-\Delta \tau, \tau-\Delta \tau)=\mathbf{B}^{-1}(\tau, \tau-\Delta \tau) \mathbf{G}(\tau, \tau) \mathbf{B}(\tau, \tau -\Delta \tau)
+\]<p>我们实际计算中，经常从第1层到第 \(L_\tau\) 层的辅助场逐层逐个尝试更新，在每一层更新的时候，计算该层的格林函数 \(G^{\uparrow / \downarrow}(\tau,\tau)\) 和相应的更新的权重 \(r^{\uparrow} r^{\downarrow}\) 。然后在将要进行下一层更新的时候，用传递的方式得到下一层的格林函数 \(\mathbf{G}(\tau&#43;\Delta \tau, \tau&#43;\Delta \tau)\) ，即我们只需知道该虚时层所对应的格林函数，而非时刻知道所有的等时格林函数的值。在进行了从第1层到第 \(L_\tau\) 层的sweep之后，我们从第 \(L_\tau\) 层到第1层再反过来一遍，中间的行为是类似的。</p>
+</div>
+    
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+        <nav class="article-pagination" aria-label="笔记翻页">
+          
+            
+            <a class="article-previous" href="/articles/zhihu-260174988/" rel="prev"><span>← 上一篇</span><strong>【农夫山泉-7】物理量（4）</strong></a>
+            
+          
+          
+            
+            <a class="article-next" href="/articles/zhihu-470456484/" rel="next"><span>下一篇 →</span><strong>【农夫山泉-9】数值稳定与符号问题（6）</strong></a>
+            
+          
+        </nav>
+        
+      
+    
+      
+    
+  </article>
+</main>
+<footer class="shell footer"><span>© 2026 Gaopei Pan · 潘高培</span><span>Quantum many-body physics</span></footer>
+
+</body>
+</html>

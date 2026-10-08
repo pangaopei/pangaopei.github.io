@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>【农夫山泉-4】Determinant Quantum Monte Carlo(DQMC)的D（1） · Gaopei Pan · 潘高培</title>
+<meta name="description" content="Gaopei Pan · Quantum Monte Carlo, quantum criticality, entanglement, and strongly correlated quantum matter.">
+<link rel="canonical" href="https://pangaopei.github.io/articles/zhihu-157344529/">
+<link rel="stylesheet" href="/css/academic.css?v=93f2fe6ef78210cdfc7218edf80f3665">
+<script src="/js/publications.js" defer></script>
+
+<script src="/js/math-config.js?v=c375e403b5ae21aa1c3a1c645064ddcd"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" defer></script>
+
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header shell"><a class="brand" href="/">GP<span> / Gaopei Pan</span></a>
+<nav aria-label="Main navigation"><a href="/">About</a><a href="/pub/">Publications</a><a href="/cv_4.pdf">CV ↗</a><a href="/research-statement.pdf">Research statement ↗</a><a href="/articles/">中文笔记</a></nav></header>
+
+<main id="main" class="shell prose chinese-articles">
+  <article>
+    <a href="/articles/">← 中文笔记</a>
+    <img class="article-cover" src="/articles/zhihu-157344529/cover.jpg" alt="【农夫山泉-4】Determinant Quantum Monte Carlo(DQMC)的D（1）封面" width="997" height="558" fetchpriority="high">
+    <h1>【农夫山泉-4】Determinant Quantum Monte Carlo(DQMC)的D（1）</h1>
+    <div class="article-meta">
+      <time datetime="2020-07-06">更新于 2020-07-06</time>
+       · <a href="https://zhuanlan.zhihu.com/p/157344529">知乎原文 ↗</a>
+    </div>
+    
+    <div class="article-body"><p>我们已经知道，对于经典的系统，我们有配分函数：</p>
+<p>\(Z=\sum_{C} e^{-\beta E_{C}}\)</p>
+<p>其中 \(C\) 是Configuration的缩写。此时对于其中某一种构型，其对应的概率（权重）为：</p>
+<p>\(p(C)=\frac{e^{-\beta E_{C}}}{Z}\)</p>
+<p>在经典的MCMC中，我们做的事情无非是，给定了与构型有关的概率分布函数，然后来生成满足这个概率分布的样本。</p>
+<p>对于物理量的测量则为：</p>
+<p>\(\langle O\rangle=\frac{1}{Z} \sum_{C} O e^{-\beta E_{C}}\)</p>
+<p>对于一个量子系统，量子统计的知识告诉我们：</p>
+<p>\(Z=\operatorname{Tr}\left[e^{-\beta(H-\mu N)}\right]\)</p>
+<p>此时的物理量的测量为：</p>
+<p>\(\langle O\rangle=\frac{\operatorname{Tr}\left[e^{-\beta(H-\mu N)} O\right]}{\operatorname{Tr}\left[e^{-\beta(H-\mu N)}\right]}\)</p>
+<p>自然的，如果我们还能把配分函数写成一系列正实数的求和，即写成类似经典概率分布的样子，我们不是就能继续用生成经典概率分布的方法，Metropolis-Hasting等来进行计算了吗？我们就要想办法把这些带着算符和左右矢的东西，变成一个number。还要是正的实数（否则如果是负数或者复数，就不太能用经典蒙卡方法来计算）。</p>
+<p>DQMC主要用来计算有限温的费米子系统。在实际运作的过程中，其中只有二费米子的部分（自由费米子其实都手解了哈哈哈）。那么对于Hubbard Model这种含有四费米相互作用的哈密顿量，我们通常采取Hubbard-Stratonovich变换的方式，引入辅助场进行decouple。然后就变成了二费米子的形式，多了一个辅助场。（后面我们会知道不同的decouple的方式可能会导致符号问题的有无）</p>
+<p>DQMC之所以叫行列式蒙特卡洛，就在于他将求Trace转化为了求一个矩阵的行列式。如我们要求形如以下形式的Trace：</p>
+<p>\(\operatorname{Tr}\left[e^{-\sum_{i, j} \hat{c}_{i}^{\dagger} A_{i, j} \hat{c}_{j}}\right]=\operatorname{Det}\left[\mathbf{1}&#43;e^{-\mathbf{A}}\right]\)</p>
+<p>其中 \(A_{i,j}\) 为矩阵 \(A\) 的元素。我们可以看到求Trace的操作转化为了求一个单位阵 \(\mathbf{1}\) 加上矩阵 \(e^{-\mathbf{A}}\) 的行列式。</p>
+<p>证明的方式多种多样，比如我们可以把e指数上的部分进行对角化，Trace即为对于 \(n_i=0,1\) 的所有可能性求和：</p>
+<p>\(\operatorname{Tr}\left[e^{-\sum_{i, j} \hat{c}_{i}^{\dagger} A_{i, j} \hat{c}_{j}}\right]=\operatorname{Tr}\left[e^{-\sum_{k} \epsilon(k) \hat{c}_{k}^{\dagger}\hat{c}_{k}}\right]=\Pi_{k}\operatorname{Tr}\left[e^{- \epsilon(k) \hat{c}_{k}^{\dagger}\hat{c}_{k}}\right]=\Pi_{k}[1&#43;e^{-\epsilon(k)}]\)</p>
+<p>行列式就是本征值的乘积嘛，上述等式显然成立。</p>
+<p>或者如果觉得e指数上带着算符不太直接，可以进行展开：</p>
+<p>\(\exp \left(-c_{k}^{\dagger} \epsilon(k) c_{k}\right)=1-c_{k}^{\dagger}  \epsilon(k) c_{k}&#43;\frac{1}{2 !} c_{k}^{\dagger}  \epsilon(k)c_{k} c_{k}^{\dagger}  \epsilon(k) c_{k}-\frac{1}{3 !} \ldots\)</p>
+<p>再利用 \(c_{k}^{\dagger} c_{k}&#43;c_{k} c_{k}^{\dagger}=1\) 和 \(c_{k} c_{k}|\psi\rangle=0\) ，有：</p>
+\[
+\begin{aligned} \exp \left(-c_{k}^{\dagger} \epsilon(k) c_{k}\right) &amp;=1-c_{k}^{\dagger} \epsilon(k) c_{k}&#43;\frac{1}{2 !} c_{k}^{\dagger} \epsilon(k)^{2} c_{k}-\frac{1}{3 !} \cdots \\ &amp;=1&#43;\left[e^{ -\epsilon(k)}-1\right] c_{k}^{\dagger} c_{k} \end{aligned}
+\]<p>（聪明的同学显然早就知道费米子的话 \(\hat{n}_{k} ^m=\hat{n}_{k}\) 了&hellip;）</p>
+<p>而对DQMC重要的是，上式的推广形式。对于新的形式我们依旧能进行对角化（抄一下PhysRevB.31.4403）：</p>
+<p>\(e^{-\sum_{i, j} c_{i}^{\dagger} A_{i, j} c_{j}} e^{-\sum_{i, j} c_{i}^{\dagger} B_{i, j} c_{j}}=e^{-\sum_{\nu} c_{\nu}^{\dagger} l_{\nu} c_{\nu}}\)</p>
+<p>从单粒子态开始：\(e^{-A} e^{-B}\) 作用在 \(|\psi\rangle=c_{\nu}^{\dagger}|0\rangle\) ：</p>
+<p>\(e^{-\sum_{i, j} c_{i}^{\dagger} A_{i, j} c_{j}} e^{-\sum_{i, j} c_{i}^{\dagger} B_{i, j} c_{j}}|\psi\rangle=\left(e^{-A} e^{-B}\right)_{\nu \nu} c_{\nu}^{\dagger}|0\rangle=e^{-l_{\nu}} c_{\nu}^{\dagger}|0\rangle\)</p>
+<p>考虑一个多粒子态比如二粒子态 \(|\phi\rangle=c_{\mu_{1}}^{\dagger} c_{\mu_{2}}^{\dagger}|0\rangle\) ，有：</p>
+\[
+\begin{aligned} e^{-c_{i}^{\dagger} B_{i j} c_{j}}|\phi\rangle &amp;=\prod_{\mu}\left[1&#43;\left(e^{-B_{\mu}}-1\right) c_{\mu}^{\dagger} c_{\mu}\right] c_{\mu_{1}}^{\dagger} c_{\mu_{2}}^{\dagger}|0\rangle \\ &amp;=e^{-B_{\mu_{1}}} e^{-B_{\mu_{2}}} c_{\mu_{1}}^{\dagger} c_{\mu_{2}}^{\dagger}|0\rangle \end{aligned}
+\]<p>因此我们有：</p>
+<p>\(\operatorname{Tr}\left[e^{-\sum_{i, j} c_{i}^{\dagger} A_{i, j} c_{j}} e^{-\sum_{i, j} c_{i}^{\dagger} B_{i, j} c_{j}}\right]=\operatorname{Det}\left(1&#43;e^{-\mathbf{A}} e^{-\mathbf{B}}\right)\)</p>
+<p>对于更一般的情况，形式不言自明。</p>
+<p>（啊简单的开个小头，辉夜第二季完了，七月番看啥好呢？）</p>
+</div>
+    
+    
+    
+      
+    
+      
+    
+      
+    
+      
+        
+        <nav class="article-pagination" aria-label="笔记翻页">
+          
+            
+            <a class="article-previous" href="/articles/zhihu-110699864/" rel="prev"><span>← 上一篇</span><strong>【凑字数-3】细致平衡</strong></a>
+            
+          
+          
+            
+            <a class="article-next" href="/articles/zhihu-157959170/" rel="next"><span>下一篇 →</span><strong>【农夫山泉-5】从Hubbard Model开始的DQMC（2）</strong></a>
+            
+          
+        </nav>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </article>
+</main>
+<footer class="shell footer"><span>© 2026 Gaopei Pan · 潘高培</span><span>Quantum many-body physics</span></footer>
+
+</body>
+</html>

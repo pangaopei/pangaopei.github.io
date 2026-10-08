@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>【凑字数-2】一些基本须知和准备 · Gaopei Pan · 潘高培</title>
+<meta name="description" content="Gaopei Pan · Quantum Monte Carlo, quantum criticality, entanglement, and strongly correlated quantum matter.">
+<link rel="canonical" href="https://pangaopei.github.io/articles/zhihu-35327282/">
+<link rel="stylesheet" href="/css/academic.css?v=93f2fe6ef78210cdfc7218edf80f3665">
+<script src="/js/publications.js" defer></script>
+
+<script src="/js/math-config.js?v=c375e403b5ae21aa1c3a1c645064ddcd"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" defer></script>
+
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header shell"><a class="brand" href="/">GP<span> / Gaopei Pan</span></a>
+<nav aria-label="Main navigation"><a href="/">About</a><a href="/pub/">Publications</a><a href="/cv_4.pdf">CV ↗</a><a href="/research-statement.pdf">Research statement ↗</a><a href="/articles/">中文笔记</a></nav></header>
+
+<main id="main" class="shell prose chinese-articles">
+  <article>
+    <a href="/articles/">← 中文笔记</a>
+    <img class="article-cover" src="/articles/zhihu-35327282/cover.jpg" alt="【凑字数-2】一些基本须知和准备封面" width="992" height="529" fetchpriority="high">
+    <h1>【凑字数-2】一些基本须知和准备</h1>
+    <div class="article-meta">
+      <time datetime="2018-06-03">更新于 2018-06-03</time>
+       · <a href="https://zhuanlan.zhihu.com/p/35327282">知乎原文 ↗</a>
+    </div>
+    <details class="article-toc"><summary>目录</summary><nav id="TableOfContents">
+  <ul>
+    <li><a href="#一个简单的例子横场伊辛">一个简单的例子——横场伊辛</a></li>
+    <li><a href="#d维量子系统与d1维经典系统的对应">d维量子系统与d+1维经典系统的对应</a></li>
+  </ul>
+</nav></details>
+    <div class="article-body"><p>毕设跌宕起伏，故事千回百转&hellip;算QCP途中疑似超导，看领域大佬类似的模型说也仿佛看到超导&hellip;然鹅搞了半天是超乎想象的有限尺度效应&hellip;</p>
+<p>忙的很久没更了&hellip;</p>
+<p>因为后续可能多不再进行经典模型的模拟，所以在这里先补充一波必要的基本知识和常用手段。</p>
+<p>对于量子model，一般形如： \(H=H_0&#43;gH_1\) ，此时的 \(H_0\) 和\(H_1\)通常不对易，对应着不同的基态，则改变 \(g\) 的大小则整个系统的基态会发生改变。</p>
+<p>我们知道对于量子系统的配分函数，形式为：</p>
+<p>\(Z=Tr\left \{ e^{-\beta H} \right \}\)</p>
+<p>算符的期望值：</p>
+<p>\(\left \langle O \right \rangle=\frac{Tr\left \{ Oe^{-\beta H} \right \}}{Z}\)</p>
+<p>对于一组完备基，我们有：</p>
+<p>\(Z=\sum_{\left \{ \phi \right \}} \left \langle \left \{ \phi \right \}|e^{-\beta H}|\left \{ \phi \right \} \right \rangle\)</p>
+<p>算符 \(e^{-\beta H}\) 有着量子力学中的时间演化算符的形式，只需把 \(-i\beta\) 对应 \(t\) ，相应的有了虚时 \(\beta\) 。当温度趋向于0时， \(\beta\) 趋向于无穷。我们把虚时看做新的一维，发现可将量子的配分函数改写为经典的高一维的配分函数的形式。我们常称之为 \((d&#43;1)\) 维的model</p>
+<p>对于关联长度，经典情况下： \(\xi \sim |T-T_c|^{-\nu}\)</p>
+<p>而对于此时的量子系统，空间尺度的关联长度为： \(\xi \sim |g-g_c|^{-\nu}\)</p>
+<p>新维度上通常为： \(\xi_\tau \sim \xi^z \sim |g-g_c|^{-z\nu}\) 如果没记错一般 \(O(n)\) model 的话 \(z=1\) ，我们在进行模拟时最好保持 \(\beta\) 和 \(L\) 同比例增长。</p>
+<h2 id="一个简单的例子横场伊辛">一个简单的例子——横场伊辛</h2>
+<p>经典的伊辛模型已经在上 一篇文章中简要说明过，而外加横场的量子伊辛模型，在量子领域同样是十分基础和重要的模型。</p>
+<p>哈密顿量如下：</p>
+<p>\(H=H_0&#43;H_1\)</p>
+<p>其中</p>
+<p>\(H_0=-J\sum_{&lt;i,j&gt;}\sigma _i^z \sigma_j^z \\ H_1=-h\sum_{i}\sigma_i^x\)</p>
+<p>\(\sigma^x\) 等为泡利矩阵：</p>
+<p>\(\sigma_i^x=\begin{pmatrix} 0 &amp; 1\\ 1 &amp; 0 \end{pmatrix},\qquad \sigma_i^z=\begin{pmatrix} 1 &amp; 0\\ 0 &amp; -1 \end{pmatrix}\)</p>
+<h2 id="d维量子系统与d1维经典系统的对应">d维量子系统与d+1维经典系统的对应</h2>
+<p>将 \(\beta\) 视为虚时间， \(\beta=L\Delta \tau\) ,则配分函数可写作：</p>
+\[
+\begin{alignat}{2} Z&amp;=\mathrm{Tr}\left [ e^{-\beta H} \right ]\nonumber \\ &amp;=\mathrm{Tr}\left [ e^{-\Delta \tau H} e^{-\Delta \tau H}... e^{-\Delta \tau H} e^{-\Delta \tau H} \right ] \end{alignat}
+\]<p>我们知道：</p>
+\[
+\begin{alignat}{2} 1&amp;=\prod_{i=1}^{N}\left [ \sum_{S_i^z=\pm 1}|S_i^z \rangle \langle S_i^z| \right ]\nonumber \\ &amp;\equiv \sum_{\left \{ S_i^z \right \}} |S_i^z \rangle \langle S_i^z| \end{alignat}
+\]<p>分别在不同的地方将其插入并最终用这组基来求Trace，有：</p>
+\[
+\label{shangshu} Z= \sum_{\left \{ S_{i,l}=\pm 1 \right \}} \langle S_1^z| e^{-\Delta \tau H} |S_L^z \rangle \langle S_L^z| e^{-\Delta \tau H} |S_{L-1}^z \rangle \langle S_{L-1}^z| e^{-\Delta \tau H} |S_{L-2}^z \rangle...\langle S_3^z| e^{-\Delta \tau H} |S_2^z \rangle \langle S_2^z| e^{-\Delta \tau H} |S_1^z \rangle
+\]<p>因为 \(H_0\) 和 \(H_1\) 不对易，所以我们采用这都有名字系列我甚至不想打公式的Trotter-Suzuki近似：</p>
+\[
+e^{\Delta(A&#43;B)}=\begin{cases}
+e^{\Delta A}e^{\Delta B}&#43;\mathcal{O}(\Delta^2),\\
+e^{\Delta B/2}e^{\Delta A}e^{\Delta B/2}&#43;\mathcal{O}(\Delta^3).
+\end{cases}
+\]<p>这也是此种蒙卡会造成误差的地方。我们有</p>
+\[
+\begin{alignat}{2} \langle S_{l&#43;1}^z| e^{-\Delta \tau H}|S_l^z \rangle&amp;=\langle S_{l&#43;1}^z| e^{-\Delta \tau H_1-\Delta \tau H_0}|S_l^z \rangle \nonumber \\ &amp;\approx \langle S_{l&#43;1}^z| e^{-\Delta \tau H_1}e^{-\Delta \tau H_0}&#43;\mathbf{O}\left ( \epsilon \right )|S_l^z \rangle \end{alignat}
+\]<p>其中</p>
+\[
+\epsilon=\left [ \Delta \tau H_0,\Delta \tau H_1 \right ]=(\Delta \tau)^2 [H_0,H_1]=\mathbf{O}((\Delta \tau)^2Jh)
+\]<p>要求</p>
+<p>\((\Delta \tau)^2Jh\ll 1 \\ L^2\gg \beta^2Jh\\ L\gg \beta\sqrt{Jh}\)</p>
+<p>对于其中的一项，进行细致的推导：</p>
+\[
+\langle S_{l&#43;1}^z| e^{-\Delta \tau H_1}e^{-\Delta \tau H_0}|S_l^z \rangle=e^{-\Delta \tau J \sum_{i=1}^{N}S_{i,l}^z S_{i&#43;1,l}^z}\langle S_{l&#43;1}^z| e^{-\Delta \tau h \sum_{i=1}^{N}\sigma _i^x}|S_l^z \rangle
+\]<p>又因为</p>
+\[
+e^{\Delta \tau h \sigma_x}=\mathbf{I}\cosh(\Delta \tau h)&#43;\mathbf{\sigma _x}\sinh(\Delta \tau h)
+\]<p>表示为如下形式：</p>
+\[
+\langle S_z^{&#39;}|e^{\Delta \tau h \sigma_x}|S_z \rangle=\Lambda e^{\gamma S_z^{&#39;}S_z}
+\]<p>代入 \(S_z=S_z^{&#39;}\) 和 \(S_z=-S_z^{&#39;}\) 可解出两个参数如下：</p>
+\[
+\begin{align}\label{qw} \gamma =-\frac{1}{2}\ln(\tanh(\Delta \tau h))\\ \Lambda ^2=\sinh(\Delta \tau h)\cosh(\Delta \tau h) \end{align}
+\]<p>得到</p>
+\[
+\langle S_{l&#43;1}^z| e^{-\Delta \tau H_1}e^{-\Delta \tau H_0}|S_l^z \rangle=\Lambda^N e^{\Delta \tau J\sum_{i=1}^{N}S_{i,l}^z S_{i&#43;1,l}^z&#43;\gamma \sum_{i=1}^{N}S_{i,l}^z S_{i,l&#43;1}^z}
+\]<p>由此配分函数可写作与经典Ising一致的形式：</p>
+\[
+Z_{cl}=\Lambda^{NL}\sum_{\left \{ S_{i,l}=\pm 1 \right \}} e^{\beta_{cl}J_x\sum_{i=1}^{N_x}\sum_{j=1}^{N_y}S_{i,j}S_{i&#43;1,j}&#43;\beta_{cl}J_y\sum_{i=1}^{N_x}\sum_{j=1}^{N_y}S_{i,j}S_{i,j&#43;1}}
+\]<p>而此时其中的参数则变为了</p>
+<p>\(N_x=N\\ N_y=L\\ \beta_{cl}J_x=\Delta \tau J\\ \beta_{cl}J_y=\gamma\\\)</p>
+<p>我们就这么将一个 \(d\) 维量子系统的模拟转变为了 \(d&#43;1\) 维的经典伊辛模型的模拟，无非是 \(J\) 有了改变。</p>
+<p>对于一维横场伊辛模型，相变点应该在 \(h=J\) 处，二维应该在 \(3.04438(2)J\) ？</p>
+<p>当然了你完全可以拿SSE（随机级数展开来算），没有 \(\Delta \tau\) 相关的误差了而且更快更准（当然会有别的）。比如上述二维横场伊辛的相变点就是有人拿SSE暴力算到了128*128的格子定出来的&hellip;&hellip;</p>
+<p>不知道什么时候有时间写些SSE啊Worm啊之类的或是Hybrid蒙卡&hellip;</p>
+<p>不过按照最近几个月的肝度我觉得悬&hellip;</p>
+<p>比如前几天：</p>
+<p>老板：“明天周四，你要回玉泉路上课是吧？（失望状）”</p>
+<p>我：“不啊&hellip;老师我明天下午在D楼答辩啊”</p>
+<p>老板：“哦你明天答辩啊，那你明天会在所里！（开心状）”</p>
+<p>答辩的前两个小时收到微信：“你答完辩就过来吧我们下午跟xxx（来访问的某明尼苏达博后）讨论你可以听一下”</p>
+<p>（又一次在看小樱更新的时候被老板推门而入了绝望&hellip;幸好为了截图我点了暂停→_→）</p>
+</div>
+    
+    
+    
+      
+    
+      
+        
+        <nav class="article-pagination" aria-label="笔记翻页">
+          
+            
+            <a class="article-previous" href="/articles/zhihu-34252434/" rel="prev"><span>← 上一篇</span><strong>【尝试灌水-1】入门，蒙卡及伊辛</strong></a>
+            
+          
+          
+            
+            <a class="article-next" href="/articles/zhihu-110699864/" rel="next"><span>下一篇 →</span><strong>【凑字数-3】细致平衡</strong></a>
+            
+          
+        </nav>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </article>
+</main>
+<footer class="shell footer"><span>© 2026 Gaopei Pan · 潘高培</span><span>Quantum many-body physics</span></footer>
+
+</body>
+</html>

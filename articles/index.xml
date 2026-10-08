@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Gaopei Pan on Gaopei Pan · 潘高培</title>
-    <link>https://pangaopei.github.io/</link>
-    <description>Recent content in Gaopei Pan on Gaopei Pan · 潘高培</description>
+    <title>中文笔记 on Gaopei Pan · 潘高培</title>
+    <link>https://pangaopei.github.io/articles/</link>
+    <description>Recent content in 中文笔记 on Gaopei Pan · 潘高培</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 15 Nov 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://pangaopei.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://pangaopei.github.io/articles/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【尝试灌水-1】入门，蒙卡及伊辛</title>
       <link>https://pangaopei.github.io/articles/zhihu-34252434/</link>
@@ -70,20 +70,6 @@
       <pubDate>Tue, 22 Feb 2022 00:00:00 +0000</pubDate>
       <guid>https://pangaopei.github.io/articles/zhihu-470456484/</guid>
       <description>&lt;p&gt;由于每次更新格林函数都是在原有格林函数的基础上进行累积更新，并且需要在不同虚时上进行传递，数值误差的积累会越来越大。格林函数的计算涉及到的是矩阵运算，其数值误差增长的快慢与 B 矩阵的范数有关。一个矩阵的范数指的是最大奇异值和最小奇异值的比值，对于无相互作用系统， B矩阵的范数就是exp⁡(βW)，其中W为能带最高与最低能量之差，即带宽。而对于相互作用体系，一般来说，β越大，相互作用强度越大， B矩阵的范数就越大，这点我们在数值计算中已经验证过。&lt;/p&gt;&#xA;&lt;p&gt;在大 U或是β很大的时候，计算格林函数就会有很大的数值稳定的问题，其原因在于&amp;hellip;各矩阵的范数/condition number过大，在矩阵相乘的时候，大的和小的scale混在一起。我们有很多已经被证明是weakly backward stable的算法&lt;/p&gt;&#xA;&lt;p&gt;对于格林函数的求解，等价为解线性方程组：&lt;/p&gt;&#xA;\[&#xD;&#xA;\left(I_{n}&amp;#43;B_{L} \cdots B_{2} B_{1}\right) x=b&#xD;&#xA;\]&lt;p&gt;我们定义condition number为矩阵和矩阵的逆的范数的乘积：&lt;/p&gt;&#xA;\[&#xD;&#xA;\kappa\left(I_{n}&amp;#43;B_{L} \cdots B_{2} B_{1}\right) \equiv\left\|I_{n}&amp;#43;B_{L} \cdots B_{2} B_{1}\right\| \|\left(I_{n}&amp;#43;B_{L} \cdots B_{2} B_{1}\right)^{-1}&#xD;&#xA;\]&lt;p&gt;该量大概的和矩阵最大奇异值与最小奇异值的比值有关，与矩阵乘法误差的上界有关。&lt;/p&gt;&#xA;&lt;p&gt;因为condition number过大，所以我们得到的解的相对误差：&lt;/p&gt;&#xA;\[&#xD;&#xA;\frac{\|\tilde{x}-x\|}{\|x\|}=\mathcal{O}\left(\epsilon_{\mathrm{m}} \kappa\left(I_{n}&amp;#43;B_{L} \cdots B_{2} B_{1}\right)\right)&#xD;&#xA;\]&lt;p&gt;会非常大。其中  \(\epsilon_{\mathrm{m}}\) 是机器的unit round off 误差，IEEE单精度是 \(\epsilon_{\mathrm{m}}=2^{-24}\) ，IEEE双精度是 \(2^{-53}\) 。某些情况下 \(\epsilon_{\mathrm{m}} \kappa\left(I_{n}&amp;#43;B_{L} \cdots B_{2} B_{1}\right)\) 很容易就比1还大，这意味着你的解可能一位有效的都没有。&lt;/p&gt;&#xA;&lt;p&gt;数值稳定的具体操作如下。&lt;/p&gt;&#xA;&lt;p&gt;先回忆一下定义：&lt;/p&gt;&#xA;\[&#xD;&#xA;\mathbf{B}^{\sigma}\left(l_{2} \Delta \tau, l_{1} \Delta \tau\right)=\prod_{l=l_{1}&amp;#43;1}^{l_{2}} e^{\pm \alpha \operatorname{Diag}\left(\vec{S}_{l}\right)} e^{-\Delta \tau T}&#xD;&#xA;\]&lt;p&gt;其中 ±对应自旋上下， \(\cosh (\alpha)=e^{\Delta \tau U / 2}\) ， \(\operatorname{Diag}\left(\vec{S}_{l}\right)\) 表示对角元分别为 \(s_{i, l}=\pm 1\) 的矩阵，T为只在最近邻处有矩阵元−t的矩阵。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>About</title>
-      <link>https://pangaopei.github.io/about/</link>
-      <pubDate>Fri, 14 Oct 2022 01:14:20 +0800</pubDate>
-      <guid>https://pangaopei.github.io/about/</guid>
-      <description>&lt;p&gt;Thanks~&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Publications</title>
-      <link>https://pangaopei.github.io/pub/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://pangaopei.github.io/pub/</guid>
-      <description></description>
     </item>
   </channel>
 </rss>
