@@ -122,6 +122,17 @@ h1{font-size:48px}
 .article-toc{margin:28px 0;padding:16px 20px;border:1px solid var(--line)}
 .article-toc summary{cursor:pointer}
 .article-toc nav{display:block;font-size:14px}
+.article-sidebar{display:none}
+@media(min-width:1100px){
+  .article-with-sidebar{max-width:1200px;display:grid;grid-template-columns:210px minmax(0,1fr);gap:48px}
+  .article-with-sidebar>article{min-width:0}
+  .article-with-sidebar .article-toc{display:none}
+  .article-sidebar{display:block;align-self:start;position:sticky;top:28px;max-height:calc(100vh - 56px);overflow-y:auto;padding-right:12px;font-size:13px;line-height:1.7}
+  .article-sidebar nav{display:block;font-size:13px}
+  .article-sidebar ul{list-style:none;padding:0;margin:0}
+  .article-sidebar li{margin-bottom:12px}
+  .article-sidebar ul ul{padding-left:14px;margin-top:10px}
+}
 .article-body{margin-top:32px;overflow-x:clip}
 .article-body h2,.article-body h3{margin-top:2em;scroll-margin-top:24px}
 .article-body img{max-width:100%;height:auto}
