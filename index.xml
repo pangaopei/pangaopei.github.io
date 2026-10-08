@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Gaopei Pan (潘高培)</title>
+    <title>Gaopei Pan on Gaopei Pan · 潘高培</title>
     <link>https://pangaopei.github.io/</link>
-    <description>Recent content on Gaopei Pan (潘高培)</description>
+    <description>Recent content in Gaopei Pan on Gaopei Pan · 潘高培</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <copyright>© Copyright notice</copyright>
     <lastBuildDate>Fri, 14 Oct 2022 01:14:20 +0800</lastBuildDate>
     <atom:link href="https://pangaopei.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -17,11 +16,11 @@
       <description>&lt;p&gt;Thanks~&lt;/p&gt;</description>
     </item>
     <item>
-      <title>Publication List</title>
+      <title>Publications</title>
       <link>https://pangaopei.github.io/pub/</link>
-      <pubDate>Fri, 14 Oct 2022 01:14:20 +0800</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://pangaopei.github.io/pub/</guid>
-      <description>&lt;h2 id=&#34;publication-list&#34;&gt;Publication List&lt;/h2&gt;&#xA;&lt;h3 id=&#34;first-authorcorresponding-author-&#34;&gt;First author/Corresponding author :&lt;/h3&gt;&#xA;&lt;p&gt;Quantum Monte Carlo studies of U(1) lattice gauge models of Kondo breakdown&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Gaopei Pan&lt;/strong&gt;$^{*}$ ,Fakher F. Assaad&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://arxiv.org/abs/2512.17801&#34;&gt;arXiv:2512.17801&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt; &lt;/p&gt;&#xA;&lt;p&gt;Self-learning Monte Carlo Method: A Review (Book chapter)&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Gaopei Pan&lt;/strong&gt;$^{*}$ ,Chuang Chen, Zi Yang Meng&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://arxiv.org/abs/2507.12554&#34;&gt;arXiv:2507.12554&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt; &lt;/p&gt;&#xA;&lt;p&gt;Quasiparticle Spectroscopy of Chiral Charge Order&lt;/p&gt;&#xA;&lt;p&gt;&lt;em&gt;Jiangchang Zheng$^{*}$, Caiyun Chen$^{*}$, &lt;strong&gt;Gaopei Pan&lt;/strong&gt;$^{*}$ , Xu Zhang$^{*}$, Chen Chen, Yuan Da Liao, Ganesh Pokharel, Andrea Capa Salinas, Yizhou Wei, Hoi Chun Po, Ding Pan, Stephen D. Wilson, Zi Yang Meng, Berthold Jäck&lt;/em&gt;&lt;/p&gt;</description>
+      <description></description>
     </item>
   </channel>
 </rss>
