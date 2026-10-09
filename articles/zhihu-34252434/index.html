@@ -5,7 +5,7 @@
 <title>【尝试灌水-1】入门，蒙卡及伊辛 · Gaopei Pan · 潘高培</title>
 <meta name="description" content="Gaopei Pan · Quantum Monte Carlo, quantum criticality, entanglement, and strongly correlated quantum matter.">
 <link rel="canonical" href="https://pangaopei.github.io/articles/zhihu-34252434/">
-<link rel="stylesheet" href="/css/academic.css?v=3b203ce167dcdcdb6df52c53204e66c7">
+<link rel="stylesheet" href="/css/academic.css?v=3c480033c9e4ef571642f40e2c45a49a">
 <script src="/js/publications.js?v=548f89154ab677d4f2dac108651d8168" defer></script>
 
 
@@ -45,9 +45,19 @@
     <h1>【尝试灌水-1】入门，蒙卡及伊辛</h1>
     <div class="article-meta">
       <time datetime="2018-04-30">更新于 2018-04-30</time>
-       · <time datetime="2018-04-30">本站修订 2018-04-30</time>
+       · <time datetime="2026-10-09">本站修订 2026-10-09</time>
        · <a href="https://zhuanlan.zhihu.com/p/34252434">知乎原文 ↗</a>
     </div>
+    
+    <section class="reading-guide" aria-labelledby="reading-guide-title">
+      <h2 id="reading-guide-title">阅读导引</h2>
+      <dl>
+        <dt>本文问题</dt><dd>如何构造目标分布的蒙卡采样，并用伊辛模型理解单点更新与团簇更新？</dd>
+        <dt>阅读准备</dt><dd>概率分布、条件概率，以及配分函数和热平均的基本概念。</dd>
+        <dt>读完得到</dt><dd>理解稳态分布、细致平衡与接受率的关系，并了解自相关为何影响误差估计。</dd>
+      </dl>
+    </section>
+    
     <details class="article-toc"><summary>目录</summary><nav id="TableOfContents">
   <ul>
     <li><a href="#马尔可夫链">马尔可夫链</a></li>
@@ -103,6 +113,9 @@
 \alpha(i,j)=min\left \{ \frac{\pi(j)Q(j,i)}{\pi(i)Q(i,j)},1 \right \}
  \tag{ 1 }\]<a class="equation-link" href="#eq-metropolis-hastings" aria-label="公式 1 的链接" title="公式 1 的链接">↗</a></span>
 
+<blockquote>
+<p><strong>适用条件与约定</strong>
+目标分布在当前状态上的权重为正，且正向提议概率非零时使用此比值；反向提议概率为零而新状态权重为正的移动应拒绝。只有提议分布对称时，提议概率之比才可约掉。细致平衡保证目标分布不变，从任意初态收敛还需检查不可约性、非周期性等条件。</p></blockquote>
 <p>使用对称的 \(Q\)即能进一步化简。</p>
 <h2 id="进入物理相关部分">进入物理相关部分</h2>
 <p>配分函数： \(Z=\sum_{\sigma} e^{-\beta E_{\sigma} }\)</p>
@@ -141,6 +154,9 @@
 \operatorname{Var}(\overline Q)\simeq\frac{2\tau_{\mathrm{int},Q}}{M}\operatorname{Var}(Q).
  \tag{ 2 }\]<a class="equation-link" href="#eq-autocorrelation" aria-label="公式 2 的链接" title="公式 2 的链接">↗</a></span>
 
+<blockquote>
+<p><strong>适用条件与约定</strong>
+这里讨论已经达到稳态的采样序列，归一化自相关以同一观测量的方差为基准，并假设其求和收敛。样本均值的方差估计用于采样长度远大于相关时间的情形；实际误差还应检查热化和分箱收敛。</p></blockquote>
 <p>其中 \(M\) 是平衡后记录的样本数，且总测量时间应远大于相关时间。报告自相关时间时应注明单位是单次更新、sweep 还是记录间隔。并不要求丢弃所有相关样本，但必须把相关性计入误差。</p>
 <h2 id="扯点别的不想写了见文章最后抄写一波凑凑字数免得字数太少太水">（扯点别的、不想写了，见文章最后，抄写一波凑凑字数，免得字数太少太水）</h2>
 <p>**                 团簇更新     Wolff算法、Swendsen-Wang算法**</p>
@@ -199,6 +215,9 @@ p(x,y)p(y&#39;|x)=p(x)p(y|x)p(y&#39;|x)=p(x,y&#39;)p(y|x).
 <p>我们期待的是始终接受，即 \(\alpha(i,j)=\alpha(j,i)\) 。之后我们只需根据翻转团簇前后的权重来给出对应的连接为键的概率 \(P\) 即可，对于伊辛模型的例子，我们有：</p>
 <p>\(\left ( 1-P \right )^{n_i-n_j}=\frac{\pi(j)}{\pi(i)}=e^{-\beta\left ( E_j-E_i \right )}=e^{-2\beta J\left ( n_i-n_j \right )}\)</p>
 <p>则能直接通过权重之比方便的解出 \(P=1-e^{-2\beta J}\) 而无需进行哈密顿量的拆分。</p>
+<blockquote>
+<p><strong>适用条件与约定</strong>
+上述“连同向自旋并整体翻转”的团簇规则针对零外场铁磁伊辛模型，耦合为正，键概率来自对应的联合自旋—键权重。外场、受挫或更一般耦合不能直接沿用这套无拒绝翻转规则。</p></blockquote>
 <p>无聊睡不着就这么水了一篇，基本都是花些功夫就能自己学到凑在一起的东西，算是来攒一波人品，面向一波普罗大众。大概可以作为某些方向的蒙卡入门第一课吧。</p>
 <p>一份计算物理啊统计物理啊计算材料学之类的课堂小作业就这么出炉了！！！</p>
 <p>（下一篇写世界线蒙卡还是费米子的行列式蒙卡啊摔）</p>

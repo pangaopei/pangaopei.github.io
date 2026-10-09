@@ -5,7 +5,7 @@
 <title>【农夫山泉-5】从Hubbard Model开始的DQMC（2） · Gaopei Pan · 潘高培</title>
 <meta name="description" content="Gaopei Pan · Quantum Monte Carlo, quantum criticality, entanglement, and strongly correlated quantum matter.">
 <link rel="canonical" href="https://pangaopei.github.io/articles/zhihu-157959170/">
-<link rel="stylesheet" href="/css/academic.css?v=3b203ce167dcdcdb6df52c53204e66c7">
+<link rel="stylesheet" href="/css/academic.css?v=3c480033c9e4ef571642f40e2c45a49a">
 <script src="/js/publications.js?v=548f89154ab677d4f2dac108651d8168" defer></script>
 
 
@@ -37,9 +37,19 @@
     <h1>【农夫山泉-5】从Hubbard Model开始的DQMC（2）</h1>
     <div class="article-meta">
       <time datetime="2020-07-09">更新于 2020-07-09</time>
-       · <time datetime="2020-07-09">本站修订 2020-07-09</time>
+       · <time datetime="2026-10-09">本站修订 2026-10-09</time>
        · <a href="https://zhuanlan.zhihu.com/p/157959170">知乎原文 ↗</a>
     </div>
+    
+    <section class="reading-guide" aria-labelledby="reading-guide-title">
+      <h2 id="reading-guide-title">阅读导引</h2>
+      <dl>
+        <dt>本文问题</dt><dd>如何用辅助场把 Hubbard 的四费米相互作用，分解为二次型费米子算符？</dd>
+        <dt>阅读准备</dt><dd>建议先读第二、四篇；需要了解 Trotter 分解和 Hubbard 模型。</dd>
+        <dt>读完得到</dt><dd>得到离散 HS 分解及其系数，比较自旋与电荷通道，并区分 Hubbard 的精确单步分解和四值辅助场近似。</dd>
+      </dl>
+    </section>
+    
     <details class="article-toc"><summary>目录</summary><nav id="TableOfContents">
   <ul>
     <li><a href="#离散的hubbardstratonovich变换">离散的Hubbard–Stratonovich变换</a></li>
@@ -57,6 +67,9 @@ U(n_{\uparrow}-\tfrac12)(n_{\downarrow}-\tfrac12)
 =Un_{\uparrow}n_{\downarrow}-\frac U2(n_{\uparrow}+n_{\downarrow})+\frac U4.
  \tag{ 1 }\]<a class="equation-link" href="#eq-hubbard-shift" aria-label="公式 1 的链接" title="公式 1 的链接">↗</a></span>
 
+<blockquote>
+<p><strong>适用条件与约定</strong>
+这是同一格点上的代数恒等式。比较不同 Hubbard 哈密顿量写法时，需连同化学势一起换算；不能仅去掉线性密度项，再把两种写法当作相同模型。</p></blockquote>
 <p>常数项在归一化观测量和固定参数下的权重比中会约掉，但化学势项不能直接忽略。在巨正则系综中，若通常写法的化学势为 \(\mu\)，这里应使用 \(\widetilde\mu=\mu-U/2\) 才描述同一个模型。我们后面会看到这种写法对于蒙卡计算的方便之处。</p>
 <h2 id="离散的hubbardstratonovich变换">离散的Hubbard–Stratonovich变换</h2>
 <p>在</p>
@@ -74,6 +87,9 @@ U(n_{\uparrow}-\tfrac12)(n_{\downarrow}-\tfrac12)
 e^{-\Delta \tau H_{U}}=\gamma \sum_{s=\pm 1} e^{\alpha s\left(n_{\uparrow}-n_{\downarrow}\right)}
  \tag{ 2 }\]<a class="equation-link" href="#eq-discrete-hs" aria-label="公式 2 的链接" title="公式 2 的链接">↗</a></span>
 
+<blockquote>
+<p><strong>适用条件与约定</strong>
+这里的相互作用采用粒子–空穴对称写法，且为正的 Hubbard 排斥强度与正虚时步长，所以自旋通道的分解参数可取实数。这个局域 HS 恒等式本身是精确的，但把动能与相互作用拆开的 Trotter 近似仍有误差。</p></blockquote>
 <p>，其中 \(\gamma=\frac{1}{2} e^{-\Delta \tau U / 4}\) ， \(\cosh (\alpha)=e^{\Delta \tau U / 2}\)</p>
 <p>系数可以通过考虑 \(e^{-\Delta \tau H_{U}}\) 在单个格点的希尔伯特空间得到：</p>
 \[
@@ -82,6 +98,9 @@ e^{-\Delta \tau H_{U}}=\gamma \sum_{s=\pm 1} e^{\alpha s\left(n_{\uparrow}-n_{\d
 <p>此处Hubbard Model的情况比较特殊才可以通过引入 \(\pm1\) 的辅助场来进行decouple，更一般的四费米相互作用（要求厄米），我们有更加一般的HS变换的方式，如引入 \(\pm1,\pm2\) 的辅助场：</p>
 <p>\(e^{\Delta \tau \lambda A^{2}}=\frac14\sum_{l=\pm 1,\pm 2} \gamma(l) e^{\sqrt{\Delta \tau \lambda} \eta(l) A}&#43;\mathcal{O}\left(\Delta \tau^{4}\right)\) ，其中 \(\begin{array}{c} \gamma(\pm 1)=1&#43;\sqrt{6} / 3, \quad \gamma(\pm 2)=1-\sqrt{6} / 3 \\ \eta(\pm 1)=\pm \sqrt{2(3-\sqrt{6})}, \quad \eta(\pm 2)=\pm \sqrt{2(3&#43;\sqrt{6})} \end{array}\)</p>
 <p>这种方式不是严格的，有和 \(\Delta \tau\) 有关的误差，对于观测量来说，带来的误差是正比于 \(\Delta \tau^{3}\) 的。</p>
+<blockquote>
+<p><strong>适用条件与约定</strong>
+这里分解的是厄米算符的平方，不是任意四费米项未经改写都能直接套用。四值辅助场公式通过小步长展开匹配得到；算符谱有界时，单步余项可按文中的阶数控制，实际误差还需通过改变虚时步长检查。</p></blockquote>
 <p>而现在的这些系数是怎么求解得到的呢？感觉到处都直接丢结果很少有人动手说说咋来的，这里我们不妨设 \(\gamma(1)=\gamma(-1)=a, \quad \gamma(2)=\gamma(-2)=b, \quad \eta(1)=\sqrt{c}=-\eta(-1), \quad \eta(2)=\sqrt{d}=-\eta(-2)\)</p>
 <p>令 \(p=\Delta\tau\lambda\)，将两边展开并匹配到 \(p^3A^6\) 项（余项为 \(O(p^4)\)） ，有： \(\begin{array}{c} 1=\frac{1}{2}(a&#43;b) \\ 1=\frac{1}{4}(a c&#43;b d) \\ \frac{1}{2}=\frac{1}{48}\left(a c^{2}&#43;b d^{2}\right) \\ \frac{1}{6}=\frac{1}{1440}\left(a c^{3}&#43;b d^{3}\right) \end{array}\) ，</p>
 <p>解得： \(\begin{array}{ll} a=1&#43;\sqrt{6} / 3, &amp; b=1-\sqrt{6} / 3 \\ c=2(3-\sqrt{6}), &amp; d=2(3&#43;\sqrt{6}) \end{array}\)</p>

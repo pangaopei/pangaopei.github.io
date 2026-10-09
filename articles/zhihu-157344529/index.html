@@ -5,7 +5,7 @@
 <title>【农夫山泉-4】Determinant Quantum Monte Carlo(DQMC)的D（1） · Gaopei Pan · 潘高培</title>
 <meta name="description" content="Gaopei Pan · Quantum Monte Carlo, quantum criticality, entanglement, and strongly correlated quantum matter.">
 <link rel="canonical" href="https://pangaopei.github.io/articles/zhihu-157344529/">
-<link rel="stylesheet" href="/css/academic.css?v=3b203ce167dcdcdb6df52c53204e66c7">
+<link rel="stylesheet" href="/css/academic.css?v=3c480033c9e4ef571642f40e2c45a49a">
 <script src="/js/publications.js?v=548f89154ab677d4f2dac108651d8168" defer></script>
 
 
@@ -28,9 +28,19 @@
     <h1>【农夫山泉-4】Determinant Quantum Monte Carlo(DQMC)的D（1）</h1>
     <div class="article-meta">
       <time datetime="2020-07-06">更新于 2020-07-06</time>
-       · <time datetime="2020-07-06">本站修订 2020-07-06</time>
+       · <time datetime="2026-10-09">本站修订 2026-10-09</time>
        · <a href="https://zhuanlan.zhihu.com/p/157344529">知乎原文 ↗</a>
     </div>
+    
+    <section class="reading-guide" aria-labelledby="reading-guide-title">
+      <h2 id="reading-guide-title">阅读导引</h2>
+      <dl>
+        <dt>本文问题</dt><dd>为什么对费米子 Fock 空间取迹，可以转化成单粒子矩阵的行列式？</dd>
+        <dt>阅读准备</dt><dd>费米子反对易关系、占据数基，以及矩阵指数和行列式。</dd>
+        <dt>读完得到</dt><dd>证明粒子数守恒二次型指数的迹恒等式，并推广到不对易的多个指数乘积，为 DQMC 权重计算做准备。</dd>
+      </dl>
+    </section>
+    
     
     <div class="article-body"><p>我们已经知道，对于经典的系统，我们有配分函数：</p>
 <p>\(Z=\sum_{C} e^{-\beta E_{C}}\)</p>
@@ -50,6 +60,9 @@
 \operatorname{Tr}\left[e^{-\sum_{i, j} \hat{c}_{i}^{\dagger} A_{i, j} \hat{c}_{j}}\right]=\operatorname{Det}\left[\mathbf{1}+e^{-\mathbf{A}}\right]
  \tag{ 1 }\]<a class="equation-link" href="#eq-single-fermion-trace" aria-label="公式 1 的链接" title="公式 1 的链接">↗</a></span>
 
+<blockquote>
+<p><strong>适用条件与约定</strong>
+取迹遍历完整 Fock 空间的所有粒子数扇区，算符为粒子数守恒的二次型。固定粒子数的正则系综不能直接使用同一个行列式；含配对项的二次型也需采用相应的 Nambu 或 Majorana 表述。二次型之外的常数项须另保留其指数因子。</p></blockquote>
 <p>其中 \(A_{i,j}\) 为矩阵 \(A\) 的元素。我们可以看到求Trace的操作转化为了求一个单位阵 \(\mathbf{1}\) 加上矩阵 \(e^{-\mathbf{A}}\) 的行列式。</p>
 <p>证明的方式多种多样，比如我们可以把e指数上的部分进行对角化，Trace即为对于 \(n_i=0,1\) 的所有可能性求和：</p>
 <p>\(\operatorname{Tr}\left[e^{-\sum_{i, j} \hat{c}_{i}^{\dagger} A_{i, j} \hat{c}_{j}}\right]=\operatorname{Tr}\left[e^{-\sum_{k} \epsilon(k) \hat{c}_{k}^{\dagger}\hat{c}_{k}}\right]=\Pi_{k}\operatorname{Tr}\left[e^{- \epsilon(k) \hat{c}_{k}^{\dagger}\hat{c}_{k}}\right]=\Pi_{k}[1&#43;e^{-\epsilon(k)}]\)</p>
@@ -75,6 +88,9 @@
 =\det(I+M)=\det(I+e^{-A}e^{-B}).
  \tag{ 2 }\]<a class="equation-link" href="#eq-fermion-trace" aria-label="公式 2 的链接" title="公式 2 的链接">↗</a></span>
 
+<blockquote>
+<p><strong>适用条件与约定</strong>
+多个因子都应为粒子数守恒二次型的指数，单粒子矩阵的乘积顺序必须与算符顺序一致。此恒等式不要求因子对易，也不要求乘积矩阵厄米；数值实现仍需稳定地计算长乘积。</p></blockquote>
 <p>这个证明不要求 \(A,B\) 对易，也不要求 \(M\) 能被幺正对角化。</p>
 <p>对于更一般的情况，形式不言自明。</p>
 <p>（啊简单的开个小头，辉夜第二季完了，七月番看啥好呢？）</p>

@@ -5,7 +5,7 @@
 <title>【凑字数-3】细致平衡 · Gaopei Pan · 潘高培</title>
 <meta name="description" content="Gaopei Pan · Quantum Monte Carlo, quantum criticality, entanglement, and strongly correlated quantum matter.">
 <link rel="canonical" href="https://pangaopei.github.io/articles/zhihu-110699864/">
-<link rel="stylesheet" href="/css/academic.css?v=3b203ce167dcdcdb6df52c53204e66c7">
+<link rel="stylesheet" href="/css/academic.css?v=3c480033c9e4ef571642f40e2c45a49a">
 <script src="/js/publications.js?v=548f89154ab677d4f2dac108651d8168" defer></script>
 
 
@@ -28,9 +28,19 @@
     <h1>【凑字数-3】细致平衡</h1>
     <div class="article-meta">
       <time datetime="2020-03-03">更新于 2020-03-03</time>
-       · <time datetime="2020-03-03">本站修订 2020-03-03</time>
+       · <time datetime="2026-10-09">本站修订 2026-10-09</time>
        · <a href="https://zhuanlan.zhihu.com/p/110699864">知乎原文 ↗</a>
     </div>
+    
+    <section class="reading-guide" aria-labelledby="reading-guide-title">
+      <h2 id="reading-guide-title">阅读导引</h2>
+      <dl>
+        <dt>本文问题</dt><dd>平衡条件与细致平衡有什么区别，提议概率为何会进入接受率？</dd>
+        <dt>阅读准备</dt><dd>条件概率；可以配合第一篇的 Metropolis–Hastings 流程阅读。</dd>
+        <dt>读完得到</dt><dd>用人口迁移的比喻理解 Metropolis–Hastings 接受率，以及“始终接受”对提议分布的要求。</dd>
+      </dl>
+    </section>
+    
     
     <div class="article-body"><p>本来以为这还挺基本的，但是最近被人问了好几次，觉得还是多说（水）几句。</p>
 <p>（其实就是在家太无聊了睡不着，又不想填DQMC和SSE的大坑）</p>
@@ -82,6 +92,9 @@
 \alpha(i, j)=\min \left\{\frac{\pi(j) Q(j, i)}{\pi(i) Q(i, j)}, 1\right\}
  \tag{ 1 }\]<a class="equation-link" href="#eq-metropolis-hastings" aria-label="公式 1 的链接" title="公式 1 的链接">↗</a></span>
 
+<blockquote>
+<p><strong>适用条件与约定</strong>
+这里的人口占比对应目标概率，申请率对应提议概率；接受率是条件概率，不是实际迁移人数。非对称提议要保留正反申请率之比；满足细致平衡也不等于有限步数后已经热化。</p></blockquote>
 <blockquote>
 <p>对吧？</p></blockquote>
 <p>签证官：</p>

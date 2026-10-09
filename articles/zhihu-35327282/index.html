@@ -5,7 +5,7 @@
 <title>【凑字数-2】一些基本须知和准备 · Gaopei Pan · 潘高培</title>
 <meta name="description" content="Gaopei Pan · Quantum Monte Carlo, quantum criticality, entanglement, and strongly correlated quantum matter.">
 <link rel="canonical" href="https://pangaopei.github.io/articles/zhihu-35327282/">
-<link rel="stylesheet" href="/css/academic.css?v=3b203ce167dcdcdb6df52c53204e66c7">
+<link rel="stylesheet" href="/css/academic.css?v=3c480033c9e4ef571642f40e2c45a49a">
 <script src="/js/publications.js?v=548f89154ab677d4f2dac108651d8168" defer></script>
 
 
@@ -38,9 +38,19 @@
     <h1>【凑字数-2】一些基本须知和准备</h1>
     <div class="article-meta">
       <time datetime="2018-06-03">更新于 2018-06-03</time>
-       · <time datetime="2018-06-03">本站修订 2018-06-03</time>
+       · <time datetime="2026-10-09">本站修订 2026-10-09</time>
        · <a href="https://zhuanlan.zhihu.com/p/35327282">知乎原文 ↗</a>
     </div>
+    
+    <section class="reading-guide" aria-labelledby="reading-guide-title">
+      <h2 id="reading-guide-title">阅读导引</h2>
+      <dl>
+        <dt>本文问题</dt><dd>如何把量子横场伊辛模型的配分函数，写成多一个虚时方向的经典自旋构型求和？</dd>
+        <dt>阅读准备</dt><dd>建议先读第一篇；需要知道量子算符、取迹和自旋基矢。</dd>
+        <dt>读完得到</dt><dd>通过 Trotter 分解和插入完备基，得到虚时方向的有效耦合，并区分映射中的近似与恒等式。</dd>
+      </dl>
+    </section>
+    
     <details class="article-toc"><summary>目录</summary><nav id="TableOfContents">
   <ul>
     <li><a href="#一个简单的例子横场伊辛">一个简单的例子——横场伊辛</a></li>
@@ -87,6 +97,9 @@ e^{\Delta B/2}e^{\Delta A}e^{\Delta B/2}+\mathcal{O}(\Delta^3).
 \end{cases}
  \tag{ 1 }\]<a class="equation-link" href="#eq-trotter" aria-label="公式 1 的链接" title="公式 1 的链接">↗</a></span>
 
+<blockquote>
+<p><strong>适用条件与约定</strong>
+这是单个虚时步的算符展开；误差阶数以步长趋于零为前提。把多个时间片连乘到固定逆温度后，误差不能继续按“单步误差”直接理解。本文先采用非对称分解；对具体观测量的误差阶数还需检查分解方式与测量插入位置。</p></blockquote>
 <p>这也是此种蒙卡会造成误差的地方。我们有</p>
 \[
 \begin{alignat}{2} \langle S_{l&#43;1}^z| e^{-\Delta \tau H}|S_l^z \rangle&amp;=\langle S_{l&#43;1}^z| e^{-\Delta \tau H_1-\Delta \tau H_0}|S_l^z \rangle \nonumber \\ &amp;=\langle S_{l&#43;1}^z|e^{-\Delta\tau H_1}e^{-\Delta\tau H_0}|S_l^z\rangle&#43;O(\Delta\tau^2) \end{alignat}
@@ -102,6 +115,9 @@ e^{\Delta \tau h \sigma_x}=\mathbf{I}\cosh(\Delta \tau h)&#43;\mathbf{\sigma _x}
 \langle S_z^{&#39;}|e^{\Delta \tau h \sigma_x}|S_z \rangle=\Lambda e^{\gamma S_z^{&#39;}S_z}
  \tag{ 2 }\]<a class="equation-link" href="#eq-ising-transfer" aria-label="公式 2 的链接" title="公式 2 的链接">↗</a></span>
 
+<blockquote>
+<p><strong>适用条件与约定</strong>
+这里采用泡利矩阵本征值为正负一的自旋约定，并取正的虚时步长与正横场，因而两个转移矩阵元可由实的有效耦合表示。换用物理自旋算符或不同横场符号约定时，应重新检查系数。</p></blockquote>
 <p>代入 \(S_z=S_z^{&#39;}\) 和 \(S_z=-S_z^{&#39;}\) 可解出两个参数如下：</p>
 \[
 \begin{align}\label{qw} \gamma =-\frac{1}{2}\ln(\tanh(\Delta \tau h))\\ \Lambda ^2=\sinh(\Delta \tau h)\cosh(\Delta \tau h) \end{align}
@@ -113,6 +129,9 @@ e^{\Delta \tau h \sigma_x}=\mathbf{I}\cosh(\Delta \tau h)&#43;\mathbf{\sigma _x}
 Z_{cl}=\Lambda^{N L_{\tau}}\sum_{\left \{ S_{i,l}=\pm 1 \right \}} e^{\beta_{cl}J_x\sum_{i=1}^{N_x}\sum_{j=1}^{N_y}S_{i,j}S_{i+1,j}+\beta_{cl}J_y\sum_{i=1}^{N_x}\sum_{j=1}^{N_y}S_{i,j}S_{i,j+1}}
  \tag{ 3 }\]<a class="equation-link" href="#eq-classical-mapping" aria-label="公式 3 的链接" title="公式 3 的链接">↗</a></span>
 
+<blockquote>
+<p><strong>适用条件与约定</strong>
+这是有限虚时步长下、经过 Trotter 分解后的构型表示，不是有限步长时原量子模型的无误差等式。量子配分函数中的迹要求虚时方向首尾相接；空间方向是否周期则由原模型的边界条件决定。</p></blockquote>
 <p>而此时其中的参数则变为了</p>
 <p>\(N_x=N\\ N_y=L_{\tau}\\ \beta_{cl}J_x=\Delta \tau J\\ \beta_{cl}J_y=\gamma\\\)</p>
 <p>这里以一维横场伊辛链为例，得到空间与虚时耦合不同的二维经典伊辛模型，虚时方向由 trace 产生周期边界条件。此处取 \(h&gt;0\)，经典权重为非负实数；一般量子模型的虚时表示可能出现负或复权重，并不自动成为可直接采样的经典概率分布。</p>

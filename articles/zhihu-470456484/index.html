@@ -5,7 +5,7 @@
 <title>【农夫山泉-9】数值稳定与符号问题（6） · Gaopei Pan · 潘高培</title>
 <meta name="description" content="Gaopei Pan · Quantum Monte Carlo, quantum criticality, entanglement, and strongly correlated quantum matter.">
 <link rel="canonical" href="https://pangaopei.github.io/articles/zhihu-470456484/">
-<link rel="stylesheet" href="/css/academic.css?v=3b203ce167dcdcdb6df52c53204e66c7">
+<link rel="stylesheet" href="/css/academic.css?v=3c480033c9e4ef571642f40e2c45a49a">
 <script src="/js/publications.js?v=548f89154ab677d4f2dac108651d8168" defer></script>
 
 
@@ -44,9 +44,19 @@
     <h1>【农夫山泉-9】数值稳定与符号问题（6）</h1>
     <div class="article-meta">
       <time datetime="2022-02-22">更新于 2022-02-22</time>
-       · <time datetime="2022-02-22">本站修订 2022-02-22</time>
+       · <time datetime="2026-10-09">本站修订 2026-10-09</time>
        · <a href="https://zhuanlan.zhihu.com/p/470456484">知乎原文 ↗</a>
     </div>
+    
+    <section class="reading-guide" aria-labelledby="reading-guide-title">
+      <h2 id="reading-guide-title">阅读导引</h2>
+      <dl>
+        <dt>本文问题</dt><dd>低温下为何不能直接连乘演化矩阵？什么条件能保证构型权重非负？</dd>
+        <dt>阅读准备</dt><dd>建议先读第六至八篇；需要矩阵条件数、QR/SVD 分解及反幺正变换的基本知识。</dd>
+        <dt>读完得到</dt><dd>了解分离数值尺度的稳定化方法与符号重加权，并理解反幺正对称性和半满二分晶格 Hubbard 模型的无符号条件。</dd>
+      </dl>
+    </section>
+    
     <details class="article-toc"><summary>目录</summary><nav id="TableOfContents">
   <ul>
     <li>
@@ -64,6 +74,9 @@
 \kappa_2(B)=\|B\|_2\|B^{-1}\|_2=\frac{\sigma_{\max}(B)}{\sigma_{\min}(B)}.
  \tag{ 1 }\]<a class="equation-link" href="#eq-condition-number" aria-label="公式 1 的链接" title="公式 1 的链接">↗</a></span>
 
+<blockquote>
+<p><strong>适用条件与约定</strong>
+这里用二范数，并假定矩阵可逆。演化矩阵的条件数与加上单位矩阵后的条件数不是同一个量；前者影响长乘积的构造，后者影响给定格林函数线性方程的敏感性。</p></blockquote>
 <p>对于无相互作用系统，若单粒子哈密顿量 \(h\) 为 Hermitian、\(B=e^{-\beta h}\)，则 \(\kappa_2(B)=e^{\beta W}\)，其中 \(W\) 是单粒子带宽。低温及较强相互作用常使辅助场演化矩阵出现跨度很大的数值尺度，直接连乘可能丢失小尺度的信息。</p>
 <p>需要注意，连乘矩阵 \(B\) 的条件数与求解格林函数时 \(I&#43;B\) 的条件数并不相同。前者涉及如何准确构造演化矩阵，后者刻画给定线性方程组对扰动的敏感性。</p>
 <p>我们有很多已经被证明是weakly backward stable的算法</p>
@@ -74,12 +87,15 @@
 \[
 \kappa\left(I_{n}&#43;B_{L} \cdots B_{2} B_{1}\right) \equiv\left\|I_{n}&#43;B_{L} \cdots B_{2} B_{1}\right\| \left\|\left(I_{n}&#43;B_{L} \cdots B_{2} B_{1}\right)^{-1}\right\|
 \]<p>若取二范数，该条件数恰好等于该矩阵最大奇异值与最小奇异值之比。对于后向稳定的线性求解，在机器精度与条件数的乘积足够小时，它控制舍入误差导致的前向相对误差上界。</p>
-<p>因为condition number过大，所以我们得到的解的相对误差：</p>
+<p>对于后向稳定的线性求解，常用的前向相对误差估计为：</p>
 <span class="numbered-equation" id="eq-roundoff" data-equation-number="2">\[
 \frac{\|\tilde{x}-x\|}{\|x\|}=\mathcal{O}\left(\epsilon_{\mathrm{m}} \kappa\left(I_{n}+B_{L} \cdots B_{2} B_{1}\right)\right)
  \tag{ 2 }\]<a class="equation-link" href="#eq-roundoff" aria-label="公式 2 的链接" title="公式 2 的链接">↗</a></span>
 
-<p>会非常大。其中  \(\epsilon_{\mathrm{m}}\) 是机器的unit round off 误差，IEEE单精度是 \(\epsilon_{\mathrm{m}}=2^{-24}\) ，IEEE双精度是 \(2^{-53}\) 。某些情况下 \(\epsilon_{\mathrm{m}} \kappa\left(I_{n}&#43;B_{L} \cdots B_{2} B_{1}\right)\) 很容易就比1还大，这意味着你的解可能一位有效的都没有。</p>
+<blockquote>
+<p><strong>适用条件与约定</strong>
+这是后向稳定求解、扰动较小情形下的常用前向误差估计，适用时机器精度与条件数的乘积应足够小。条件数很大表示可能丢失精度，并不保证每个右端向量都实际达到最坏误差；长乘积此前已经丢失的信息也不会被这条估计恢复。</p></blockquote>
+<p>其中  \(\epsilon_{\mathrm{m}}\) 是机器的unit round off 误差，IEEE单精度是 \(\epsilon_{\mathrm{m}}=2^{-24}\) ，IEEE双精度是 \(2^{-53}\) 。某些情况下 \(\epsilon_{\mathrm{m}} \kappa\left(I_{n}&#43;B_{L} \cdots B_{2} B_{1}\right)\) 很容易就比1还大，这意味着你的解可能一位有效的都没有。</p>
 <p>数值稳定的具体操作如下。</p>
 <p>先回忆一下定义：</p>
 \[
@@ -114,6 +130,9 @@ B_{C}\left(2 \tau_{1}, \tau_{1}\right) \underbrace{B_{C}\left(\tau_{1}, 0\right)
 \begin{aligned}  G(\tau, \tau) &amp;=[1+B(\tau, 0) B(\beta, \tau)]^{-1} \\  &amp;=\left[1+U_{R} D_{R} V_{R} V_{L} D_{L} U_{L}\right]^{-1} \\  &amp;=U_{L}^{-1}\left[\left(U_{L} U_{R}\right)^{-1}+D_{R}\left(V_{R} V_{L}\right) D_{L}\right]^{-1} U_{R}^{-1} \\  &amp;=U_{L}^{-1}\left[\left(U_{L} U_{R}\right)^{-1}+D_{R}^{\max } D_{R}^{\min }\left(V_{R} V_{L}\right) D_{L}^{\min } D_{L}^{\max }\right]^{-1} U_{R}^{-1} \\  &amp;=U_{L}^{-1}\left(D_{L}^{\max }\right)^{-1}\left[\left(D_{R}^{\max }\right)^{-1}\left(U_{L} U_{R}\right)^{-1}\left(D_{L}^{\max }\right)^{-1}+D_{R}^{\min } V_{R} V_{L} D_{L}^{\min }\right]^{-1}\left(D_{R}^{\max }\right)^{-1} U_{R}^{-1}  \end{aligned}
  \tag{ 3 }\]<a class="equation-link" href="#eq-stable-green" aria-label="公式 3 的链接" title="公式 3 的链接">↗</a></span>
 
+<blockquote>
+<p><strong>适用条件与约定</strong>
+这里的左右分解需在分块连乘过程中逐步得到，不能先形成已经丢失精度的长乘积，再指望一次分解补救。尺度矩阵取正对角尺度，所有出现的逆需存在；稳定化间隔与精度仍要通过重算偏差和观测量收敛检查。</p></blockquote>
 <p>第三个等号White等人当年也这么建议。</p>
 <p>上式其中：  \(D_{L}^{\max }(i,i)= \max \left\{ D_{L}(i,i),1 \right\}\)</p>
 <p>类似的，有：</p>
@@ -139,6 +158,9 @@ B_{C}\left(2 \tau_{1}, \tau_{1}\right) \underbrace{B_{C}\left(\tau_{1}, 0\right)
 \langle O\rangle=\frac{\langle s O\rangle_{|W|}}{\langle s\rangle_{|W|}}.
  \tag{ 4 }\]<a class="equation-link" href="#eq-sign-reweighting" aria-label="公式 4 的链接" title="公式 4 的链接">↗</a></span>
 
+<blockquote>
+<p><strong>适用条件与约定</strong>
+平均是在绝对权重定义的采样分布下进行，符号或相位来自同一完整构型权重。有限样本中应分别累计分子和分母，再取其比值；平均符号很小时，还需处理比值估计及分子、分母之间的统计相关。</p></blockquote>
 <p>问题在于平均符号或相位可能随系统尺寸、逆温度快速减小，使达到给定精度所需的采样量急剧增加。</p>
 <p>值得注意的是，此处符号问题的产生decouple的方式有关，同样的也和计算是basis的选取有关（在完整多体能量本征基中，配分函数形式上是正 Boltzmann 权重之和，但求出这个基通常已经需要解决多体问题，不能据此得到高效算法；单粒子基底变换也不会自动消除 DQMC 的符号问题）。</p>
 <p>下面简单介绍两类，对于部分情况下，没有符号问题的证明：</p>
@@ -150,6 +172,9 @@ B_{C}\left(2 \tau_{1}, \tau_{1}\right) \underbrace{B_{C}\left(\tau_{1}, 0\right)
 \begin{aligned}  \mathcal{K} T \mathcal{K}^{\dagger} &amp;=T \\  \mathcal{K} V(\mathcal{C}) \mathcal{K}^{\dagger} &amp;=V(\mathcal{C}) \\  \mathcal{K}^{2} &amp;=-1  \end{aligned}
  \tag{ 5 }\]<a class="equation-link" href="#eq-antiunitary-condition" aria-label="公式 5 的链接" title="公式 5 的链接">↗</a></span>
 
+<blockquote>
+<p><strong>适用条件与约定</strong>
+同一个反幺正算符必须对所有构型、所有时间片的分解后单粒子因子成立，并且其平方为负单位算符；辅助场测度还须非负。这是无符号的充分条件，不是必要条件：未满足它，不能单凭这一点断言一定存在符号问题。</p></blockquote>
 <p>则费米子部分的权重相关的矩阵  \(1&#43;B_{C}(\beta, 0)\) 的本征值成对出现（即有本征值 \(\lambda_i\) ，则相应的有对应的另一个本征值，其共轭 \(\lambda_i^{*}\) ），即 \(\det \left( 1&#43;B_{C}(\beta, 0) \right) =\prod_i |\lambda_i|^2\) 。上式其中T和V(s)分别为动能项和decouple之后的相互作用项。</p>
 <p>对于权重对应矩阵 \(1&#43;B_{C}(\beta, 0)\) ，假设有本征值λ，对应本征向量为V，我们有：</p>
 \[

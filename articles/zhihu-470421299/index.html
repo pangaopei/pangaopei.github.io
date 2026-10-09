@@ -5,7 +5,7 @@
 <title>【农夫山泉-8】更新（5） · Gaopei Pan · 潘高培</title>
 <meta name="description" content="Gaopei Pan · Quantum Monte Carlo, quantum criticality, entanglement, and strongly correlated quantum matter.">
 <link rel="canonical" href="https://pangaopei.github.io/articles/zhihu-470421299/">
-<link rel="stylesheet" href="/css/academic.css?v=3b203ce167dcdcdb6df52c53204e66c7">
+<link rel="stylesheet" href="/css/academic.css?v=3c480033c9e4ef571642f40e2c45a49a">
 <script src="/js/publications.js?v=548f89154ab677d4f2dac108651d8168" defer></script>
 
 
@@ -28,9 +28,19 @@
     <h1>【农夫山泉-8】更新（5）</h1>
     <div class="article-meta">
       <time datetime="2024-11-15">更新于 2024-11-15</time>
-       · <time datetime="2024-11-15">本站修订 2024-11-15</time>
+       · <time datetime="2026-10-09">本站修订 2026-10-09</time>
        · <a href="https://zhuanlan.zhihu.com/p/470421299">知乎原文 ↗</a>
     </div>
+    
+    <section class="reading-guide" aria-labelledby="reading-guide-title">
+      <h2 id="reading-guide-title">阅读导引</h2>
+      <dl>
+        <dt>本文问题</dt><dd>单点翻转辅助场时，如何快速计算权重比、更新格林函数，并沿虚时推进？</dd>
+        <dt>阅读准备</dt><dd>建议先读第六、七篇，熟悉构型权重、等时格林函数和 Woodbury 公式。</dd>
+        <dt>读完得到</dt><dd>把单点更新化为秩一计算，区分行列式比与接受概率，并了解格林函数更新和虚时传递的顺序。</dd>
+      </dl>
+    </section>
+    
     
     <div class="article-body"><p>在前文我们已经知道，对于某个辅助场的构型，对应的费米子部分的权重为：</p>
 \[
@@ -51,11 +61,17 @@
 \begin{aligned}  r=&amp;\operatorname{det}[\mathbf{I}_{N \times N}+\mathbf{\Delta}_{N \times N}(\mathbf{I}-\mathbf{G}(\tau, \tau))_{N \times N}] \\  =&amp; \operatorname{det}[\mathbf{I}_{N \times N}+\mathbf{\Delta}_{N \times 1}(\mathbf{I}-\mathbf{G}(\tau, \tau))_{1 \times N}]\\  =&amp; \operatorname{det}[\mathbf{I}_{1 \times 1}+(\mathbf{I}-\mathbf{G}(\tau, \tau))_{1 \times N} \mathbf{\Delta}_{N \times 1}]\\  =&amp; \operatorname{det}[\mathbf{I}_{1 \times 1}+(\mathbf{I}-\mathbf{G}(\tau, \tau))_{1 \times 1} \mathbf{\Delta}_{1 \times 1}]\\  =&amp; 1+\mathbf{\Delta}_{i i}\left(1-\mathbf{G}_{i i}\right)  \end{aligned}
  \tag{ 1 }\]<a class="equation-link" href="#eq-determinant-ratio" aria-label="公式 1 的链接" title="公式 1 的链接">↗</a></span>
 
+<blockquote>
+<p><strong>适用条件与约定</strong>
+这是一个自旋分量在固定构型下的行列式比，旧构型权重须非零。最后的标量表达式依赖“只改一个格点的对角辅助场”这一秩一结构；非局域或多个格点的更新，应使用相应的低秩或完整矩阵公式。</p></blockquote>
 <p>其中第二个等号利用了公式</p>
 <span class="numbered-equation" id="eq-sylvester" data-equation-number="2">\[
 \det(I_{m}+AB)=\det(I_{n}+BA)  \label{eq1}
  \tag{ 2 }\]<a class="equation-link" href="#eq-sylvester" aria-label="公式 2 的链接" title="公式 2 的链接">↗</a></span>
 
+<blockquote>
+<p><strong>适用条件与约定</strong>
+两矩阵的维数分别为行数乘列数、列数乘行数，使两侧乘积都是方阵。这个行列式恒等式不要求两矩阵可逆；不要把 Woodbury 逆矩阵公式的可逆条件一并套到这里。</p></blockquote>
 <p>，证明见附录：</p>
 \[
 \det(\mathbf{I}_{N}&#43;\mathbf{U V})=\det(\mathbf{I}_{k}&#43;\mathbf{ VU})
@@ -65,6 +81,9 @@
 P_{\mathrm{acc}}=\min\{1,r_\uparrow r_\downarrow\}.
  \tag{ 3 }\]<a class="equation-link" href="#eq-acceptance" aria-label="公式 3 的链接" title="公式 3 的链接">↗</a></span>
 
+<blockquote>
+<p><strong>适用条件与约定</strong>
+此式用于对称的单点翻转提议和非负的总权重，两个自旋分量的行列式比要相乘。若提议不对称，应加入反向与正向提议概率之比；若还有变化的辅助场测度或玻色作用量，也要把其权重比纳入。</p></blockquote>
 <p>权重比可以大于 1，单个自旋分量的比值也不是完整的接受概率。若存在符号或相位问题，则按绝对权重采样，使用 \(P_{\mathrm{acc}}=\min\{1,|r_\uparrow r_\downarrow|\}\)，并在观测量中重加权符号或相位。</p>
 <p>而这样的方式需要我们随时更新的等时格林函数的数值。根据定义：</p>
 \[
@@ -77,11 +96,17 @@ P_{\mathrm{acc}}=\min\{1,r_\uparrow r_\downarrow\}.
 \begin{aligned}  \mathbf{G}^{\prime}(\tau, \tau) &amp;=\mathbf{G}_{N \times N  }(\mathbf{I}_{N \times N}+\boldsymbol{\Delta}_{N \times N} (\mathbf{I}-\mathbf{G})_{N \times N})^{-1} \\  &amp;=\mathbf{G}_{N \times N}(\mathbf{I}_{N \times N}+\boldsymbol{\Delta}_{N \times 1} (\mathbf{I}-\mathbf{G})_{1 \times N})^{-1} \\  &amp;\left.=\mathbf{G}_{N \times N}\left[\mathbf{I}_{N \times N}-\boldsymbol{\Delta}_{N \times 1}\left(\mathbf{I}_{1 \times 1}+(\mathbf{I}-\mathbf{G})_{1 \times N} \boldsymbol{\Delta}_{N \times 1}\right)^{-1} (\mathbf{I}-\mathbf{G})_{1 \times N}\right)\right] \\  &amp;=\mathbf{G}_{N \times N}-\mathbf{G}_{N \times N} \boldsymbol{\Delta}_{N \times 1} \; \frac{1}{r}\; (\mathbf{I}-\mathbf{G})_{1 \times N} \\  &amp;=\mathbf{G}_{N \times N}-\mathbf{G}_{N \times 1} \boldsymbol{\Delta}_{1 \times 1} \; \frac{1}{r}\; (\mathbf{I}-\mathbf{G})_{1 \times N}\\  &amp;=\mathbf{G}_{N \times N}-\mathbf{G}(:,i) \boldsymbol{\Delta}_{ii} \; \frac{1}{r}\; (\mathbf{I}-\mathbf{G})(i,:)  \end{aligned}
  \tag{ 4 }\]<a class="equation-link" href="#eq-fast-update" aria-label="公式 4 的链接" title="公式 4 的链接">↗</a></span>
 
+<blockquote>
+<p><strong>适用条件与约定</strong>
+仅在移动被接受后，用更新前、同一虚时位置的格林函数计算新格林函数；每个自旋块使用自己的行列式比。分母为零时不能使用含倒数的表达式；接近零或误差明显时，应以稳定重算核对结果。</p></blockquote>
 <p>在更新完某一虚时层的辅助场之后，我们转而尝试更新下一层的辅助场，此时将得到新虚时位置的格林函数，从格林函数的定义我们知道：</p>
 <span class="numbered-equation" id="eq-green-propagation" data-equation-number="5">\[
 \mathbf{G}(\tau+\Delta \tau, \tau+\Delta \tau)=\mathbf{B}(\tau+\Delta \tau, \tau) \mathbf{G}(\tau, \tau) \mathbf{B}^{-1}(\tau+\Delta \tau, \tau)
  \tag{ 5 }\]<a class="equation-link" href="#eq-green-propagation" aria-label="公式 5 的链接" title="公式 5 的链接">↗</a></span>
 
+<blockquote>
+<p><strong>适用条件与约定</strong>
+在固定构型下，沿指定虚时方向使用与分解约定一致的单片演化矩阵。它给出数学上的相似变换，但连续快速更新与传递会积累舍入误差，实际模拟需定期稳定重算。</p></blockquote>
 <p>类似的，我们有：</p>
 \[
 \mathbf{G}(\tau-\Delta \tau, \tau-\Delta \tau)=\mathbf{B}^{-1}(\tau, \tau-\Delta \tau) \mathbf{G}(\tau, \tau) \mathbf{B}(\tau, \tau -\Delta \tau)

@@ -184,3 +184,9 @@ button:focus-visible,summary:focus-visible{outline:3px solid #ba7b39;outline-off
 .numbered-equation{display:block;position:relative;scroll-margin-top:32px;padding-right:24px}
 .equation-link{position:absolute;right:0;top:0;font:12px system-ui;color:var(--muted);padding:6px}
 .numbered-equation:target{background:#eaf0e8}
+.reading-guide{margin:26px 0;padding:20px 24px;background:#edf0e9;border-radius:6px}
+.reading-guide h2{font-size:18px;margin:0 0 14px}
+.reading-guide dl{display:grid;grid-template-columns:80px minmax(0,1fr);gap:10px 18px;font-size:14px;margin:0;line-height:1.8}
+.reading-guide dt{font-weight:600;color:var(--accent)}
+.reading-guide dd{margin:0}.reading-guide dd p{margin:0}
+@media(max-width:600px){.reading-guide{padding:18px}.reading-guide dl{grid-template-columns:1fr;gap:4px}.reading-guide dd{margin-bottom:10px}}

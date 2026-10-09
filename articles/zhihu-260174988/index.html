@@ -5,7 +5,7 @@
 <title>【农夫山泉-7】物理量（4） · Gaopei Pan · 潘高培</title>
 <meta name="description" content="Gaopei Pan · Quantum Monte Carlo, quantum criticality, entanglement, and strongly correlated quantum matter.">
 <link rel="canonical" href="https://pangaopei.github.io/articles/zhihu-260174988/">
-<link rel="stylesheet" href="/css/academic.css?v=3b203ce167dcdcdb6df52c53204e66c7">
+<link rel="stylesheet" href="/css/academic.css?v=3c480033c9e4ef571642f40e2c45a49a">
 <script src="/js/publications.js?v=548f89154ab677d4f2dac108651d8168" defer></script>
 
 
@@ -37,9 +37,19 @@
     <h1>【农夫山泉-7】物理量（4）</h1>
     <div class="article-meta">
       <time datetime="2020-10-02">更新于 2020-10-02</time>
-       · <time datetime="2020-10-02">本站修订 2020-10-02</time>
+       · <time datetime="2026-10-09">本站修订 2026-10-09</time>
        · <a href="https://zhuanlan.zhihu.com/p/260174988">知乎原文 ↗</a>
     </div>
+    
+    <section class="reading-guide" aria-labelledby="reading-guide-title">
+      <h2 id="reading-guide-title">阅读导引</h2>
+      <dl>
+        <dt>本文问题</dt><dd>给定辅助场构型，如何计算等时、不等时格林函数，并由它们测量关联函数？</dd>
+        <dt>阅读准备</dt><dd>建议先读第四至六篇；需要熟悉矩阵求逆、费米子反对易关系和虚时演化。</dd>
+        <dt>读完得到</dt><dd>得到构型内的格林函数与 Wick 估计量，理解为何必须先做构型内收缩、再做蒙卡平均，并给出 Woodbury 公式的证明。</dd>
+      </dl>
+    </section>
+    
     <details class="article-toc"><summary>目录</summary><nav id="TableOfContents">
   <ul>
     <li><a href="#附录">附录</a></li>
@@ -50,6 +60,9 @@
 \begin{array}{l} G_{i j}(\tau, \tau)=\left\langle c_{i}(\tau) c_{j}^{\dagger}(\tau)\right\rangle, \qquad G_{i j}(\tau, 0)=\left\langle c_{i}(\tau) c_{j}^{\dagger}(0)\right\rangle,\\ G_{i j}(0, \tau)=\left\langle T_{\tau} c_{i}(0) c_{j}^{\dagger}(\tau)\right\rangle \equiv-\left\langle c_{j}^{\dagger}(\tau) c_{i}(0)\right\rangle, \qquad G_{i j}(0,0)=\left\langle c_{i}(0) c_{j}^{\dagger}(0)\right\rangle \end{array}
  \tag{ 1 }\]<a class="equation-link" href="#eq-green-definitions" aria-label="公式 1 的链接" title="公式 1 的链接">↗</a></span>
 
+<blockquote>
+<p><strong>适用条件与约定</strong>
+本文采用不额外添加整体负号的时间排序格林函数约定。这里未加构型下标的定义可用于热平均；后面的矩阵求逆与传递公式则在固定辅助场构型内使用。等时取值采用产生算符在右的约定，不能直接混同于从较早时间一侧取极限的值。</p></blockquote>
 <p>注意，不同地方的格林函数的定义可能与此处相差一个负号。</p>
 <p>此前我们已经定义了诸如：</p>
 \[
@@ -76,6 +89,9 @@
 \mathbf{G}(\tau, \tau)=[\mathbf{1}+\mathbf{B}(\tau, 0) \mathbf{B}(\beta, \tau)]^{-1}
  \tag{ 2 }\]<a class="equation-link" href="#eq-equal-time-green" aria-label="公式 2 的链接" title="公式 2 的链接">↗</a></span>
 
+<blockquote>
+<p><strong>适用条件与约定</strong>
+这是固定辅助场构型、保持粒子数的二次型演化下的结果；为简洁省略了构型与自旋下标。时间片乘积顺序须与前文一致，并要求待求逆矩阵可逆。物理格林函数要再对构型估计量平均，不能先平均演化矩阵再求逆。</p></blockquote>
 <p>顺便，因为有 \(A B^{-1} C= \left(C^{-1} B A^{-1}\right)^{-1}\) ，根据等时格林函数的定义我们能很容易的验证有：</p>
 \[
 B_{C}\left(\tau_{1}, \tau_{2}\right) G_{C}\left(\tau_{2}, \tau_{2}\right) B_{C}^{-1}\left(\tau_{1}, \tau_{2}\right)=G_{C}\left(\tau_{1}, \tau_{1}\right)
@@ -84,6 +100,9 @@ B_{C}\left(\tau_{1}, \tau_{2}\right) G_{C}\left(\tau_{2}, \tau_{2}\right) B_{C}^
 G_{C}\left(\tau_{1}, \tau_{2}\right)_{x, y}=\left\langle T c_{x}\left(\tau_{1}\right) c_{y}^{\dagger}\left(\tau_{2}\right)\right\rangle_{C}=\left\{\begin{array}{c} \left\langle c_{x}\left(\tau_{1}\right) c_{y}^{\dagger}\left(\tau_{2}\right)\right\rangle_{C} \text { if } \tau_{1} \geq \tau_{2} \\ -\left\langle c_{y}^{\dagger}\left(\tau_{2}\right) c_{x}\left(\tau_{1}\right)\right\rangle_{C} \text { if } \tau_{1}&lt;\tau_{2} \end{array}\right.
  \tag{ 3 }\]<a class="equation-link" href="#eq-time-displaced-green" aria-label="公式 3 的链接" title="公式 3 的链接">↗</a></span>
 
+<blockquote>
+<p><strong>适用条件与约定</strong>
+时间排序的交换负号取决于两个虚时的先后关系。本文在同一个逆温度区间内计算；跨越虚时边界时，还需遵守费米子格林函数的反周期性。格林函数定义若带额外整体负号，后续公式也要相应调整。</p></blockquote>
 <p>我们这里首先证明一个qm常考题，设</p>
 \[
 c_x(\tau)=e^{\tau \mathbf{c}^{\dagger} A c} c_{x} e^{-\tau c^{\dagger} A c}
@@ -115,6 +134,9 @@ G_{C}\left(\tau_{1}, \tau_{2}\right)_{x, y}=-\left\langle c_{y}^{\dagger}\left(\
 \langle n_i n_j\rangle=\sum_C P_C\langle n_i n_j\rangle_C.
  \tag{ 4 }\]<a class="equation-link" href="#eq-wick-density" aria-label="公式 4 的链接" title="公式 4 的链接">↗</a></span>
 
+<blockquote>
+<p><strong>适用条件与约定</strong>
+先在固定辅助场构型内使用 Wick 定理，再对所得四点估计量平均。这里使用粒子数守恒的高斯费米子演化，因而无需异常配对收缩；含配对项时必须把相应收缩纳入。不能用已经做过蒙卡平均的二点函数乘积代替四点平均。</p></blockquote>
 <p>这里指标也可以包含自旋。尤其要注意，\(\overline{G_CG_C}\) 一般不等于 \(\overline{G_C}\,\overline{G_C}\)。非等时关联同样应先用每个构型的非等时格林函数展开，再平均；存在符号或相位问题时还需按前文的方法重加权。</p>
 <p>本节 \(B_C\)、\(U_C\) 和由它们计算的 \(G_C\) 都是固定构型的量。权重公式中的 \(B_C\) 应包含全部费米子分量；对自旋分块的 Hubbard 模型，总行列式就是上下自旋行列式的乘积。只有总权重非负时，\(P_C\) 才能直接作为采样概率。</p>
 <h2 id="附录">附录</h2>
@@ -123,6 +145,9 @@ G_{C}\left(\tau_{1}, \tau_{2}\right)_{x, y}=-\left\langle c_{y}^{\dagger}\left(\
 \label{eq7} 	(\mathbf{A}+\mathbf{U V})^{-1}=\mathbf{A}^{-1}-\mathbf{A}^{-1} \mathbf{U}\left(\mathbf{I}_{k}+\mathbf{V A^{-1} U}\right)^{-1} \mathbf{V}\mathbf{A}^{-1}
  \tag{ 5 }\]<a class="equation-link" href="#eq-woodbury" aria-label="公式 5 的链接" title="公式 5 的链接">↗</a></span>
 
+<blockquote>
+<p><strong>适用条件与约定</strong>
+矩阵维数须相容，原矩阵及小矩阵的逆都须存在。它是矩阵恒等式，不要求原矩阵厄米；但接近奇异时，直接计算逆矩阵会放大误差，代码中通常应使用线性方程求解。</p></blockquote>
 <p>其中 \(\mathbf{A}\) 是 \(N \times N\) 的矩阵， \(\mathbf{U}\) 是 \(N \times k\) 的矩阵， \(\mathbf{V}\) 是 \(k \times N\) 的矩阵。</p>
 <p>证明如下：</p>
 <p>令 \(\xi=\mathbf{V} x\) 且有 \(\left(\mathbf{A}&#43;\mathbf{U V}\right) x=b\) ，其中 \(x\) 和 \(b\) 是 \(N \times 1\) 的向量， 而 \(\xi\) 是 \(k \times 1\) 的向量.</p>
