@@ -54,14 +54,15 @@
 \mathbf{U}^{\uparrow}\left(l_{2} \Delta \tau, l_{1} \Delta \tau\right)=\prod_{l=l_{1}&#43;1}^{l_{2}} e^{ \hat{\mathbf{c}}^{\dagger} \alpha \operatorname{Diag}\left(\vec{S}_{l}\right)\hat{\mathbf{c}}} e^{-\Delta \tau  \hat{\mathbf{c}}^{\dagger}T\hat{\mathbf{c}}}
 \]<p>对于某观测量来说，有：</p>
 \[
-\langle \hat{O}(\tau)\rangle=\frac{\operatorname{Tr}\left[e^{-\beta H} \hat{O}(\tau)\right]}{\operatorname{Tr}\left[e^{-\beta H}\right]}=\sum_{C} \mathrm{P}_{C}\langle \hat{O}(\tau)\rangle_{C}&#43;O\left(\Delta_{\tau}^{2}\right)
-\]<p>其中：</p>
+\langle \hat{O}(\tau)\rangle=\frac{\operatorname{Tr}\left[e^{-\beta H} \hat{O}(\tau)\right]}{\operatorname{Tr}\left[e^{-\beta H}\right]}=\sum_{C} \mathrm{P}_{C}\langle \hat{O}(\tau)\rangle_{C}&#43;\epsilon_{\mathrm{Trotter}}(\hat O,\Delta\tau)
+\]<p>这里 \(\epsilon_{\mathrm{Trotter}}\) 表示离散虚时造成的系统误差。对称分解单步误差为 \(O(\Delta\tau^3)\)，在固定 \(\beta\) 下通常给出二阶系统误差。前文的非对称分解单步算符误差为 \(O(\Delta\tau^2)\)，完整演化算符一般有一阶误差；配分函数及满足相应对称性、或经过适当实部处理的观测量可以消去一阶项，但不能对任意未经处理的估计量直接断言二阶精度。测量插入位置也应与分解方式匹配，并通过不同 \(\Delta\tau\) 的结果检查收敛。参见 <a href="https://alf.physik.uni-wuerzburg.de/doc.pdf">ALF 文档的 Trotter 误差讨论</a>。</p>
+<p>其中：</p>
 \[
 \mathrm{P}_{C}=\frac{\operatorname{det}\left(1&#43;B_{C}(\beta, 0)\right)}{\sum_{C} \operatorname{det}\left(1&#43;B_{C}(\beta, 0)\right)}, \quad \langle\hat{O}(\tau)\rangle_{\mathcal{C}}=\frac{\operatorname{Tr}\left\{\hat{U}_{\mathcal{C}}(\beta, \tau) \hat{O} \hat{U}_{\mathcal{C}}(\tau, 0)\right\}}{\operatorname{Tr}\left\{\hat{U}_{\mathcal{C}}(\beta, 0)\right\}}
 \]<p>假设该单体算符为： \(\hat{O}=\hat{\mathbf{c}}^{\dagger} O \hat{\mathbf{c}}\) ，则：</p>
 \[
 \begin{aligned} \langle\hat{O}\rangle_{\mathcal{C}} &amp;=\left.\frac{\partial}{\partial \eta} \ln \operatorname{Tr}\left[\hat{U}_{\mathcal{C}}(\beta, \tau) e^{\eta \hat{O}} \hat{U}_{\mathcal{C}}(\tau, 0)\right]\right|_{\eta=0} \\ &amp;=\left.\frac{\partial}{\partial \eta} \ln \operatorname{Det}\left[\mathbf{1}&#43;B_{\mathcal{C}}(\beta, \tau) e^{\eta O} B_{\mathcal{C}}(\tau, 0)\right]\right|_{\eta=0} \\ &amp;=\left.\frac{\partial}{\partial \eta} \operatorname{Tr} \ln \left[\mathbf{1}&#43;B_{\mathcal{C}}(\beta, \tau) e^{\eta O} B_{\mathcal{C}}(\tau, 0)\right]\right|_{\eta=0} \\ &amp;=\operatorname{Tr}\left[B_{\mathcal{C}}(\tau, 0)\left(1&#43;B_{\mathcal{C}}(\beta, 0)\right)^{-1} B_{\mathcal{C}}(\beta, \tau) O\right] \\ &amp;=\operatorname{Tr}\left[\left(1-\left(1&#43;B_{\mathcal{C}}(\tau, 0) B_{\mathcal{C}}(\beta, \tau)\right)^{-1}\right) O\right] \end{aligned}
-\]<p>最后一个等号用到了Sherman-Morrison公式：</p>
+\]<p>最后一个等号用到了Woodbury 公式（秩一时为 Sherman–Morrison 公式）：</p>
 \[
 \mathbf{U}\left(\mathbf{I}_{k}&#43;\mathbf{V U}\right)^{-1} \mathbf{V}  =\mathbf{I}-(\mathbf{I}&#43;\mathbf{U V})^{-1}
 \]<p>其中， \(\mathbf{U}\) 是 \(N \times k\) 的矩阵， \(\mathbf{V}\) 是 \(k \times N\) 的矩阵。证明见文末。</p>
@@ -97,9 +98,16 @@ e^{ c^{\dagger} A c} c^{\dagger}_{x} e^{- c^{\dagger} A c}=\left(\boldsymbol{c}^
 \]<p>类似的，对于 \(\tau_{2}&gt;\tau_{1}\) 的情况</p>
 \[
 G_{C}\left(\tau_{1}, \tau_{2}\right)_{x, y}=-\left\langle c_{y}^{\dagger}\left(\tau_{2}\right) c_{x}\left(\tau_{1}\right)\right\rangle_{C}=-\left[\left(1-G_{C}\left(\tau_{1}, \tau_{1}\right)\right) B_{C}^{-1}\left(\tau_{2}, \tau_{1}\right)\right]_{x, y}
-\]<p>而对于其他物理量，如 \(\left\langle c_{x}^{\dagger}\left(\tau_{1}\right) c_{x}\left(\tau_{1}\right) c_{y}^{\dagger}\left(\tau_{2}\right) c_{y}\left(\tau_{2}\right)\right\rangle\) ，我们通过Wick定理，转化为两点格林函数乘积的加减，同样能通过二点格林函数的值来得到。</p>
+\]<p>对于密度关联等四点或更高阶关联，必须先在固定辅助场构型 \(C\) 下使用 Wick 定理，得到构型估计量，再做蒙卡平均。固定构型的费米子演化由二次型指数组成，因而允许 Wick 展开；完整相互作用热态一般不能直接用已经平均的二点格林函数来做 Wick 分解。</p>
+<p>例如定义 \(\rho_{ij,C}=\langle c_i^\dagger c_j\rangle_C=\delta_{ij}-G_{ji,C}\)，对保持粒子数的固定构型，有</p>
+\[
+\langle n_i n_j\rangle_C
+=\rho_{ii,C}\rho_{jj,C}&#43;\rho_{ij,C}G_{ij,C},\qquad
+\langle n_i n_j\rangle=\sum_C P_C\langle n_i n_j\rangle_C.
+\]<p>这里指标也可以包含自旋。尤其要注意，\(\overline{G_CG_C}\) 一般不等于 \(\overline{G_C}\,\overline{G_C}\)。非等时关联同样应先用每个构型的非等时格林函数展开，再平均；存在符号或相位问题时还需按前文的方法重加权。</p>
+<p>本节 \(B_C\)、\(U_C\) 和由它们计算的 \(G_C\) 都是固定构型的量。权重公式中的 \(B_C\) 应包含全部费米子分量；对自旋分块的 Hubbard 模型，总行列式就是上下自旋行列式的乘积。只有总权重非负时，\(P_C\) 才能直接作为采样概率。</p>
 <h2 id="附录">附录</h2>
-<p>随手抄的一个Sherman-Morrison 公式的证明：</p>
+<p>随手抄的一个Woodbury 公式的证明：</p>
 \[
 \label{eq7} 	(\mathbf{A}&#43;\mathbf{U V})^{-1}=\mathbf{A}^{-1}-\mathbf{A}^{-1} \mathbf{U}\left(\mathbf{I}_{k}&#43;\mathbf{V A^{-1} U}\right)^{-1} \mathbf{V}\mathbf{A}^{-1}
 \]<p>其中 \(\mathbf{A}\) 是 \(N \times N\) 的矩阵， \(\mathbf{U}\) 是 \(N \times k\) 的矩阵， \(\mathbf{V}\) 是 \(k \times N\) 的矩阵。</p>

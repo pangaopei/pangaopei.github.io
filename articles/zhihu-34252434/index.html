@@ -69,7 +69,7 @@
 <h2 id="细致平衡条件">细致平衡条件</h2>
 <p>如果我们此时有细致平衡条件 \(\pi(i)P(i,j)=\pi(j)P(j,i)\) ，则 \(\pi(x)\) 即为稳态分布。验证不难：</p>
 <p>\(\sum_{i}\pi(i)P(i,j)=\sum_{i}\pi(j)P(j,i)=\pi(j)\sum_{i}P(j,i)=\pi(j)\)</p>
-<p>即我们确保细致平衡条件则可产生所需的样本。</p>
+<p>细致平衡保证目标分布不变；要从任意初态收敛，还需满足前面提到的不可约性、非周期性等条件。</p>
 <h2 id="metropolis-hastings">Metropolis-Hastings</h2>
 <p>产生样本的流程如下：</p>
 <ul>
@@ -83,7 +83,7 @@
 <p>均匀分布产生0到1之间的随机数 \(a\)</p>
 </li>
 <li>
-<p>\(t=t&#43;1\) 。如果 \(a\leq \frac{\pi\left ( X_{t&#39;}\right )Q\left ( X_t |X_{t&#39;}\right )}{\pi\left ( X_{t}\right )Q\left ( X_{t&#39;} |X_{t}\right )}\) ，\(X_{t}=X_{t&#39;}\) ，否则 \(X_{t}=X_{t-1}\)</p>
+<p>如果 \(a\leq \frac{\pi\left ( X_{t&#39;}\right )Q\left ( X_t |X_{t&#39;}\right )}{\pi\left ( X_{t}\right )Q\left ( X_{t&#39;} |X_{t}\right )}\) ，\(X_{t&#43;1}=X_{t&#39;}\) ，否则 \(X_{t&#43;1}=X_t\)；之后令 \(t=t&#43;1\)</p>
 </li>
 <li>
 <p>重复上述步骤足够多次，得到的 \(X\) 即为从稳态分布 \(\pi\) 产生的样本</p>
@@ -104,7 +104,7 @@
 <h2 id="以伊辛模型为例">以伊辛模型为例</h2>
 <p>伊辛模型大概是许多人入门时候算的第一个模型了，经典伊辛模型其哈密顿量为 \(E_{\sigma}=-J\sum_{&lt;i,j&gt;}s_{i}s_{j}-\mu\boldsymbol{\mathit{h}}\sum_{i=1}^{N}s_{i}\)</p>
 <p>其中 \(s_i\) 为格点 \(i\) 的自旋， \(s_i\) 的取值为 \(\pm 1\) ， \(&lt; i,j &gt;\) 代表格点 \(i\) 与 \(j\) 为最近邻。 \(h\) 代表外磁场， \(J\) 为耦合常数。不妨 \(J &gt; 0\) ,代表铁磁系统。具有以上性质的自旋系统称为Ising模型。</p>
-<p>关于伊辛模型我们知道很多，知道它有相变，且二维情况精确求解可以得到临界温度 \(T_c/J=2/ln(1&#43;\sqrt{2})\approx 2.269\) 。其有临界现象如在 \(T\rightarrow T_c^-\) 时， \(\left \langle m\left ( T \right ) \right \rangle\sim \left ( T_c-T \right )^\beta\) 。</p>
+<p>对零外场、各向同性最近邻方格晶格的铁磁伊辛模型，取 \(k_B=1\)，精确临界温度为 \(T_c/J=2/\ln(1&#43;\sqrt2)\approx2.269\)。热力学极限中的自发磁化在 \(T\to T_c^-\) 时满足 \(m_{\mathrm{sp}}\sim(T_c-T)^{\beta_{\mathrm{mag}}}\)，其中 \(\beta_{\mathrm{mag}}\) 是磁化临界指数，与逆温度 \(\beta\) 不同。对于有限系统，零外场且充分遍历正负磁化扇区时，\(\langle m\rangle=0\)；实际蒙卡通常测量 \(\langle|m|\rangle\)、\(\langle m^2\rangle\) 等，再进行有限尺寸分析。</p>
 <p>接下来进行伊辛模型的蒙卡：</p>
 <ul>
 <li>
@@ -117,10 +117,10 @@
 <p>均匀分布产生0到1之间的随机数 \(a\)</p>
 </li>
 <li>
-<p>\(t=t&#43;1\) 。如果 \(a\leq \frac{\pi\left ( X_{t&#39;}\right )Q\left ( X_t |X_{t&#39;}\right )}{\pi\left ( X_{t}\right )Q\left ( X_{t&#39;} |X_{t}\right )}\) ，\(X_{t}=X_{t&#39;}\) ，否则 \(X_{t}=X_{t-1}\) 。这时其实是否接受的条件即为看\(a\leq e^{-\beta \Delta E }\) 是否满足</p>
+<p>如果 \(a\leq \frac{\pi\left ( X_{t&#39;}\right )Q\left ( X_t |X_{t&#39;}\right )}{\pi\left ( X_{t}\right )Q\left ( X_{t&#39;} |X_{t}\right )}\) ，\(X_{t&#43;1}=X_{t&#39;}\) ，否则 \(X_{t&#43;1}=X_t\)；之后令 \(t=t&#43;1\) 。这时其实是否接受的条件即为看\(a\leq e^{-\beta \Delta E }\) 是否满足</p>
 </li>
 <li>
-<p>重复上述步骤足够多次，得到的 \(X\) 即为从稳态分布 \(\pi\) 产生的样本。具体到本例即为，先进行足够多次，选取此时的情况为第一个样本，再进行大致至少\(O\left( N \right)\) 步，取为第二个样本&hellip;最后求平均。</p>
+<p>重复上述步骤足够多次，得到的 \(X\) 即为从稳态分布 \(\pi\) 产生的样本。具体到本例即为，先进行足够多次，选取此时的情况为第一个样本，以单自旋翻转为单位，\(N\) 次尝试大致是一轮 sweep，但一轮并不保证样本独立。测量间隔和误差分析要参考实际观测量的自相关时间，临界附近尤其如此。可以保留相关样本，用分箱等方法估计平均值的统计误差。</p>
 </li>
 </ul>
 <h2 id="扯点别的自相关时间">（扯点别的）自相关时间</h2>
@@ -128,7 +128,11 @@
 <p>为了保证相邻两次取出的样本是尽可能独立的采样出来的，我们定义了自相关时间，采样中间隔的步数要远大于自相关时间为好。</p>
 <p>对于观测量 \(Q\) 我们有自相关函数：</p>
 <p>\(A_Q\left ( t \right )=\frac{\left \langle Q\left ( i&#43;t \right )Q\left ( i \right ) \right \rangle-\left \langle Q \right \rangle^2}{\left \langle Q^2 \right \rangle-\left \langle Q \right \rangle^2}\)</p>
-<p>其为指数衰减： \(A_Q\left ( t \right )\sim e^{-t/\tau_Q}\) ， \(\tau_Q\) 为自相关时间。最好间隔要大于此量。</p>
+<p>自相关函数一般包含多个衰减模，其长时间行为常用指数自相关时间 \(\tau_{\exp}\) 描述。控制平均值统计误差的是观测量相关的积分自相关时间，采用如下约定：</p>
+\[
+\tau_{\mathrm{int},Q}=\frac12&#43;\sum_{t=1}^{\infty}A_Q(t),\qquad
+\operatorname{Var}(\overline Q)\simeq\frac{2\tau_{\mathrm{int},Q}}{M}\operatorname{Var}(Q).
+\]<p>其中 \(M\) 是平衡后记录的样本数，且总测量时间应远大于相关时间。报告自相关时间时应注明单位是单次更新、sweep 还是记录间隔。并不要求丢弃所有相关样本，但必须把相关性计入误差。</p>
 <h2 id="扯点别的不想写了见文章最后抄写一波凑凑字数免得字数太少太水">（扯点别的、不想写了，见文章最后，抄写一波凑凑字数，免得字数太少太水）</h2>
 <p>**                 团簇更新     Wolff算法、Swendsen-Wang算法**</p>
 <p>以下团簇算法考虑零外场的铁磁伊辛模型。对于伊辛模型来说，Metropolis算法的话， 格点边长为 \(L\) 时，比如二维伊辛，每次进行 \(L^2\) 次翻转尝试，autocorrelation time \(\Theta \sim L^z\) ，这里的 \(z\) 叫做dynamic exponent ，对于二维伊辛模型，\(z\approx2.2\) 。这样随着 \(L\) 的增长，每次为了达到statistically independent 所需要的翻转次数增的极其之快。</p>
@@ -136,8 +140,8 @@
 <p>具体做法是，先随机生成一种自旋的初始情况。对于自旋方向相同的边，以概率 \(1-e^{-2|J|/T}\) 连接起来，然后每次随机选择一个点，找到这个点所在的（按照前面的连接方式所产生的）Cluster，然后把整个Cluster全部翻转。然后针对这个新的情况，重复进行上述的事情。</p>
 <p>从配分函数出发能够证明这样做的正确性。</p>
 <p>Swendsen-Wang是按概率产生完边的连接之后，不随机选点找其中一个Cluster翻转，而是把所有的Cluster（单个点也算），分别以 \(\frac{1}{2}\) 的概率翻转。</p>
-<p>Swendsen-Wang的话，记得大概是是 \(\Theta_{int} \sim ln(L)\)，二维伊辛模型相变点附近，应该是 \(\Theta_{int} = 0.75&#43;0.85\ ln(L)\) ，这样相比较而言，随着 \(L\) 的增大，我们所需要的翻转次数就大大减少</p>
-<p>Wolff比起Swendsen-Wang还要好一些，原因是因为其实找一个spin seed来选取其中一个Cluster而Swendsen-Wang是直接考虑全部的Cluster，那么Wolff算法中，Cluster比较大的里面的点就更容易被选到，每次翻转的自旋就更多。</p>
+<p>Swendsen–Wang 和 Wolff 都能显著减轻临界慢化，但自相关时间取决于观测量、算法、时间单位和尺寸范围，不能用一个带固定系数的对数公式概括。指数弛豫时间与积分自相关时间也不能混用。例如 <a href="https://arxiv.org/abs/cond-mat/0603038">Du、Zheng 和 Wang 的研究</a>讨论了特定初态下的非平衡能量弛豫，其拟合不能直接当作任意平衡观测量的积分自相关时间。</p>
+<p>Wolff 用随机选取的 spin seed 选择团簇，因此大团簇更容易被选中；Swendsen–Wang 每轮则更新全部团簇。比较效率时应同时考虑更新成本与自相关时间，不能仅凭每次翻转的自旋数判断哪个一定更好。</p>
 <p>对于 \(d\) 维的伊辛模型，其自旋数目 \(N=L^d\) ，因为只考虑最近邻相互作用 \(\sigma_{i\left( b \right)} \sigma_{j\left( b \right)}\) ， \(b=1,2,3...,N_b\) 。那么需要考虑的自旋对儿有 \(N_b=dN\) 个，我们叫它键好啦。</p>
 <p>我们把能量写作： \(E\left( \sigma \right)=-\left| J \right|\sum_{b=1}^{N_b}\left[ \sigma_{i\left( b \right)} \sigma_{j\left( b \right)}&#43;1 \right]=\sum_{b=1}^{N_b}E_b\)</p>
 <p>这和我们之前写的能量有所区别，多了一个常数。我们知道常数是不影响概率分布的，而多写一个常数的好处我们在后面就会看到。</p>

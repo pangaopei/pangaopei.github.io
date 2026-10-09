@@ -61,10 +61,10 @@
 <p>这个就是我们所说的**细致平衡条件（detailed balance condition）**了。</p></blockquote>
 <p>王子：</p>
 <blockquote>
-<p>这样看，小鸡岛人口那么少，如果我们多拒签他们一个人，他们岂不是要多拒签我们&hellip;我算算&hellip;100万除以100，他们要多拒签我们10000个人！那这个世界人才流动状况也太差了吧！</p></blockquote>
+<p>这样看，小鸡岛人口那么少，如果两边申请去对方的概率相同，是不是斯坦国去小鸡岛的通过率就要低很多？</p></blockquote>
 <p>签证官：</p>
 <blockquote>
-<p>你这么算不一定对哟，你这么直接算人口比 \(\frac{\pi(j)}{\pi(i)}\) ，是假定了大家互相申请去往对面的概率相等，也就是假定了 \(Q(i, j) =Q(j, i)\) ，但这可说不好呀。如果我没记错，如果做了这样的假定，就叫做<strong>Metropolis 算法</strong>，不做这样的假定，可能出现 \(Q(i, j) \neq  Q(j, i)\) 的情况的话，就是我们常说的<strong>Metropolis-Hasting 算法</strong>了。</p></blockquote>
+<p>要区分通过率和实际迁移人数：细致平衡要求两个方向的平均迁移人数相等。人口比决定的是通过率的比例，不能把“一个被拒签的人”直接乘上人口比。你这里使用人口比 \(\frac{\pi(j)}{\pi(i)}\) ，是假定了大家互相申请去往对面的概率相等，也就是假定了 \(Q(i, j) =Q(j, i)\) ，但这可说不好呀。如果我没记错，如果做了这样的假定，就叫做<strong>Metropolis 算法</strong>，不做这样的假定，可能出现 \(Q(i, j) \neq  Q(j, i)\) 的情况的话，就是我们常说的<strong>Metropolis–Hastings 算法</strong>了。</p></blockquote>
 <p>王子：</p>
 <blockquote>
 <p>是的，是我没注意这样的细节。小鸡岛这地方太小了，肯定是他们更愿意来我们斯坦国，我们斯坦国的愿意去他们岛上的少一些。
@@ -74,10 +74,10 @@
 <p>所以实际上，因为小鸡岛的人口比我们少，如果两边互相申请的意愿一样的话，也就是考虑<strong>Metropolis 算法</strong>的话，只要是小鸡岛来的人，我们都给了签证的。也就是说，大家的签证通过率是： \(\alpha(i, j)=\min \left\{\frac{\pi(j) }{\pi(i) }, 1\right\}\) 。就像你小时候写程序算Ising模型的，local的更新，每尝试翻转一个自旋，如果能量降低就一定接受，能量变高才按概率接受。 \(\alpha(i, j)=\min \left\{e^{-\beta \Delta E}, 1\right\}\)</p></blockquote>
 <p>王子：</p>
 <blockquote>
-<p>我懂了。那么用<strong>Metropolis-Hasting 算法</strong>的话，接受率就是 \(\alpha(i, j)=\min \left\{\frac{\pi(j) Q(j, i)}{\pi(i) Q(i, j)}, 1\right\}\) 对吧？</p></blockquote>
+<p>我懂了。那么用<strong>Metropolis–Hastings 算法</strong>的话，接受率就是 \(\alpha(i, j)=\min \left\{\frac{\pi(j) Q(j, i)}{\pi(i) Q(i, j)}, 1\right\}\) 对吧？</p></blockquote>
 <p>签证官：</p>
 <blockquote>
-<p>**你可真是个小机灵鬼，我现在放心你继承玄武国的凝聚态物理大业了。 **</p></blockquote>
+<p>**你可真是个小机灵鬼，我现在放心你继承斯坦国的凝聚态物理大业了。 **</p></blockquote>
 <p>王子：</p>
 <blockquote>
 <p>可是我觉得还是有哪里不对，我看叔叔你天天不去上班，在这里给我讲课，你不需要去上班拒签的？这样世界人口分布就乱了呀！！！不能为了给我讲课就影响你的工作呀！</p></blockquote>

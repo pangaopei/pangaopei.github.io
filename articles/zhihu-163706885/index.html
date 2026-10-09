@@ -35,7 +35,7 @@
 \]<p>，其中 \(e^{-\Delta \tau \hat{H}} \approx e^{-\Delta \tau \hat{H}_{I}} e^{-\Delta \tau \hat{H}_{0}}\) ，</p>
 <p>即：</p>
 \[
-\begin{aligned} Z &amp;=\operatorname{Tr}\left[e^{-\Delta \tau \hat{H}_{I}} e^{-\Delta \tau \hat{H}_{0}} e^{-\Delta \tau \hat{H}_{I}} e^{-\Delta \tau \hat{H}_{0}}\cdots e^{-\Delta \tau \hat{H}_{I}} e^{-\Delta \tau \hat{H}_{0}}\right] \end{aligned}
+\begin{aligned} Z &amp;\approx\operatorname{Tr}\left[e^{-\Delta \tau \hat{H}_{I}} e^{-\Delta \tau \hat{H}_{0}} e^{-\Delta \tau \hat{H}_{I}} e^{-\Delta \tau \hat{H}_{0}}\cdots e^{-\Delta \tau \hat{H}_{I}} e^{-\Delta \tau \hat{H}_{0}}\right] \end{aligned}
 \]<p>而在前文我们已经知道：对于Hubbard U项，我们有：</p>
 \[
 \begin{aligned} e^{-\Delta \tau \hat{H}_{I}} &amp;=\prod_{i} e^{-\Delta \tau U\left(\hat{n}_{i \uparrow}-\frac{1}{2}\right)\left(\hat{n}_{i \downarrow}-\frac{1}{2}\right)} \\ &amp;=\prod_{i} \gamma \sum_{s_{i, l}=\pm 1} e^{\alpha s_{i, l}\left(\hat{n}_{i \uparrow}-\hat{n}_{i \downarrow}\right)} \\ &amp;=\gamma^{N} \sum_{s_{i, l}=\pm 1}\left(\prod_{i} e^{\alpha s_{i, l} \hat{n}_{i \uparrow}} \prod_{i} e^{-\alpha s_{i, l} \hat{n}_{i \downarrow}}\right) \end{aligned}
@@ -50,13 +50,13 @@
 <p>其中：</p>
 <p>\(\begin{array}{l} \mathbf{B}^{\uparrow}(l_2 \Delta \tau, l_1 \Delta \tau)=\prod_{l=l_{1}&#43;1}^{l_{2}}e^{\alpha \operatorname{Diag}\left(\vec{S}_{l}\right)}  e^{-\Delta \tau T} \\ \mathbf{B}^{\downarrow}(l_2 \Delta \tau, l_1 \Delta \tau)=\prod_{l=l_{1}&#43;1}^{l_{2}}e^{-\alpha \operatorname{Diag}\left(\vec{S}_{l}\right)}  e^{-\Delta \tau T} \end{array}\) ，</p>
 <p>其中 \(\operatorname{Diag}\left(\vec{S}_{l}\right)\) 表示对角元分别为 \(s_{i,l}\) 的矩阵。</p>
-<p>现在我们看到，我们将费米子求trace求掉了，配分函数的求和部分，只是关于一个 \(L \times L \times L_{\tau}\) 的伊辛辅助场的求和。我们暂且不管辅助场的事情，就和伊辛模型一样，在伊辛模型的时候，我们给定某一个伊辛场的构型，得到该构型所对应的权重（概率）。此时同样的，给定 \(L \times L \times L_{\tau}\) 的伊辛场的取值，我们有相应的权重：</p>
+<p>现在我们看到，我们将费米子求trace求掉了，配分函数的求和部分，只是关于一个 \(L \times L \times L_{\tau}\) 的伊辛辅助场的求和。给定一个辅助场构型，我们可以计算它的归一化权重。只有各构型总权重都非负时，它才是类似经典伊辛模型的概率分布；否则需要按绝对权重采样并重加权符号或相位。给定 \(L \times L \times L_{\tau}\) 的伊辛场取值，有：</p>
 <p>\(W_{C}=\frac{\gamma^{N L_{\tau}}\prod_{\sigma =\uparrow \downarrow} \operatorname{Det}\left[\mathbf{I}&#43;\mathbf{B}_{C}^{\sigma}\left(L_{\tau} \Delta \tau,\left(L_{\tau}-1\right) \Delta \tau\right) \cdots \mathbf{B}_{C}^{\sigma}(\Delta \tau, 0)\right]}{Z}\)</p>
 <p>其中加 \(C\) 指的是将具体的Configuration的值代入得到相应的矩阵再进行操作，比如我们看 \(B_C^{\uparrow}(\Delta \tau,0)=e^{\alpha\operatorname{Diag}\left(\vec{S}_{1}\right)}  e^{-\Delta \tau T}\) 这一部分，我们发现后面的一半和伊辛场无关，前面的一半和 \(s_{i,1}\) 的取值是 \(&#43;1\) 还是 \(-1\) 有关。</p>
 <p>我们知道，在进行MCMC的时候，真正影响计算的是权重的比值，所以相同的常数因子我们可以略去，重新写权重为：</p>
 <p>\(W_{C}=\prod_{\sigma =\uparrow \downarrow} \operatorname{Det}\left[\mathbf{I}&#43;\mathbf{B}_{C}^{\sigma}\left(L_{\tau} \Delta \tau,\left(L_{\tau}-1\right) \Delta \tau\right) \cdots \mathbf{B}_{C}^{\sigma}(\Delta \tau, 0)\right]=\prod_{\sigma\uparrow \downarrow} \operatorname{Det}\left[\mathbf{I}&#43; \mathbf{B}_{C}^{\sigma}(\beta, 0)\right]\)</p>
-<p>现在我们看到，给定了某个具体的辅助场：2+1的伊辛场的构型，我们都能算出来该构型的权重（虽然很麻烦）。我们需要算每个 \(B\) ，此时需要算一个大矩阵的exp。矩阵的exp的计算通常就要对角化来算了，利用线代就学的 \(e^{-A}=e^{-U^\dagger \mathrm{diag} (\lambda) U}=U^\dagger \mathrm{Diag} (e^{-\lambda_i}) U\) 。</p>
-<p>此时已经是很费力的操作了，然而我们还要将得到的 \(2 L_\tau\) 矩阵个矩阵乘起来（在乘的过程中可能会导致数值的误差）。乘完之后，还要加上一个单位阵，再算这个巨大的 \(N \times N\) 矩阵的行列式。这又是一项费力的操作。而再进行了这么多操作之后，现在只计算出来了一个数：该构型所对应的权重，而当你尝试更新到新的构型的时候，想算新构型的权重，trivial的想，要重新分别计算各个 \(B\) 再乘起来再算行列式&hellip;这显然是很可怕的计算量。而 \(2 L_\tau\) 个奇异性可能很大的矩阵直接相乘显然很容易造成数值上的误差。</p>
+<p>给定辅助场构型后，每个虚时片的单粒子矩阵为 \(B_l^\sigma=e^{\pm\alpha\operatorname{Diag}(\vec S_l)}e^{-\Delta\tau T}\)。其中 hopping 矩阵 \(T\) 不随辅助场改变，所以 \(e^{-\Delta\tau T}\) 可以预计算；对角辅助场因子只需逐元素求指数，不必每次重新对角化大矩阵。对于 Hermitian 的 \(T\)，若 \(T=Q\operatorname{diag}(\varepsilon_i)Q^\dagger\)，则 \(e^{-\Delta\tau T}=Q\operatorname{diag}(e^{-\Delta\tau\varepsilon_i})Q^\dagger\)。</p>
+<p>即便如此，如果每次单点翻转都重新构造两个自旋块各自的长矩阵乘积，再求 \(\det(I&#43;B_C^\sigma(\beta,0))\)，计算仍然很贵，直接长连乘也容易丢失数值精度。后面的快速更新和数值稳定正是为了解决这些问题，而不是每次更新都必须重新计算 hopping 的矩阵指数。</p>
 <p>这些问题将在之后逐一进行解决，但至少你现在可以无比暴力的来进行Hubbard Model的DQMC的计算了（应该没有人这么暴力的来做233毕竟大家的机时费都不是大风刮来的，时间上也等不起）。</p>
 <hr>
 <p>去年买的辣鸡暗影精灵5，在家修不好跑去郑州修，赶在一年保修期结束前，修了俩星期终于搞定了&hellip;命途多舛的砖头本哭哭。</p>

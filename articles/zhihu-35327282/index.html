@@ -57,7 +57,7 @@
 <p>算符 \(e^{-\beta H}\) 有着量子力学中的时间演化算符的形式，只需把 \(-i\beta\) 对应 \(t\) ，相应的有了虚时 \(\beta\) 。当温度趋向于0时， \(\beta\) 趋向于无穷。我们把虚时看做新的一维，发现可将量子的配分函数改写为经典的高一维的配分函数的形式。我们常称之为 \((d&#43;1)\) 维的model</p>
 <p>对于关联长度，经典情况下： \(\xi \sim |T-T_c|^{-\nu}\)</p>
 <p>而对于此时的量子系统，空间尺度的关联长度为： \(\xi \sim |g-g_c|^{-\nu}\)</p>
-<p>新维度上通常为： \(\xi_\tau \sim \xi^z \sim |g-g_c|^{-z\nu}\) 如果没记错一般 \(O(n)\) model 的话 \(z=1\) ，我们在进行模拟时最好保持 \(\beta\) 和 \(L\) 同比例增长。</p>
+<p>新维度上通常为： \(\xi_\tau \sim \xi^z \sim |g-g_c|^{-z\nu}\) 进行量子临界有限尺寸缩放时，通常固定 \(\beta/L^z\)，其中 \(L\) 是空间线性尺寸。对具有相对论式低能动力学的短程量子 \(O(n)\) 临界点，常有 \(z=1\)，此时才是 \(\beta\propto L\)；仅有 \(O(n)\) 对称性并不能决定 \(z\)。若目标是基态性质，还需检查所选 \(\beta\) 是否足够大。</p>
 <h2 id="一个简单的例子横场伊辛">一个简单的例子——横场伊辛</h2>
 <p>经典的伊辛模型已经在上 一篇文章中简要说明过，而外加横场的量子伊辛模型，在量子领域同样是十分基础和重要的模型。</p>
 <p>哈密顿量如下：</p>
@@ -67,7 +67,7 @@
 <p>\(\sigma^x\) 等为泡利矩阵：</p>
 <p>\(\sigma_i^x=\begin{pmatrix} 0 &amp; 1\\ 1 &amp; 0 \end{pmatrix},\qquad \sigma_i^z=\begin{pmatrix} 1 &amp; 0\\ 0 &amp; -1 \end{pmatrix}\)</p>
 <h2 id="d维量子系统与d1维经典系统的对应">d维量子系统与d+1维经典系统的对应</h2>
-<p>将 \(\beta\) 视为虚时间， \(\beta=L\Delta \tau\) ,则配分函数可写作：</p>
+<p>将 \(\beta\) 视为虚时间， \(\beta=L_{\tau}\Delta \tau\) ,则配分函数可写作：</p>
 \[
 \begin{alignat}{2} Z&amp;=\mathrm{Tr}\left [ e^{-\beta H} \right ]\nonumber \\ &amp;=\mathrm{Tr}\left [ e^{-\Delta \tau H} e^{-\Delta \tau H}... e^{-\Delta \tau H} e^{-\Delta \tau H} \right ] \end{alignat}
 \]<p>我们知道：</p>
@@ -75,7 +75,7 @@
 \begin{alignat}{2} 1&amp;=\prod_{i=1}^{N}\left [ \sum_{S_i^z=\pm 1}|S_i^z \rangle \langle S_i^z| \right ]\nonumber \\ &amp;\equiv \sum_{\left \{ S_i^z \right \}} |S_i^z \rangle \langle S_i^z| \end{alignat}
 \]<p>分别在不同的地方将其插入并最终用这组基来求Trace，有：</p>
 \[
-\label{shangshu} Z= \sum_{\left \{ S_{i,l}=\pm 1 \right \}} \langle S_1^z| e^{-\Delta \tau H} |S_L^z \rangle \langle S_L^z| e^{-\Delta \tau H} |S_{L-1}^z \rangle \langle S_{L-1}^z| e^{-\Delta \tau H} |S_{L-2}^z \rangle...\langle S_3^z| e^{-\Delta \tau H} |S_2^z \rangle \langle S_2^z| e^{-\Delta \tau H} |S_1^z \rangle
+\label{shangshu} Z= \sum_{\left \{ S_{i,l}=\pm 1 \right \}} \langle S_1^z| e^{-\Delta \tau H} |S_{L_{\tau}}^z \rangle \langle S_{L_{\tau}}^z| e^{-\Delta \tau H} |S_{L_{\tau}-1}^z \rangle \langle S_{L_{\tau}-1}^z| e^{-\Delta \tau H} |S_{L_{\tau}-2}^z \rangle...\langle S_3^z| e^{-\Delta \tau H} |S_2^z \rangle \langle S_2^z| e^{-\Delta \tau H} |S_1^z \rangle
 \]<p>因为 \(H_0\) 和 \(H_1\) 不对易，所以我们采用这都有名字系列我甚至不想打公式的Trotter-Suzuki近似：</p>
 \[
 e^{\Delta(A&#43;B)}=\begin{cases}
@@ -84,12 +84,8 @@ e^{\Delta B/2}e^{\Delta A}e^{\Delta B/2}&#43;\mathcal{O}(\Delta^3).
 \end{cases}
 \]<p>这也是此种蒙卡会造成误差的地方。我们有</p>
 \[
-\begin{alignat}{2} \langle S_{l&#43;1}^z| e^{-\Delta \tau H}|S_l^z \rangle&amp;=\langle S_{l&#43;1}^z| e^{-\Delta \tau H_1-\Delta \tau H_0}|S_l^z \rangle \nonumber \\ &amp;\approx \langle S_{l&#43;1}^z| e^{-\Delta \tau H_1}e^{-\Delta \tau H_0}&#43;\mathbf{O}\left ( \epsilon \right )|S_l^z \rangle \end{alignat}
-\]<p>其中</p>
-\[
-\epsilon=\left [ \Delta \tau H_0,\Delta \tau H_1 \right ]=(\Delta \tau)^2 [H_0,H_1]=\mathbf{O}((\Delta \tau)^2Jh)
-\]<p>要求</p>
-<p>\((\Delta \tau)^2Jh\ll 1 \\ L^2\gg \beta^2Jh\\ L\gg \beta\sqrt{Jh}\)</p>
+\begin{alignat}{2} \langle S_{l&#43;1}^z| e^{-\Delta \tau H}|S_l^z \rangle&amp;=\langle S_{l&#43;1}^z| e^{-\Delta \tau H_1-\Delta \tau H_0}|S_l^z \rangle \nonumber \\ &amp;=\langle S_{l&#43;1}^z|e^{-\Delta\tau H_1}e^{-\Delta\tau H_0}|S_l^z\rangle&#43;O(\Delta\tau^2) \end{alignat}
+\]<p>这里单步误差的首项由 \(\frac12(\Delta\tau)^2[H_0,H_1]\) 控制，但它是算符，不能简单把整个系统的对易子替换成一个与尺寸无关的数 \(Jh\)。\((\Delta\tau)^2|Jh|\ll1\) 至多是局部尺度上的粗略提示，也不保证固定 \(\beta\) 下的总误差足够小。实际应减小 \(\Delta\tau\) 检查收敛，并区分单步误差、完整演化算符误差及观测量误差。对称 Trotter 分解的单步误差为 \(O(\Delta\tau^3)\)，固定 \(\beta\) 下通常给出二阶系统误差。</p>
 <p>对于其中的一项，进行细致的推导：</p>
 \[
 \langle S_{l&#43;1}^z| e^{-\Delta \tau H_1}e^{-\Delta \tau H_0}|S_l^z \rangle=e^{\Delta \tau J \sum_{i=1}^{N}S_{i,l}^z S_{i&#43;1,l}^z}\langle S_{l&#43;1}^z| e^{\Delta \tau h \sum_{i=1}^{N}\sigma _i^x}|S_l^z \rangle
@@ -107,10 +103,10 @@ e^{\Delta \tau h \sigma_x}=\mathbf{I}\cosh(\Delta \tau h)&#43;\mathbf{\sigma _x}
 \langle S_{l&#43;1}^z| e^{-\Delta \tau H_1}e^{-\Delta \tau H_0}|S_l^z \rangle=\Lambda^N e^{\Delta \tau J\sum_{i=1}^{N}S_{i,l}^z S_{i&#43;1,l}^z&#43;\gamma \sum_{i=1}^{N}S_{i,l}^z S_{i,l&#43;1}^z}
 \]<p>由此配分函数可写作与经典Ising一致的形式：</p>
 \[
-Z_{cl}=\Lambda^{NL}\sum_{\left \{ S_{i,l}=\pm 1 \right \}} e^{\beta_{cl}J_x\sum_{i=1}^{N_x}\sum_{j=1}^{N_y}S_{i,j}S_{i&#43;1,j}&#43;\beta_{cl}J_y\sum_{i=1}^{N_x}\sum_{j=1}^{N_y}S_{i,j}S_{i,j&#43;1}}
+Z_{cl}=\Lambda^{N L_{\tau}}\sum_{\left \{ S_{i,l}=\pm 1 \right \}} e^{\beta_{cl}J_x\sum_{i=1}^{N_x}\sum_{j=1}^{N_y}S_{i,j}S_{i&#43;1,j}&#43;\beta_{cl}J_y\sum_{i=1}^{N_x}\sum_{j=1}^{N_y}S_{i,j}S_{i,j&#43;1}}
 \]<p>而此时其中的参数则变为了</p>
-<p>\(N_x=N\\ N_y=L\\ \beta_{cl}J_x=\Delta \tau J\\ \beta_{cl}J_y=\gamma\\\)</p>
-<p>我们就这么将一个 \(d\) 维量子系统的模拟转变为了 \(d&#43;1\) 维的经典伊辛模型的模拟，无非是 \(J\) 有了改变。</p>
+<p>\(N_x=N\\ N_y=L_{\tau}\\ \beta_{cl}J_x=\Delta \tau J\\ \beta_{cl}J_y=\gamma\\\)</p>
+<p>这里以一维横场伊辛链为例，得到空间与虚时耦合不同的二维经典伊辛模型，虚时方向由 trace 产生周期边界条件。此处取 \(h&gt;0\)，经典权重为非负实数；一般量子模型的虚时表示可能出现负或复权重，并不自动成为可直接采样的经典概率分布。</p>
 <p>对于一维横场伊辛模型，相变点应该在 \(h=J\) 处，二维应该在 \(3.04438(2)J\) ？</p>
 <p>当然了你完全可以拿SSE（随机级数展开来算），没有 \(\Delta \tau\) 相关的误差了而且更快更准（当然会有别的）。比如上述二维横场伊辛的相变点就是有人拿SSE暴力算到了128*128的格子定出来的&hellip;&hellip;</p>
 <p>不知道什么时候有时间写些SSE啊Worm啊之类的或是Hybrid蒙卡&hellip;</p>
