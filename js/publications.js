@@ -5,6 +5,7 @@
   const search = document.querySelector('#paper-search');
   const year = document.querySelector('#paper-year');
   const role = document.querySelector('#paper-role');
+  const topic = document.querySelector('#paper-topic');
   const normalize = value => value.normalize('NFKD').replace(/\p{M}/gu, '')
     .toLowerCase().replace(/[^\p{L}\p{N}]+/gu, ' ').trim().replace(/\s+/g, ' ');
   const compact = value => normalize(value).replace(/ /g, '');
@@ -91,7 +92,8 @@
       const textMatch = journal ? journalIds.includes(journal)
         : !query || text.includes(query) || authors.includes(nameQuery);
       const matches = (!year.value || element.dataset.year === year.value)
-        && (!role.value || element.dataset.role === role.value) && textMatch;
+        && (!role.value || element.dataset.role === role.value)
+        && (!topic?.value || (element.dataset.topics || '').split(' ').includes(topic.value)) && textMatch;
       element.hidden = !matches;
       if (matches) count++;
     });
@@ -101,4 +103,5 @@
   search.addEventListener('input', update);
   year.addEventListener('change', update);
   role.addEventListener('change', update);
+  topic?.addEventListener('change', update);
 })();
