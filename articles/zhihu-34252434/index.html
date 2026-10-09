@@ -5,7 +5,7 @@
 <title>【尝试灌水-1】入门，蒙卡及伊辛 · Gaopei Pan · 潘高培</title>
 <meta name="description" content="Gaopei Pan · Quantum Monte Carlo, quantum criticality, entanglement, and strongly correlated quantum matter.">
 <link rel="canonical" href="https://pangaopei.github.io/articles/zhihu-34252434/">
-<link rel="stylesheet" href="/css/academic.css?v=79654e1e02c97e0f81b553d56c7d5508">
+<link rel="stylesheet" href="/css/academic.css?v=3b203ce167dcdcdb6df52c53204e66c7">
 <script src="/js/publications.js?v=548f89154ab677d4f2dac108651d8168" defer></script>
 
 
@@ -45,6 +45,7 @@
     <h1>【尝试灌水-1】入门，蒙卡及伊辛</h1>
     <div class="article-meta">
       <time datetime="2018-04-30">更新于 2018-04-30</time>
+       · <time datetime="2018-04-30">本站修订 2018-04-30</time>
        · <a href="https://zhuanlan.zhihu.com/p/34252434">知乎原文 ↗</a>
     </div>
     <details class="article-toc"><summary>目录</summary><nav id="TableOfContents">
@@ -98,7 +99,11 @@
 <p>我们引入了接受概率 \(\alpha\) 以使得条件满足： \(\pi(i)Q(i,j)\alpha(i,j)=\pi(j)Q(j,i)\alpha(j,i)\)</p>
 <p>很显然由对称性想到，不妨： \(\alpha(i,j)=\pi(j)Q(j,i)\)</p>
 <p>由于Metropolis算法构造出的接受概率可能会很小，这样造成算法要经过很多次数才能到达稳态分布。所以我们可以把接受概率乘上相同的倍数，使得其中一个为1，即</p>
-<p>\(\alpha(i,j)=min\left \{ \frac{\pi(j)Q(j,i)}{\pi(i)Q(i,j)},1 \right \}\) 使用对称的 \(Q\)即能进一步化简。</p>
+<span class="numbered-equation" id="eq-metropolis-hastings" data-equation-number="1">\[
+\alpha(i,j)=min\left \{ \frac{\pi(j)Q(j,i)}{\pi(i)Q(i,j)},1 \right \}
+ \tag{ 1 }\]<a class="equation-link" href="#eq-metropolis-hastings" aria-label="公式 1 的链接" title="公式 1 的链接">↗</a></span>
+
+<p>使用对称的 \(Q\)即能进一步化简。</p>
 <h2 id="进入物理相关部分">进入物理相关部分</h2>
 <p>配分函数： \(Z=\sum_{\sigma} e^{-\beta E_{\sigma} }\)</p>
 <p>观测量： \(\left \langle O \right \rangle=\frac{1}{Z}\sum _{\sigma}Oe^{-\beta E_{\sigma} }\)</p>
@@ -131,10 +136,12 @@
 <p>对于观测量 \(Q\) 我们有自相关函数：</p>
 <p>\(A_Q\left ( t \right )=\frac{\left \langle Q\left ( i&#43;t \right )Q\left ( i \right ) \right \rangle-\left \langle Q \right \rangle^2}{\left \langle Q^2 \right \rangle-\left \langle Q \right \rangle^2}\)</p>
 <p>自相关函数一般包含多个衰减模，其长时间行为常用指数自相关时间 \(\tau_{\exp}\) 描述。控制平均值统计误差的是观测量相关的积分自相关时间，采用如下约定：</p>
-\[
-\tau_{\mathrm{int},Q}=\frac12&#43;\sum_{t=1}^{\infty}A_Q(t),\qquad
+<span class="numbered-equation" id="eq-autocorrelation" data-equation-number="2">\[
+\tau_{\mathrm{int},Q}=\frac12+\sum_{t=1}^{\infty}A_Q(t),\qquad
 \operatorname{Var}(\overline Q)\simeq\frac{2\tau_{\mathrm{int},Q}}{M}\operatorname{Var}(Q).
-\]<p>其中 \(M\) 是平衡后记录的样本数，且总测量时间应远大于相关时间。报告自相关时间时应注明单位是单次更新、sweep 还是记录间隔。并不要求丢弃所有相关样本，但必须把相关性计入误差。</p>
+ \tag{ 2 }\]<a class="equation-link" href="#eq-autocorrelation" aria-label="公式 2 的链接" title="公式 2 的链接">↗</a></span>
+
+<p>其中 \(M\) 是平衡后记录的样本数，且总测量时间应远大于相关时间。报告自相关时间时应注明单位是单次更新、sweep 还是记录间隔。并不要求丢弃所有相关样本，但必须把相关性计入误差。</p>
 <h2 id="扯点别的不想写了见文章最后抄写一波凑凑字数免得字数太少太水">（扯点别的、不想写了，见文章最后，抄写一波凑凑字数，免得字数太少太水）</h2>
 <p>**                 团簇更新     Wolff算法、Swendsen-Wang算法**</p>
 <p>以下团簇算法考虑零外场的铁磁伊辛模型。对于伊辛模型来说，Metropolis算法的话， 格点边长为 \(L\) 时，比如二维伊辛，每次进行 \(L^2\) 次翻转尝试，autocorrelation time \(\Theta \sim L^z\) ，这里的 \(z\) 叫做dynamic exponent ，对于二维伊辛模型，\(z\approx2.2\) 。这样随着 \(L\) 的增长，每次为了达到statistically independent 所需要的翻转次数增的极其之快。</p>
@@ -232,7 +239,7 @@ p(x,y)p(y&#39;|x)=p(x)p(y|x)p(y&#39;|x)=p(x,y&#39;)p(y|x).
     
   </article>
 </main>
-<footer class="shell footer"><span>© 2026 Gaopei Pan · 潘高培</span><span>Quantum many-body physics</span></footer>
+<footer class="shell footer"><span>© 2026 Gaopei Pan · 潘高培</span><a href="mailto:gaopei.pan@uni-wuerzburg.de">Contact</a><span>Quantum many-body physics</span></footer>
 
 </body>
 </html>

@@ -5,7 +5,7 @@
 <title>【农夫山泉-8】更新（5） · Gaopei Pan · 潘高培</title>
 <meta name="description" content="Gaopei Pan · Quantum Monte Carlo, quantum criticality, entanglement, and strongly correlated quantum matter.">
 <link rel="canonical" href="https://pangaopei.github.io/articles/zhihu-470421299/">
-<link rel="stylesheet" href="/css/academic.css?v=79654e1e02c97e0f81b553d56c7d5508">
+<link rel="stylesheet" href="/css/academic.css?v=3b203ce167dcdcdb6df52c53204e66c7">
 <script src="/js/publications.js?v=548f89154ab677d4f2dac108651d8168" defer></script>
 
 
@@ -28,6 +28,7 @@
     <h1>【农夫山泉-8】更新（5）</h1>
     <div class="article-meta">
       <time datetime="2024-11-15">更新于 2024-11-15</time>
+       · <time datetime="2024-11-15">本站修订 2024-11-15</time>
        · <a href="https://zhuanlan.zhihu.com/p/470421299">知乎原文 ↗</a>
     </div>
     
@@ -46,19 +47,25 @@
 \[
 (\mathbf{I}&#43;\mathbf{U V})^{-1}=\mathbf{I}-\mathbf{U}\left(\mathbf{I}_{k}&#43;\mathbf{V U}\right)^{-1} \mathbf{V}
 \]<p>U是 \(N \times k\) 的矩阵，V是 \(k \times N\) 的矩阵。证明见前文附录。因为此处的 Δ矩阵只有一个元素非零，则该权重比实际上可以通过如下方式简单计算：</p>
-\[
-\begin{aligned}  r=&amp;\operatorname{det}[\mathbf{I}_{N \times N}&#43;\mathbf{\Delta}_{N \times N}(\mathbf{I}-\mathbf{G}(\tau, \tau))_{N \times N}] \\  =&amp; \operatorname{det}[\mathbf{I}_{N \times N}&#43;\mathbf{\Delta}_{N \times 1}(\mathbf{I}-\mathbf{G}(\tau, \tau))_{1 \times N}]\\  =&amp; \operatorname{det}[\mathbf{I}_{1 \times 1}&#43;(\mathbf{I}-\mathbf{G}(\tau, \tau))_{1 \times N} \mathbf{\Delta}_{N \times 1}]\\  =&amp; \operatorname{det}[\mathbf{I}_{1 \times 1}&#43;(\mathbf{I}-\mathbf{G}(\tau, \tau))_{1 \times 1} \mathbf{\Delta}_{1 \times 1}]\\  =&amp; 1&#43;\mathbf{\Delta}_{i i}\left(1-\mathbf{G}_{i i}\right)  \end{aligned}
-\]<p>其中第二个等号利用了公式</p>
-\[
-\det(I_{m}&#43;AB)=\det(I_{n}&#43;BA)  \label{eq1}
-\]<p>，证明见附录：</p>
+<span class="numbered-equation" id="eq-determinant-ratio" data-equation-number="1">\[
+\begin{aligned}  r=&amp;\operatorname{det}[\mathbf{I}_{N \times N}+\mathbf{\Delta}_{N \times N}(\mathbf{I}-\mathbf{G}(\tau, \tau))_{N \times N}] \\  =&amp; \operatorname{det}[\mathbf{I}_{N \times N}+\mathbf{\Delta}_{N \times 1}(\mathbf{I}-\mathbf{G}(\tau, \tau))_{1 \times N}]\\  =&amp; \operatorname{det}[\mathbf{I}_{1 \times 1}+(\mathbf{I}-\mathbf{G}(\tau, \tau))_{1 \times N} \mathbf{\Delta}_{N \times 1}]\\  =&amp; \operatorname{det}[\mathbf{I}_{1 \times 1}+(\mathbf{I}-\mathbf{G}(\tau, \tau))_{1 \times 1} \mathbf{\Delta}_{1 \times 1}]\\  =&amp; 1+\mathbf{\Delta}_{i i}\left(1-\mathbf{G}_{i i}\right)  \end{aligned}
+ \tag{ 1 }\]<a class="equation-link" href="#eq-determinant-ratio" aria-label="公式 1 的链接" title="公式 1 的链接">↗</a></span>
+
+<p>其中第二个等号利用了公式</p>
+<span class="numbered-equation" id="eq-sylvester" data-equation-number="2">\[
+\det(I_{m}+AB)=\det(I_{n}+BA)  \label{eq1}
+ \tag{ 2 }\]<a class="equation-link" href="#eq-sylvester" aria-label="公式 2 的链接" title="公式 2 的链接">↗</a></span>
+
+<p>，证明见附录：</p>
 \[
 \det(\mathbf{I}_{N}&#43;\mathbf{U V})=\det(\mathbf{I}_{k}&#43;\mathbf{ VU})
 \]<p>比如自旋上部分的权重比就为  \(1&#43;(e^{\alpha \Delta s_{i,l}}-1)(1-G^{\uparrow}(\tau,\tau)_{i,i})\) ，自旋下部分 \(1&#43;(e^{-\alpha \Delta s_{i,l}}-1)(1-G^{\downarrow}(\tau,\tau)_{i,i})\) 。我们看到，因为Hubbard的特殊形式，导致我们其实在有对应等时格林函数的值的时候，不需要计算一个巨大矩阵的乘法再加上行列式，只需要计算一个数，即能得到单个自旋分量的权重比。</p>
 <p>需要区分权重比和接受概率。记两个自旋分量的比值为 \(r_\uparrow,r_\downarrow\)，对这里的对称单点翻转提议，若总权重非负，Metropolis 接受概率为</p>
-\[
+<span class="numbered-equation" id="eq-acceptance" data-equation-number="3">\[
 P_{\mathrm{acc}}=\min\{1,r_\uparrow r_\downarrow\}.
-\]<p>权重比可以大于 1，单个自旋分量的比值也不是完整的接受概率。若存在符号或相位问题，则按绝对权重采样，使用 \(P_{\mathrm{acc}}=\min\{1,|r_\uparrow r_\downarrow|\}\)，并在观测量中重加权符号或相位。</p>
+ \tag{ 3 }\]<a class="equation-link" href="#eq-acceptance" aria-label="公式 3 的链接" title="公式 3 的链接">↗</a></span>
+
+<p>权重比可以大于 1，单个自旋分量的比值也不是完整的接受概率。若存在符号或相位问题，则按绝对权重采样，使用 \(P_{\mathrm{acc}}=\min\{1,|r_\uparrow r_\downarrow|\}\)，并在观测量中重加权符号或相位。</p>
 <p>而这样的方式需要我们随时更新的等时格林函数的数值。根据定义：</p>
 \[
 \begin{aligned}  \mathbf{G}^{\prime}(\tau, \tau) &amp;=[\mathbf{I}&#43;(\mathbf{I}&#43;\boldsymbol{\Delta}) \mathbf{B}(\tau, 0) \mathbf{B}(\beta, \tau)]^{-1} \\  &amp;=\mathbf{G}(\tau, \tau)[(\mathbf{I}&#43;(\mathbf{I}&#43;\boldsymbol{\Delta}) \mathbf{B}(\tau, 0) \mathbf{B}(\beta, \tau)) \mathbf{G}(\tau, \tau)]^{-1} \\  &amp;=\mathbf{G}(\tau, \tau)\left[\left(\mathbf{I}&#43;(\mathbf{I}&#43;\boldsymbol{\Delta})\left(\mathbf{G}^{-1}(\tau, \tau)-\mathbf{I}\right)\right) \mathbf{G}(\tau, \tau)\right]^{-1} \\  &amp;=\mathbf{G}[\mathbf{I}&#43;\boldsymbol{\Delta}(\mathbf{I}-\mathbf{G})]^{-1}  \end{aligned}
@@ -66,12 +73,16 @@ P_{\mathrm{acc}}=\min\{1,r_\uparrow r_\downarrow\}.
 \[
 (\mathbf{I}&#43;\mathbf{U V})^{-1}=\mathbf{I}-\mathbf{U}\left(\mathbf{I}_{k}&#43;\mathbf{V U}\right)^{-1} \mathbf{V}
 \]<p>我们有：</p>
-\[
-\begin{aligned}  \mathbf{G}^{\prime}(\tau, \tau) &amp;=\mathbf{G}_{N \times N  }(\mathbf{I}_{N \times N}&#43;\boldsymbol{\Delta}_{N \times N} (\mathbf{I}-\mathbf{G})_{N \times N})^{-1} \\  &amp;=\mathbf{G}_{N \times N}(\mathbf{I}_{N \times N}&#43;\boldsymbol{\Delta}_{N \times 1} (\mathbf{I}-\mathbf{G})_{1 \times N})^{-1} \\  &amp;\left.=\mathbf{G}_{N \times N}\left[\mathbf{I}_{N \times N}-\boldsymbol{\Delta}_{N \times 1}\left(\mathbf{I}_{1 \times 1}&#43;(\mathbf{I}-\mathbf{G})_{1 \times N} \boldsymbol{\Delta}_{N \times 1}\right)^{-1} (\mathbf{I}-\mathbf{G})_{1 \times N}\right)\right] \\  &amp;=\mathbf{G}_{N \times N}-\mathbf{G}_{N \times N} \boldsymbol{\Delta}_{N \times 1} \; \frac{1}{r}\; (\mathbf{I}-\mathbf{G})_{1 \times N} \\  &amp;=\mathbf{G}_{N \times N}-\mathbf{G}_{N \times 1} \boldsymbol{\Delta}_{1 \times 1} \; \frac{1}{r}\; (\mathbf{I}-\mathbf{G})_{1 \times N}\\  &amp;=\mathbf{G}_{N \times N}-\mathbf{G}(:,i) \boldsymbol{\Delta}_{ii} \; \frac{1}{r}\; (\mathbf{I}-\mathbf{G})(i,:)  \end{aligned}
-\]<p>在更新完某一虚时层的辅助场之后，我们转而尝试更新下一层的辅助场，此时将得到新虚时位置的格林函数，从格林函数的定义我们知道：</p>
-\[
-\mathbf{G}(\tau&#43;\Delta \tau, \tau&#43;\Delta \tau)=\mathbf{B}(\tau&#43;\Delta \tau, \tau) \mathbf{G}(\tau, \tau) \mathbf{B}^{-1}(\tau&#43;\Delta \tau, \tau)
-\]<p>类似的，我们有：</p>
+<span class="numbered-equation" id="eq-fast-update" data-equation-number="4">\[
+\begin{aligned}  \mathbf{G}^{\prime}(\tau, \tau) &amp;=\mathbf{G}_{N \times N  }(\mathbf{I}_{N \times N}+\boldsymbol{\Delta}_{N \times N} (\mathbf{I}-\mathbf{G})_{N \times N})^{-1} \\  &amp;=\mathbf{G}_{N \times N}(\mathbf{I}_{N \times N}+\boldsymbol{\Delta}_{N \times 1} (\mathbf{I}-\mathbf{G})_{1 \times N})^{-1} \\  &amp;\left.=\mathbf{G}_{N \times N}\left[\mathbf{I}_{N \times N}-\boldsymbol{\Delta}_{N \times 1}\left(\mathbf{I}_{1 \times 1}+(\mathbf{I}-\mathbf{G})_{1 \times N} \boldsymbol{\Delta}_{N \times 1}\right)^{-1} (\mathbf{I}-\mathbf{G})_{1 \times N}\right)\right] \\  &amp;=\mathbf{G}_{N \times N}-\mathbf{G}_{N \times N} \boldsymbol{\Delta}_{N \times 1} \; \frac{1}{r}\; (\mathbf{I}-\mathbf{G})_{1 \times N} \\  &amp;=\mathbf{G}_{N \times N}-\mathbf{G}_{N \times 1} \boldsymbol{\Delta}_{1 \times 1} \; \frac{1}{r}\; (\mathbf{I}-\mathbf{G})_{1 \times N}\\  &amp;=\mathbf{G}_{N \times N}-\mathbf{G}(:,i) \boldsymbol{\Delta}_{ii} \; \frac{1}{r}\; (\mathbf{I}-\mathbf{G})(i,:)  \end{aligned}
+ \tag{ 4 }\]<a class="equation-link" href="#eq-fast-update" aria-label="公式 4 的链接" title="公式 4 的链接">↗</a></span>
+
+<p>在更新完某一虚时层的辅助场之后，我们转而尝试更新下一层的辅助场，此时将得到新虚时位置的格林函数，从格林函数的定义我们知道：</p>
+<span class="numbered-equation" id="eq-green-propagation" data-equation-number="5">\[
+\mathbf{G}(\tau+\Delta \tau, \tau+\Delta \tau)=\mathbf{B}(\tau+\Delta \tau, \tau) \mathbf{G}(\tau, \tau) \mathbf{B}^{-1}(\tau+\Delta \tau, \tau)
+ \tag{ 5 }\]<a class="equation-link" href="#eq-green-propagation" aria-label="公式 5 的链接" title="公式 5 的链接">↗</a></span>
+
+<p>类似的，我们有：</p>
 \[
 \mathbf{G}(\tau-\Delta \tau, \tau-\Delta \tau)=\mathbf{B}^{-1}(\tau, \tau-\Delta \tau) \mathbf{G}(\tau, \tau) \mathbf{B}(\tau, \tau -\Delta \tau)
 \]<p>我们实际计算中，经常从第1层到第 \(L_\tau\) 层的辅助场逐层逐个尝试更新，在每一层更新的时候，计算该层的格林函数 \(G^{\uparrow / \downarrow}(\tau,\tau)\) 和相应的更新的权重 \(r^{\uparrow} r^{\downarrow}\) 。然后在将要进行下一层更新的时候，用传递的方式得到下一层的格林函数 \(\mathbf{G}(\tau&#43;\Delta \tau, \tau&#43;\Delta \tau)\) ，即我们只需知道该虚时层所对应的格林函数，而非时刻知道所有的等时格林函数的值。在进行了从第1层到第 \(L_\tau\) 层的sweep之后，我们从第 \(L_\tau\) 层到第1层再反过来一遍，中间的行为是类似的。</p>
@@ -114,7 +125,7 @@ P_{\mathrm{acc}}=\min\{1,r_\uparrow r_\downarrow\}.
     
   </article>
 </main>
-<footer class="shell footer"><span>© 2026 Gaopei Pan · 潘高培</span><span>Quantum many-body physics</span></footer>
+<footer class="shell footer"><span>© 2026 Gaopei Pan · 潘高培</span><a href="mailto:gaopei.pan@uni-wuerzburg.de">Contact</a><span>Quantum many-body physics</span></footer>
 
 </body>
 </html>

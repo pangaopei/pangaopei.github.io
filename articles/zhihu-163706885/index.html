@@ -5,7 +5,7 @@
 <title>【农夫山泉-6】Hubbard Model的权重（3） · Gaopei Pan · 潘高培</title>
 <meta name="description" content="Gaopei Pan · Quantum Monte Carlo, quantum criticality, entanglement, and strongly correlated quantum matter.">
 <link rel="canonical" href="https://pangaopei.github.io/articles/zhihu-163706885/">
-<link rel="stylesheet" href="/css/academic.css?v=79654e1e02c97e0f81b553d56c7d5508">
+<link rel="stylesheet" href="/css/academic.css?v=3b203ce167dcdcdb6df52c53204e66c7">
 <script src="/js/publications.js?v=548f89154ab677d4f2dac108651d8168" defer></script>
 
 
@@ -28,6 +28,7 @@
     <h1>【农夫山泉-6】Hubbard Model的权重（3）</h1>
     <div class="article-meta">
       <time datetime="2020-09-28">更新于 2020-09-28</time>
+       · <time datetime="2020-09-28">本站修订 2020-09-28</time>
        · <a href="https://zhuanlan.zhihu.com/p/163706885">知乎原文 ↗</a>
     </div>
     
@@ -45,9 +46,11 @@
 <p>为了形式简便，我们有如下记号： \(\hat{H}_{0}=\boldsymbol{c}^{\dagger} T \boldsymbol{c}=-t \sum_{\langle i j\rangle \sigma} \hat{c}_{i \sigma}^{\dagger} \hat{c}_{j \sigma}&#43;h . c .\) ，其中 \(T\) 为只在最近邻处有矩阵元 \(-t\) 的矩阵。而实际上更简便的写法是只写出自旋up或down的部分。之后的符号 \(T\) 本文中只表示大矩阵中的分块的小矩阵，which is：</p>
 <p>\(\boldsymbol{c}_{\uparrow}^{\dagger} T \boldsymbol{c}_{\uparrow}=-t \sum_{\langle i j\rangle } \hat{c}_{i \uparrow}^{\dagger} \hat{c}_{j \uparrow}&#43;h . c .\) ， \(\boldsymbol{c}_{\downarrow}^{\dagger} T \boldsymbol{c}_{\downarrow}=-t \sum_{\langle i j\rangle } \hat{c}_{i \downarrow}^{\dagger} \hat{c}_{j \downarrow}&#43;h . c .\)</p>
 <p>此时配分函数写作：</p>
-\[
+<span class="numbered-equation" id="eq-configuration-weight" data-equation-number="1">\[
 \begin{aligned} Z &amp;= \sum_{s_{i, l}=\pm 1} \gamma^{N L_\tau }\\ &amp;\operatorname{Tr}_{F}\left \{\prod_{l=1}^{L_\tau}  \left[\left(\prod_{i} e^{\alpha s_{i, l} \hat{n}_{i \uparrow}}\right) \left( e^{-\Delta \tau \boldsymbol{c}_{\uparrow}^{\dagger} T \boldsymbol{c}_{\uparrow}}\right) \left(\prod_{i} e^{-\alpha s_{i, l} \hat{n}_{i \downarrow}}\right) \left( e^{-\Delta \tau \boldsymbol{c}_{\downarrow}^{\dagger} T \boldsymbol{c}_{\downarrow}}\right)\right] \right\} \end{aligned}
-\]<p>显然可以看到，e指数上的形式关于自旋上下是分块对角的，所以可以写成更为简便的形式，而根据 \(\operatorname{Tr}\left[e^{-\sum_{i, j} c_{i}^{\dagger} A_{i, j} c_{j}} e^{-\sum_{i, j} c_{i}^{\dagger} B_{i, j} c_{j}}\right]=\operatorname{Det}\left(1&#43;e^{-\mathbf{A}} e^{-\mathbf{B}}\right)\) ，我们知道。对费米子部分求Trace得到的结果，等效为相应矩阵的exp的行列式。此时有：</p>
+ \tag{ 1 }\]<a class="equation-link" href="#eq-configuration-weight" aria-label="公式 1 的链接" title="公式 1 的链接">↗</a></span>
+
+<p>显然可以看到，e指数上的形式关于自旋上下是分块对角的，所以可以写成更为简便的形式，而根据 \(\operatorname{Tr}\left[e^{-\sum_{i, j} c_{i}^{\dagger} A_{i, j} c_{j}} e^{-\sum_{i, j} c_{i}^{\dagger} B_{i, j} c_{j}}\right]=\operatorname{Det}\left(1&#43;e^{-\mathbf{A}} e^{-\mathbf{B}}\right)\) ，我们知道。对费米子部分求Trace得到的结果，等效为相应矩阵的exp的行列式。此时有：</p>
 <p>\(Z=\gamma^{N L_{\tau}} \sum_{\left\{s_{i, l}\right\}} \prod_{\sigma =\uparrow \downarrow} \operatorname{Det}\left[\mathbf{I}&#43;\mathbf{B}^{\sigma}\left(L_{\tau} \Delta \tau,\left(L_{\tau}-1\right) \Delta \tau\right) \cdots \mathbf{B}^{\sigma}(\Delta \tau, 0)\right]\)</p>
 <p>其中：</p>
 <p>\(\begin{array}{l} \mathbf{B}^{\uparrow}(l_2 \Delta \tau, l_1 \Delta \tau)=\prod_{l=l_{1}&#43;1}^{l_{2}}e^{\alpha \operatorname{Diag}\left(\vec{S}_{l}\right)}  e^{-\Delta \tau T} \\ \mathbf{B}^{\downarrow}(l_2 \Delta \tau, l_1 \Delta \tau)=\prod_{l=l_{1}&#43;1}^{l_{2}}e^{-\alpha \operatorname{Diag}\left(\vec{S}_{l}\right)}  e^{-\Delta \tau T} \end{array}\) ，</p>
@@ -101,7 +104,7 @@
     
   </article>
 </main>
-<footer class="shell footer"><span>© 2026 Gaopei Pan · 潘高培</span><span>Quantum many-body physics</span></footer>
+<footer class="shell footer"><span>© 2026 Gaopei Pan · 潘高培</span><a href="mailto:gaopei.pan@uni-wuerzburg.de">Contact</a><span>Quantum many-body physics</span></footer>
 
 </body>
 </html>

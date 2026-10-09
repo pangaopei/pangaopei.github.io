@@ -5,7 +5,7 @@
 <title>【农夫山泉-5】从Hubbard Model开始的DQMC（2） · Gaopei Pan · 潘高培</title>
 <meta name="description" content="Gaopei Pan · Quantum Monte Carlo, quantum criticality, entanglement, and strongly correlated quantum matter.">
 <link rel="canonical" href="https://pangaopei.github.io/articles/zhihu-157959170/">
-<link rel="stylesheet" href="/css/academic.css?v=79654e1e02c97e0f81b553d56c7d5508">
+<link rel="stylesheet" href="/css/academic.css?v=3b203ce167dcdcdb6df52c53204e66c7">
 <script src="/js/publications.js?v=548f89154ab677d4f2dac108651d8168" defer></script>
 
 
@@ -37,6 +37,7 @@
     <h1>【农夫山泉-5】从Hubbard Model开始的DQMC（2）</h1>
     <div class="article-meta">
       <time datetime="2020-07-09">更新于 2020-07-09</time>
+       · <time datetime="2020-07-09">本站修订 2020-07-09</time>
        · <a href="https://zhuanlan.zhihu.com/p/157959170">知乎原文 ↗</a>
     </div>
     <details class="article-toc"><summary>目录</summary><nav id="TableOfContents">
@@ -51,10 +52,12 @@
 <p>\(\hat{H}=-t \sum_{\langle i j\rangle \sigma} \hat{c}_{i \sigma}^{\dagger} \hat{c}_{j \sigma}&#43;h . c .&#43;U \sum_{i}\left(\hat{n}_{i \uparrow}-\frac{1}{2}\right)\left(\hat{n}_{i \downarrow}-\frac{1}{2}\right)\)</p>
 <p>其中 \(i,j\) 是最近邻的格点的hopping， \(\sigma=\uparrow/\downarrow\) 是自旋的标记。</p>
 <p>这里采用的是粒子–空穴对称的写法。展开单个格点的相互作用，有</p>
-\[
+<span class="numbered-equation" id="eq-hubbard-shift" data-equation-number="1">\[
 U(n_{\uparrow}-\tfrac12)(n_{\downarrow}-\tfrac12)
-=Un_{\uparrow}n_{\downarrow}-\frac U2(n_{\uparrow}&#43;n_{\downarrow})&#43;\frac U4.
-\]<p>常数项在归一化观测量和固定参数下的权重比中会约掉，但化学势项不能直接忽略。在巨正则系综中，若通常写法的化学势为 \(\mu\)，这里应使用 \(\widetilde\mu=\mu-U/2\) 才描述同一个模型。我们后面会看到这种写法对于蒙卡计算的方便之处。</p>
+=Un_{\uparrow}n_{\downarrow}-\frac U2(n_{\uparrow}+n_{\downarrow})+\frac U4.
+ \tag{ 1 }\]<a class="equation-link" href="#eq-hubbard-shift" aria-label="公式 1 的链接" title="公式 1 的链接">↗</a></span>
+
+<p>常数项在归一化观测量和固定参数下的权重比中会约掉，但化学势项不能直接忽略。在巨正则系综中，若通常写法的化学势为 \(\mu\)，这里应使用 \(\widetilde\mu=\mu-U/2\) 才描述同一个模型。我们后面会看到这种写法对于蒙卡计算的方便之处。</p>
 <h2 id="离散的hubbardstratonovich变换">离散的Hubbard–Stratonovich变换</h2>
 <p>在</p>
 <p><a href="/articles/zhihu-35327282/">《一些基本须知和准备》</a></p>
@@ -66,7 +69,12 @@ U(n_{\uparrow}-\tfrac12)(n_{\downarrow}-\tfrac12)
 <p>在大一的热学课上我们应该就学过高斯积分的公式：\(e^{A^{2} / 2}=\frac{1}{\sqrt{2 \pi}} \int_{-\infty}^{&#43;\infty} \mathrm{d} \phi e^{-\frac{\phi^{2}}{2}-\phi A}\) （为啥这个分母2显示的带白块呢&hellip;破乎这个公式显示呀头疼）</p>
 <p>而此时我们知道，Hubbard U项可以写成平方的形式： \(H_{U}=-\frac{U}{2}\left(n_{\uparrow}-n_{\downarrow}\right)^{2}&#43;\frac{U}{4}\)</p>
 <p>那么，此时把 \(A^{2}=\Delta \tau U\left(n_{\uparrow}-n_{\downarrow}\right)^{2}\) 代入前面的高斯积分的公式即可。这样我们发现通过引入 \(\phi\) ，我们把 \(A^2\) 的形式变为了 \(A\phi\) 的形式，是 \(A\) 的一次项。</p>
-<p>有趣的是，对于Hubbard来说，我们有一种更巧妙的decouple方式： \(e^{-\Delta \tau H_{U}}=\gamma \sum_{s=\pm 1} e^{\alpha s\left(n_{\uparrow}-n_{\downarrow}\right)}\) ，其中 \(\gamma=\frac{1}{2} e^{-\Delta \tau U / 4}\) ， \(\cosh (\alpha)=e^{\Delta \tau U / 2}\)</p>
+<p>有趣的是，对于Hubbard来说，我们有一种更巧妙的decouple方式：</p>
+<span class="numbered-equation" id="eq-discrete-hs" data-equation-number="2">\[
+e^{-\Delta \tau H_{U}}=\gamma \sum_{s=\pm 1} e^{\alpha s\left(n_{\uparrow}-n_{\downarrow}\right)}
+ \tag{ 2 }\]<a class="equation-link" href="#eq-discrete-hs" aria-label="公式 2 的链接" title="公式 2 的链接">↗</a></span>
+
+<p>，其中 \(\gamma=\frac{1}{2} e^{-\Delta \tau U / 4}\) ， \(\cosh (\alpha)=e^{\Delta \tau U / 2}\)</p>
 <p>系数可以通过考虑 \(e^{-\Delta \tau H_{U}}\) 在单个格点的希尔伯特空间得到：</p>
 \[
 \begin{aligned} e^{-\Delta \tau U / 4}|0\rangle &amp;=2 \gamma|0\rangle \\ e^{-\Delta \tau U / 4}|\uparrow \downarrow\rangle &amp;=2 \gamma|\uparrow \downarrow\rangle \\ e^{\Delta \tau U / 4}|\uparrow\rangle &amp;=2 \gamma \cosh (\alpha)|\uparrow\rangle \\ e^{\Delta \tau U / 4}|\downarrow\rangle &amp;=2 \gamma \cosh (\alpha)|\downarrow\rangle \end{aligned}
@@ -119,7 +127,7 @@ U(n_{\uparrow}-\tfrac12)(n_{\downarrow}-\tfrac12)
     
   </article>
 </main>
-<footer class="shell footer"><span>© 2026 Gaopei Pan · 潘高培</span><span>Quantum many-body physics</span></footer>
+<footer class="shell footer"><span>© 2026 Gaopei Pan · 潘高培</span><a href="mailto:gaopei.pan@uni-wuerzburg.de">Contact</a><span>Quantum many-body physics</span></footer>
 
 </body>
 </html>

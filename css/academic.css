@@ -181,3 +181,6 @@ button:focus-visible,summary:focus-visible{outline:3px solid #ba7b39;outline-off
 .notes-results{list-style:none;padding:0}.notes-results li{padding:20px 0;border-top:1px solid var(--line)}
 .notes-results h2{font-size:20px}.notes-results p{font-size:14px;color:var(--muted);overflow-wrap:anywhere}
 .notes-results mark{background:#e0eadb;color:var(--ink);border-radius:2px}
+.numbered-equation{display:block;position:relative;scroll-margin-top:32px;padding-right:24px}
+.equation-link{position:absolute;right:0;top:0;font:12px system-ui;color:var(--muted);padding:6px}
+.numbered-equation:target{background:#eaf0e8}

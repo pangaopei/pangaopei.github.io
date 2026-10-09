@@ -5,7 +5,7 @@
 <title>【农夫山泉-4】Determinant Quantum Monte Carlo(DQMC)的D（1） · Gaopei Pan · 潘高培</title>
 <meta name="description" content="Gaopei Pan · Quantum Monte Carlo, quantum criticality, entanglement, and strongly correlated quantum matter.">
 <link rel="canonical" href="https://pangaopei.github.io/articles/zhihu-157344529/">
-<link rel="stylesheet" href="/css/academic.css?v=79654e1e02c97e0f81b553d56c7d5508">
+<link rel="stylesheet" href="/css/academic.css?v=3b203ce167dcdcdb6df52c53204e66c7">
 <script src="/js/publications.js?v=548f89154ab677d4f2dac108651d8168" defer></script>
 
 
@@ -28,6 +28,7 @@
     <h1>【农夫山泉-4】Determinant Quantum Monte Carlo(DQMC)的D（1）</h1>
     <div class="article-meta">
       <time datetime="2020-07-06">更新于 2020-07-06</time>
+       · <time datetime="2020-07-06">本站修订 2020-07-06</time>
        · <a href="https://zhuanlan.zhihu.com/p/157344529">知乎原文 ↗</a>
     </div>
     
@@ -45,7 +46,10 @@
 <p>自然的，如果我们还能把配分函数写成一系列正实数的求和，即写成类似经典概率分布的样子，我们不是就能继续用生成经典概率分布的方法，Metropolis-Hasting等来进行计算了吗？我们就要想办法把这些带着算符和左右矢的东西，变成一个number。还要是正的实数（否则如果是负数或者复数，就不太能用经典蒙卡方法来计算）。</p>
 <p>DQMC主要用来计算有限温的费米子系统。在实际运作的过程中，其中只有二费米子的部分（自由费米子其实都手解了哈哈哈）。那么对于Hubbard Model这种含有四费米相互作用的哈密顿量，我们通常采取Hubbard-Stratonovich变换的方式，引入辅助场进行decouple。然后就变成了二费米子的形式，多了一个辅助场。（后面我们会知道不同的decouple的方式可能会导致符号问题的有无）</p>
 <p>DQMC之所以叫行列式蒙特卡洛，就在于他将求Trace转化为了求一个矩阵的行列式。如我们要求形如以下形式的Trace：</p>
-<p>\(\operatorname{Tr}\left[e^{-\sum_{i, j} \hat{c}_{i}^{\dagger} A_{i, j} \hat{c}_{j}}\right]=\operatorname{Det}\left[\mathbf{1}&#43;e^{-\mathbf{A}}\right]\)</p>
+<span class="numbered-equation" id="eq-single-fermion-trace" data-equation-number="1">\[
+\operatorname{Tr}\left[e^{-\sum_{i, j} \hat{c}_{i}^{\dagger} A_{i, j} \hat{c}_{j}}\right]=\operatorname{Det}\left[\mathbf{1}+e^{-\mathbf{A}}\right]
+ \tag{ 1 }\]<a class="equation-link" href="#eq-single-fermion-trace" aria-label="公式 1 的链接" title="公式 1 的链接">↗</a></span>
+
 <p>其中 \(A_{i,j}\) 为矩阵 \(A\) 的元素。我们可以看到求Trace的操作转化为了求一个单位阵 \(\mathbf{1}\) 加上矩阵 \(e^{-\mathbf{A}}\) 的行列式。</p>
 <p>证明的方式多种多样，比如我们可以把e指数上的部分进行对角化，Trace即为对于 \(n_i=0,1\) 的所有可能性求和：</p>
 <p>\(\operatorname{Tr}\left[e^{-\sum_{i, j} \hat{c}_{i}^{\dagger} A_{i, j} \hat{c}_{j}}\right]=\operatorname{Tr}\left[e^{-\sum_{k} \epsilon(k) \hat{c}_{k}^{\dagger}\hat{c}_{k}}\right]=\Pi_{k}\operatorname{Tr}\left[e^{- \epsilon(k) \hat{c}_{k}^{\dagger}\hat{c}_{k}}\right]=\Pi_{k}[1&#43;e^{-\epsilon(k)}]\)</p>
@@ -65,11 +69,13 @@
 \widehat{\mathcal U}c_i^\dagger\widehat{\mathcal U}^{-1}
 =\sum_j c_j^\dagger M_{ji}.
 \]<p>因此在 \(n\) 粒子扇区中，它作用在 Slater 行列式上，对应单粒子矩阵的第 \(n\) 次外幂 \(\bigwedge^n M\)。对这个扇区取迹，就是对 \(M\) 的所有 \(n\) 阶主子式求和。再对粒子数求和，恰好得到行列式的展开：</p>
-\[
+<span class="numbered-equation" id="eq-fermion-trace" data-equation-number="2">\[
 \operatorname{Tr}_{F}\widehat{\mathcal U}
 =\sum_{n=0}^{N}\operatorname{Tr}\!\left(\bigwedge^n M\right)
-=\det(I&#43;M)=\det(I&#43;e^{-A}e^{-B}).
-\]<p>这个证明不要求 \(A,B\) 对易，也不要求 \(M\) 能被幺正对角化。</p>
+=\det(I+M)=\det(I+e^{-A}e^{-B}).
+ \tag{ 2 }\]<a class="equation-link" href="#eq-fermion-trace" aria-label="公式 2 的链接" title="公式 2 的链接">↗</a></span>
+
+<p>这个证明不要求 \(A,B\) 对易，也不要求 \(M\) 能被幺正对角化。</p>
 <p>对于更一般的情况，形式不言自明。</p>
 <p>（啊简单的开个小头，辉夜第二季完了，七月番看啥好呢？）</p>
 </div>
@@ -111,7 +117,7 @@
     
   </article>
 </main>
-<footer class="shell footer"><span>© 2026 Gaopei Pan · 潘高培</span><span>Quantum many-body physics</span></footer>
+<footer class="shell footer"><span>© 2026 Gaopei Pan · 潘高培</span><a href="mailto:gaopei.pan@uni-wuerzburg.de">Contact</a><span>Quantum many-body physics</span></footer>
 
 </body>
 </html>

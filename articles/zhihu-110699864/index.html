@@ -5,7 +5,7 @@
 <title>【凑字数-3】细致平衡 · Gaopei Pan · 潘高培</title>
 <meta name="description" content="Gaopei Pan · Quantum Monte Carlo, quantum criticality, entanglement, and strongly correlated quantum matter.">
 <link rel="canonical" href="https://pangaopei.github.io/articles/zhihu-110699864/">
-<link rel="stylesheet" href="/css/academic.css?v=79654e1e02c97e0f81b553d56c7d5508">
+<link rel="stylesheet" href="/css/academic.css?v=3b203ce167dcdcdb6df52c53204e66c7">
 <script src="/js/publications.js?v=548f89154ab677d4f2dac108651d8168" defer></script>
 
 
@@ -28,6 +28,7 @@
     <h1>【凑字数-3】细致平衡</h1>
     <div class="article-meta">
       <time datetime="2020-03-03">更新于 2020-03-03</time>
+       · <time datetime="2020-03-03">本站修订 2020-03-03</time>
        · <a href="https://zhuanlan.zhihu.com/p/110699864">知乎原文 ↗</a>
     </div>
     
@@ -76,7 +77,13 @@
 <p>所以实际上，因为小鸡岛的人口比我们少，如果两边互相申请的意愿一样的话，也就是考虑<strong>Metropolis 算法</strong>的话，只要是小鸡岛来的人，我们都给了签证的。也就是说，大家的签证通过率是： \(\alpha(i, j)=\min \left\{\frac{\pi(j) }{\pi(i) }, 1\right\}\) 。就像你小时候写程序算Ising模型的，local的更新，每尝试翻转一个自旋，如果能量降低就一定接受，能量变高才按概率接受。 \(\alpha(i, j)=\min \left\{e^{-\beta \Delta E}, 1\right\}\)</p></blockquote>
 <p>王子：</p>
 <blockquote>
-<p>我懂了。那么用<strong>Metropolis–Hastings 算法</strong>的话，接受率就是 \(\alpha(i, j)=\min \left\{\frac{\pi(j) Q(j, i)}{\pi(i) Q(i, j)}, 1\right\}\) 对吧？</p></blockquote>
+<p>我懂了。那么用<strong>Metropolis–Hastings 算法</strong>的话，接受率就是</p></blockquote>
+<span class="numbered-equation" id="eq-metropolis-hastings" data-equation-number="1">\[
+\alpha(i, j)=\min \left\{\frac{\pi(j) Q(j, i)}{\pi(i) Q(i, j)}, 1\right\}
+ \tag{ 1 }\]<a class="equation-link" href="#eq-metropolis-hastings" aria-label="公式 1 的链接" title="公式 1 的链接">↗</a></span>
+
+<blockquote>
+<p>对吧？</p></blockquote>
 <p>签证官：</p>
 <blockquote>
 <p>**你可真是个小机灵鬼，我现在放心你继承斯坦国的凝聚态物理大业了。 **</p></blockquote>
@@ -141,7 +148,7 @@
     
   </article>
 </main>
-<footer class="shell footer"><span>© 2026 Gaopei Pan · 潘高培</span><span>Quantum many-body physics</span></footer>
+<footer class="shell footer"><span>© 2026 Gaopei Pan · 潘高培</span><a href="mailto:gaopei.pan@uni-wuerzburg.de">Contact</a><span>Quantum many-body physics</span></footer>
 
 </body>
 </html>

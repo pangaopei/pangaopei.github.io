@@ -5,7 +5,7 @@
 <title>【凑字数-2】一些基本须知和准备 · Gaopei Pan · 潘高培</title>
 <meta name="description" content="Gaopei Pan · Quantum Monte Carlo, quantum criticality, entanglement, and strongly correlated quantum matter.">
 <link rel="canonical" href="https://pangaopei.github.io/articles/zhihu-35327282/">
-<link rel="stylesheet" href="/css/academic.css?v=79654e1e02c97e0f81b553d56c7d5508">
+<link rel="stylesheet" href="/css/academic.css?v=3b203ce167dcdcdb6df52c53204e66c7">
 <script src="/js/publications.js?v=548f89154ab677d4f2dac108651d8168" defer></script>
 
 
@@ -38,6 +38,7 @@
     <h1>【凑字数-2】一些基本须知和准备</h1>
     <div class="article-meta">
       <time datetime="2018-06-03">更新于 2018-06-03</time>
+       · <time datetime="2018-06-03">本站修订 2018-06-03</time>
        · <a href="https://zhuanlan.zhihu.com/p/35327282">知乎原文 ↗</a>
     </div>
     <details class="article-toc"><summary>目录</summary><nav id="TableOfContents">
@@ -79,12 +80,14 @@
 \[
 \label{shangshu} Z= \sum_{\left \{ S_{i,l}=\pm 1 \right \}} \langle S_1^z| e^{-\Delta \tau H} |S_{L_{\tau}}^z \rangle \langle S_{L_{\tau}}^z| e^{-\Delta \tau H} |S_{L_{\tau}-1}^z \rangle \langle S_{L_{\tau}-1}^z| e^{-\Delta \tau H} |S_{L_{\tau}-2}^z \rangle...\langle S_3^z| e^{-\Delta \tau H} |S_2^z \rangle \langle S_2^z| e^{-\Delta \tau H} |S_1^z \rangle
 \]<p>因为 \(H_0\) 和 \(H_1\) 不对易，所以我们采用这都有名字系列我甚至不想打公式的Trotter-Suzuki近似：</p>
-\[
-e^{\Delta(A&#43;B)}=\begin{cases}
-e^{\Delta A}e^{\Delta B}&#43;\mathcal{O}(\Delta^2),\\
-e^{\Delta B/2}e^{\Delta A}e^{\Delta B/2}&#43;\mathcal{O}(\Delta^3).
+<span class="numbered-equation" id="eq-trotter" data-equation-number="1">\[
+e^{\Delta(A+B)}=\begin{cases}
+e^{\Delta A}e^{\Delta B}+\mathcal{O}(\Delta^2),\\
+e^{\Delta B/2}e^{\Delta A}e^{\Delta B/2}+\mathcal{O}(\Delta^3).
 \end{cases}
-\]<p>这也是此种蒙卡会造成误差的地方。我们有</p>
+ \tag{ 1 }\]<a class="equation-link" href="#eq-trotter" aria-label="公式 1 的链接" title="公式 1 的链接">↗</a></span>
+
+<p>这也是此种蒙卡会造成误差的地方。我们有</p>
 \[
 \begin{alignat}{2} \langle S_{l&#43;1}^z| e^{-\Delta \tau H}|S_l^z \rangle&amp;=\langle S_{l&#43;1}^z| e^{-\Delta \tau H_1-\Delta \tau H_0}|S_l^z \rangle \nonumber \\ &amp;=\langle S_{l&#43;1}^z|e^{-\Delta\tau H_1}e^{-\Delta\tau H_0}|S_l^z\rangle&#43;O(\Delta\tau^2) \end{alignat}
 \]<p>这里单步误差的首项由 \(\frac12(\Delta\tau)^2[H_0,H_1]\) 控制，但它是算符，不能简单把整个系统的对易子替换成一个与尺寸无关的数 \(Jh\)。\((\Delta\tau)^2|Jh|\ll1\) 至多是局部尺度上的粗略提示，也不保证固定 \(\beta\) 下的总误差足够小。实际应减小 \(\Delta\tau\) 检查收敛，并区分单步误差、完整演化算符误差及观测量误差。对称 Trotter 分解的单步误差为 \(O(\Delta\tau^3)\)，固定 \(\beta\) 下通常给出二阶系统误差。</p>
@@ -95,18 +98,22 @@ e^{\Delta B/2}e^{\Delta A}e^{\Delta B/2}&#43;\mathcal{O}(\Delta^3).
 \[
 e^{\Delta \tau h \sigma_x}=\mathbf{I}\cosh(\Delta \tau h)&#43;\mathbf{\sigma _x}\sinh(\Delta \tau h)
 \]<p>表示为如下形式：</p>
-\[
+<span class="numbered-equation" id="eq-ising-transfer" data-equation-number="2">\[
 \langle S_z^{&#39;}|e^{\Delta \tau h \sigma_x}|S_z \rangle=\Lambda e^{\gamma S_z^{&#39;}S_z}
-\]<p>代入 \(S_z=S_z^{&#39;}\) 和 \(S_z=-S_z^{&#39;}\) 可解出两个参数如下：</p>
+ \tag{ 2 }\]<a class="equation-link" href="#eq-ising-transfer" aria-label="公式 2 的链接" title="公式 2 的链接">↗</a></span>
+
+<p>代入 \(S_z=S_z^{&#39;}\) 和 \(S_z=-S_z^{&#39;}\) 可解出两个参数如下：</p>
 \[
 \begin{align}\label{qw} \gamma =-\frac{1}{2}\ln(\tanh(\Delta \tau h))\\ \Lambda ^2=\sinh(\Delta \tau h)\cosh(\Delta \tau h) \end{align}
 \]<p>得到</p>
 \[
 \langle S_{l&#43;1}^z| e^{-\Delta \tau H_1}e^{-\Delta \tau H_0}|S_l^z \rangle=\Lambda^N e^{\Delta \tau J\sum_{i=1}^{N}S_{i,l}^z S_{i&#43;1,l}^z&#43;\gamma \sum_{i=1}^{N}S_{i,l}^z S_{i,l&#43;1}^z}
 \]<p>由此配分函数可写作与经典Ising一致的形式：</p>
-\[
-Z_{cl}=\Lambda^{N L_{\tau}}\sum_{\left \{ S_{i,l}=\pm 1 \right \}} e^{\beta_{cl}J_x\sum_{i=1}^{N_x}\sum_{j=1}^{N_y}S_{i,j}S_{i&#43;1,j}&#43;\beta_{cl}J_y\sum_{i=1}^{N_x}\sum_{j=1}^{N_y}S_{i,j}S_{i,j&#43;1}}
-\]<p>而此时其中的参数则变为了</p>
+<span class="numbered-equation" id="eq-classical-mapping" data-equation-number="3">\[
+Z_{cl}=\Lambda^{N L_{\tau}}\sum_{\left \{ S_{i,l}=\pm 1 \right \}} e^{\beta_{cl}J_x\sum_{i=1}^{N_x}\sum_{j=1}^{N_y}S_{i,j}S_{i+1,j}+\beta_{cl}J_y\sum_{i=1}^{N_x}\sum_{j=1}^{N_y}S_{i,j}S_{i,j+1}}
+ \tag{ 3 }\]<a class="equation-link" href="#eq-classical-mapping" aria-label="公式 3 的链接" title="公式 3 的链接">↗</a></span>
+
+<p>而此时其中的参数则变为了</p>
 <p>\(N_x=N\\ N_y=L_{\tau}\\ \beta_{cl}J_x=\Delta \tau J\\ \beta_{cl}J_y=\gamma\\\)</p>
 <p>这里以一维横场伊辛链为例，得到空间与虚时耦合不同的二维经典伊辛模型，虚时方向由 trace 产生周期边界条件。此处取 \(h&gt;0\)，经典权重为非负实数；一般量子模型的虚时表示可能出现负或复权重，并不自动成为可直接采样的经典概率分布。</p>
 <p>对于一维横场伊辛模型，相变点应该在 \(h=J\) 处，二维应该在 \(3.04438(2)J\) ？</p>
@@ -158,7 +165,7 @@ Z_{cl}=\Lambda^{N L_{\tau}}\sum_{\left \{ S_{i,l}=\pm 1 \right \}} e^{\beta_{cl}
     
   </article>
 </main>
-<footer class="shell footer"><span>© 2026 Gaopei Pan · 潘高培</span><span>Quantum many-body physics</span></footer>
+<footer class="shell footer"><span>© 2026 Gaopei Pan · 潘高培</span><a href="mailto:gaopei.pan@uni-wuerzburg.de">Contact</a><span>Quantum many-body physics</span></footer>
 
 </body>
 </html>

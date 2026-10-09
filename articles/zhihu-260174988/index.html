@@ -5,7 +5,7 @@
 <title>【农夫山泉-7】物理量（4） · Gaopei Pan · 潘高培</title>
 <meta name="description" content="Gaopei Pan · Quantum Monte Carlo, quantum criticality, entanglement, and strongly correlated quantum matter.">
 <link rel="canonical" href="https://pangaopei.github.io/articles/zhihu-260174988/">
-<link rel="stylesheet" href="/css/academic.css?v=79654e1e02c97e0f81b553d56c7d5508">
+<link rel="stylesheet" href="/css/academic.css?v=3b203ce167dcdcdb6df52c53204e66c7">
 <script src="/js/publications.js?v=548f89154ab677d4f2dac108651d8168" defer></script>
 
 
@@ -37,6 +37,7 @@
     <h1>【农夫山泉-7】物理量（4）</h1>
     <div class="article-meta">
       <time datetime="2020-10-02">更新于 2020-10-02</time>
+       · <time datetime="2020-10-02">本站修订 2020-10-02</time>
        · <a href="https://zhuanlan.zhihu.com/p/260174988">知乎原文 ↗</a>
     </div>
     <details class="article-toc"><summary>目录</summary><nav id="TableOfContents">
@@ -45,9 +46,11 @@
   </ul>
 </nav></details>
     <div class="article-body"><p>我们定义虚时格林函数如下：</p>
-\[
+<span class="numbered-equation" id="eq-green-definitions" data-equation-number="1">\[
 \begin{array}{l} G_{i j}(\tau, \tau)=\left\langle c_{i}(\tau) c_{j}^{\dagger}(\tau)\right\rangle, \qquad G_{i j}(\tau, 0)=\left\langle c_{i}(\tau) c_{j}^{\dagger}(0)\right\rangle,\\ G_{i j}(0, \tau)=\left\langle T_{\tau} c_{i}(0) c_{j}^{\dagger}(\tau)\right\rangle \equiv-\left\langle c_{j}^{\dagger}(\tau) c_{i}(0)\right\rangle, \qquad G_{i j}(0,0)=\left\langle c_{i}(0) c_{j}^{\dagger}(0)\right\rangle \end{array}
-\]<p>注意，不同地方的格林函数的定义可能与此处相差一个负号。</p>
+ \tag{ 1 }\]<a class="equation-link" href="#eq-green-definitions" aria-label="公式 1 的链接" title="公式 1 的链接">↗</a></span>
+
+<p>注意，不同地方的格林函数的定义可能与此处相差一个负号。</p>
 <p>此前我们已经定义了诸如：</p>
 \[
 \mathbf{B}^{\uparrow}\left(l_{2} \Delta \tau, l_{1} \Delta \tau\right)=\prod_{l=l_{1}&#43;1}^{l_{2}} e^{\alpha \operatorname{Diag}\left(\vec{S}_{l}\right)} e^{-\Delta \tau T}
@@ -69,15 +72,19 @@
 \mathbf{U}\left(\mathbf{I}_{k}&#43;\mathbf{V U}\right)^{-1} \mathbf{V}  =\mathbf{I}-(\mathbf{I}&#43;\mathbf{U V})^{-1}
 \]<p>其中， \(\mathbf{U}\) 是 \(N \times k\) 的矩阵， \(\mathbf{V}\) 是 \(k \times N\) 的矩阵。证明见文末。</p>
 <p>对于等时格林函数 \(\left\langle\hat{c}_{i} \hat{c}_{j}^{\dagger}\right\rangle\) 来说， \(\hat{O}=\delta_{i j}-\hat{c}_{j}^{\dagger} \hat{c}_{i}\) 。有：</p>
-\[
-\mathbf{G}(\tau, \tau)=[\mathbf{1}&#43;\mathbf{B}(\tau, 0) \mathbf{B}(\beta, \tau)]^{-1}
-\]<p>顺便，因为有 \(A B^{-1} C= \left(C^{-1} B A^{-1}\right)^{-1}\) ，根据等时格林函数的定义我们能很容易的验证有：</p>
+<span class="numbered-equation" id="eq-equal-time-green" data-equation-number="2">\[
+\mathbf{G}(\tau, \tau)=[\mathbf{1}+\mathbf{B}(\tau, 0) \mathbf{B}(\beta, \tau)]^{-1}
+ \tag{ 2 }\]<a class="equation-link" href="#eq-equal-time-green" aria-label="公式 2 的链接" title="公式 2 的链接">↗</a></span>
+
+<p>顺便，因为有 \(A B^{-1} C= \left(C^{-1} B A^{-1}\right)^{-1}\) ，根据等时格林函数的定义我们能很容易的验证有：</p>
 \[
 B_{C}\left(\tau_{1}, \tau_{2}\right) G_{C}\left(\tau_{2}, \tau_{2}\right) B_{C}^{-1}\left(\tau_{1}, \tau_{2}\right)=G_{C}\left(\tau_{1}, \tau_{1}\right)
 \]<p>对于非等时格林函数：</p>
-\[
+<span class="numbered-equation" id="eq-time-displaced-green" data-equation-number="3">\[
 G_{C}\left(\tau_{1}, \tau_{2}\right)_{x, y}=\left\langle T c_{x}\left(\tau_{1}\right) c_{y}^{\dagger}\left(\tau_{2}\right)\right\rangle_{C}=\left\{\begin{array}{c} \left\langle c_{x}\left(\tau_{1}\right) c_{y}^{\dagger}\left(\tau_{2}\right)\right\rangle_{C} \text { if } \tau_{1} \geq \tau_{2} \\ -\left\langle c_{y}^{\dagger}\left(\tau_{2}\right) c_{x}\left(\tau_{1}\right)\right\rangle_{C} \text { if } \tau_{1}&lt;\tau_{2} \end{array}\right.
-\]<p>我们这里首先证明一个qm常考题，设</p>
+ \tag{ 3 }\]<a class="equation-link" href="#eq-time-displaced-green" aria-label="公式 3 的链接" title="公式 3 的链接">↗</a></span>
+
+<p>我们这里首先证明一个qm常考题，设</p>
 \[
 c_x(\tau)=e^{\tau \mathbf{c}^{\dagger} A c} c_{x} e^{-\tau c^{\dagger} A c}
 \]<p>求一次导得：</p>
@@ -102,17 +109,21 @@ e^{ c^{\dagger} A c} c^{\dagger}_{x} e^{- c^{\dagger} A c}=\left(\boldsymbol{c}^
 G_{C}\left(\tau_{1}, \tau_{2}\right)_{x, y}=-\left\langle c_{y}^{\dagger}\left(\tau_{2}\right) c_{x}\left(\tau_{1}\right)\right\rangle_{C}=-\left[\left(1-G_{C}\left(\tau_{1}, \tau_{1}\right)\right) B_{C}^{-1}\left(\tau_{2}, \tau_{1}\right)\right]_{x, y}
 \]<p>对于密度关联等四点或更高阶关联，必须先在固定辅助场构型 \(C\) 下使用 Wick 定理，得到构型估计量，再做蒙卡平均。固定构型的费米子演化由二次型指数组成，因而允许 Wick 展开；完整相互作用热态一般不能直接用已经平均的二点格林函数来做 Wick 分解。</p>
 <p>例如定义 \(\rho_{ij,C}=\langle c_i^\dagger c_j\rangle_C=\delta_{ij}-G_{ji,C}\)，对保持粒子数的固定构型，有</p>
-\[
+<span class="numbered-equation" id="eq-wick-density" data-equation-number="4">\[
 \langle n_i n_j\rangle_C
-=\rho_{ii,C}\rho_{jj,C}&#43;\rho_{ij,C}G_{ij,C},\qquad
+=\rho_{ii,C}\rho_{jj,C}+\rho_{ij,C}G_{ij,C},\qquad
 \langle n_i n_j\rangle=\sum_C P_C\langle n_i n_j\rangle_C.
-\]<p>这里指标也可以包含自旋。尤其要注意，\(\overline{G_CG_C}\) 一般不等于 \(\overline{G_C}\,\overline{G_C}\)。非等时关联同样应先用每个构型的非等时格林函数展开，再平均；存在符号或相位问题时还需按前文的方法重加权。</p>
+ \tag{ 4 }\]<a class="equation-link" href="#eq-wick-density" aria-label="公式 4 的链接" title="公式 4 的链接">↗</a></span>
+
+<p>这里指标也可以包含自旋。尤其要注意，\(\overline{G_CG_C}\) 一般不等于 \(\overline{G_C}\,\overline{G_C}\)。非等时关联同样应先用每个构型的非等时格林函数展开，再平均；存在符号或相位问题时还需按前文的方法重加权。</p>
 <p>本节 \(B_C\)、\(U_C\) 和由它们计算的 \(G_C\) 都是固定构型的量。权重公式中的 \(B_C\) 应包含全部费米子分量；对自旋分块的 Hubbard 模型，总行列式就是上下自旋行列式的乘积。只有总权重非负时，\(P_C\) 才能直接作为采样概率。</p>
 <h2 id="附录">附录</h2>
 <p>随手抄的一个Woodbury 公式的证明：</p>
-\[
-\label{eq7} 	(\mathbf{A}&#43;\mathbf{U V})^{-1}=\mathbf{A}^{-1}-\mathbf{A}^{-1} \mathbf{U}\left(\mathbf{I}_{k}&#43;\mathbf{V A^{-1} U}\right)^{-1} \mathbf{V}\mathbf{A}^{-1}
-\]<p>其中 \(\mathbf{A}\) 是 \(N \times N\) 的矩阵， \(\mathbf{U}\) 是 \(N \times k\) 的矩阵， \(\mathbf{V}\) 是 \(k \times N\) 的矩阵。</p>
+<span class="numbered-equation" id="eq-woodbury" data-equation-number="5">\[
+\label{eq7} 	(\mathbf{A}+\mathbf{U V})^{-1}=\mathbf{A}^{-1}-\mathbf{A}^{-1} \mathbf{U}\left(\mathbf{I}_{k}+\mathbf{V A^{-1} U}\right)^{-1} \mathbf{V}\mathbf{A}^{-1}
+ \tag{ 5 }\]<a class="equation-link" href="#eq-woodbury" aria-label="公式 5 的链接" title="公式 5 的链接">↗</a></span>
+
+<p>其中 \(\mathbf{A}\) 是 \(N \times N\) 的矩阵， \(\mathbf{U}\) 是 \(N \times k\) 的矩阵， \(\mathbf{V}\) 是 \(k \times N\) 的矩阵。</p>
 <p>证明如下：</p>
 <p>令 \(\xi=\mathbf{V} x\) 且有 \(\left(\mathbf{A}&#43;\mathbf{U V}\right) x=b\) ，其中 \(x\) 和 \(b\) 是 \(N \times 1\) 的向量， 而 \(\xi\) 是 \(k \times 1\) 的向量.</p>
 <p>写下如下形式： \(\left(\mathbf{A}&#43;\mathbf{U V}\right) x=b\) ：</p>
@@ -182,7 +193,7 @@ x=\left[\mathbf{A}^{-1}-\mathbf{A}^{-1} \mathbf{U}\left(\mathbf{I}_{k}&#43;\math
     
   </article>
 </main>
-<footer class="shell footer"><span>© 2026 Gaopei Pan · 潘高培</span><span>Quantum many-body physics</span></footer>
+<footer class="shell footer"><span>© 2026 Gaopei Pan · 潘高培</span><a href="mailto:gaopei.pan@uni-wuerzburg.de">Contact</a><span>Quantum many-body physics</span></footer>
 
 </body>
 </html>
