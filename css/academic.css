@@ -190,3 +190,17 @@ button:focus-visible,summary:focus-visible{outline:3px solid #ba7b39;outline-off
 .reading-guide dt{font-weight:600;color:var(--accent)}
 .reading-guide dd{margin:0}.reading-guide dd p{margin:0}
 @media(max-width:600px){.reading-guide{padding:18px}.reading-guide dl{grid-template-columns:1fr;gap:4px}.reading-guide dd{margin-bottom:10px}}
+
+/* A standalone film opens without loading animation code on the homepage. */
+.research-film{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:36px;align-items:center;margin-top:48px;padding-top:42px;border-top:1px solid var(--line)}
+.film-preview{display:block;border:1px solid #c9d5cc;border-radius:5px;overflow:hidden;background:#112a30}
+.film-preview img{display:block;width:100%;height:auto}
+.film-copy .eyebrow{margin-bottom:12px}
+.film-copy h2{font:500 27px/1.45 system-ui,sans-serif;margin-bottom:18px}
+.film-copy h2 span{display:block;margin-top:4px;font:italic 21px/1.4 Georgia,serif;color:var(--muted)}
+.film-copy>p{font-size:15px;line-height:1.8;margin-bottom:12px}
+.film-copy .film-description-en{color:var(--muted);font-size:14px}
+.film-actions{margin-top:22px;font-size:14px;gap:20px;flex-wrap:wrap}
+.film-copy .film-credit{font-size:12px;color:var(--muted);margin-top:20px;margin-bottom:0;overflow-wrap:anywhere}
+.film-credit a{text-decoration:underline;text-underline-offset:3px}
+@media(max-width:800px){.research-film{grid-template-columns:1fr;gap:24px;margin-top:34px;padding-top:30px}.film-copy h2{font-size:25px}}
