@@ -23,7 +23,19 @@
 #stage{container-type:inline-size}#cinema .lettering{top:6%;max-width:61%}#cinema .lettering h2{font-size:clamp(22px,4.8cqw,64px);line-height:1.3;margin:10px 0 6px}#cinema .lettering .en{font-size:clamp(13px,2.25cqw,31px);line-height:1.35}#cinema .eyebrow{font-size:clamp(9px,1.3cqw,17px)}#cinema .topic{font-size:clamp(10px,1.4cqw,19px);line-height:1.55;margin-top:11px;max-width:100%}#cinema .material{top:6.2%;max-width:31%;font-size:clamp(8px,1.3cqw,17px)}#cinema .material b{font-size:clamp(11px,1.8cqw,24px)}#cinema .subtitles{left:5%;bottom:3.8%;max-width:90%;padding:8px 8px 4px 0;background:linear-gradient(90deg,#0b142245,transparent)}#cinema .subtitles .zh{font-size:clamp(18px,2.2cqw,31px);line-height:1.45;letter-spacing:.025em}#cinema .subtitles .en{font-size:clamp(14px,1.65cqw,23px);line-height:1.45;margin-top:4px}#cinema .morph-badge{bottom:26%;max-width:80%;font-size:clamp(10px,1.3cqw,17px)}#cinema .signature{top:44%}#cinema .signature strong{font-size:clamp(20px,2.9cqw,37px)}#cinema .signature span{font-size:clamp(10px,1.5cqw,19px)}#cinema .signature .en{font-size:clamp(10px,1.3cqw,16px)}#cinema .launch{bottom:23%;padding:10px 16px}#cinema .launch span{font-size:clamp(12px,1.65cqw,22px)}#cinema .launch small{font-size:clamp(9px,1.2cqw,15px)}@media(max-width:620px){#cinema .topic{display:none}#cinema .lettering h2{font-size:clamp(20px,5.5cqw,28px);margin:5px 0 2px}#cinema .lettering .en{font-size:12px}#cinema .subtitles .zh{font-size:clamp(10px,2.7cqw,15px)}#cinema .subtitles .en{font-size:clamp(9px,2.1cqw,12px)}#cinema .subtitles{padding:3px 0;bottom:3%}#cinema .signature{top:43%}#cinema .signature strong{font-size:16px}#cinema .signature span{font-size:8px}#cinema .launch{padding:7px 10px;bottom:22%}#cinema .launch span{font-size:10px}#cinema .launch small{font-size:7px}#cinema .morph-badge{font-size:7px;bottom:25%}}
 @media(max-width:620px){#cinema .signature{top:39%}}
 #cinema .morph-badge{left:5%;right:auto;bottom:25%;max-width:48%;font-size:clamp(9px,1.1cqw,16px)}@media(max-width:620px){#cinema .morph-badge{font-size:7px;bottom:25%}}
+/* Embedded layout follows the homepage width rather than the frame height. */
+.embedded .app{width:100%;max-width:none;padding:0}
+.embedded .masthead{display:none}
+.embedded .screen-layout{grid-template-columns:minmax(0,1fr) 300px;gap:18px}
+.embedded .stage{max-width:none}
+.embedded .sources{height:calc((100vw - 318px)*.5625 + 220px);max-height:none;margin:0;padding:18px}
+.embedded .source-content{font-size:16px}
+.embedded .source-content .en{font-size:14px}
+.embedded .chapter-nav{margin-left:12px;margin-right:12px}
+.embedded .meta{padding:0 12px 14px}
+@media(max-width:850px){.embedded .screen-layout{display:block}.embedded .sources{height:360px;margin-top:14px}.embedded .meta .tagline{display:none}}
 </style>
+<script>if(new URLSearchParams(location.search).get('embed')==='1')document.documentElement.classList.add('embedded');</script>
 </head>
 <body>
 <main class="app">
@@ -328,6 +340,17 @@ function openAtlas(){if(playing)pause();if(!atlasBuilt){scenes.forEach((s,i)=>{c
 $('atlas-open').addEventListener('click',openAtlas);$('atlas-close').addEventListener('click',()=>$('atlas').close());$('atlas').addEventListener('click',e=>{if(e.target===$('atlas')){const r=$('atlas').getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)$('atlas').close()}});
 window.Windride={version:3,duration:DURATION,chapterCount:8,get state(){return{playing,time:currentTime(),scene:lastScene,rate:playRate,muted,audio:audio?.state||'uninitialized',voices:activeVoices.size}}};
 makeChapters();render(0,true);syncPlay();$('cinema').dataset.ready='true';
+if(document.documentElement.classList.contains('embedded') && window.parent !== window){
+  let lastHeight=0;
+  const notifyHeight=()=>{
+    if(document.fullscreenElement)return;
+    const height=Math.ceil(document.querySelector('.app').getBoundingClientRect().height)+2;
+    if(height!==lastHeight){lastHeight=height;window.parent.postMessage({type:'windride:resize',height},location.origin)}
+  };
+  new ResizeObserver(notifyHeight).observe(document.querySelector('.app'));
+  document.addEventListener('fullscreenchange',()=>requestAnimationFrame(notifyHeight));
+  notifyHeight();
+}
 
 })();
 </script>
